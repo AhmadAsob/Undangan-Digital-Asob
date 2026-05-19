@@ -1,0 +1,64 @@
+<svg width="600" height="600" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&amp;display=swap');
+    </style>
+    <linearGradient id="premiumGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5D4037" />
+      <stop offset="40%" stop-color="#8D6E63" />
+      <stop offset="60%" stop-color="#BCAAA4" />
+      <stop offset="100%" stop-color="#3E2723" />
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
+      <feOffset dx="2" dy="2" result="offsetblur" />
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3" />
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Intricate Frame -->
+  <path d="M300 50 C450 50 550 150 550 300 C550 450 450 550 300 550 C150 550 50 450 50 300 C50 150 150 50 300 50" stroke="url(#premiumGold)" stroke-width="0.5" fill="none" opacity="0.4" />
+  <path d="M300 70 C420 70 530 180 530 300 C530 420 420 530 300 530 C180 530 70 420 70 300 C70 180 180 70 300 70" stroke="url(#premiumGold)" stroke-width="1.5" fill="none" stroke-dasharray="1 15" stroke-linecap="round" />
+
+  <!-- Floral Ornaments Top -->
+  <g opacity="0.8">
+    <path d="M300 100 C320 60 360 60 360 100 C360 140 320 160 300 160 C280 160 240 140 240 100 C240 60 280 60 300 100Z" fill="#8D6E63" />
+    <path d="M300 100 Q300 70 310 80" stroke="#fff" stroke-width="0.5" opacity="0.3" />
+  </g>
+
+  <!-- Floral Ornaments Bottom -->
+  <g opacity="0.8" transform="rotate(180 300 300)">
+    <path d="M300 100 C320 60 360 60 360 100 C360 140 320 160 300 160 C280 160 240 140 240 100 C240 60 280 60 300 100Z" fill="#8D6E63" />
+  </g>
+  
+  <!-- Flowing Swirls -->
+  <path d="M120 300 Q100 200 180 120" stroke="url(#premiumGold)" stroke-width="1" fill="none" opacity="0.6" />
+  <path d="M480 300 Q500 400 420 480" stroke="url(#premiumGold)" stroke-width="1" fill="none" opacity="0.6" />
+
+  <!-- The Initials -->
+  <g filter="url(#softShadow)">
+    <text 
+      x="50%" 
+      y="54%" 
+      dominant-baseline="middle" 
+      text-anchor="middle" 
+      font-family="'Pinyon Script', cursive" 
+      font-size="320" 
+      fill="url(#premiumGold)"
+    >A&amp;Y</text>
+  </g>
+  
+  <!-- Sparkles -->
+  <g fill="#BCAAA4">
+    <path d="M200 200 L203 190 L213 187 L203 184 L200 174 L197 184 L187 187 L197 190 Z" opacity="0.7" />
+    <path d="M400 400 L403 390 L413 387 L403 384 L400 374 L397 384 L387 387 L397 390 Z" opacity="0.7" />
+    <circle cx="450" cy="200" r="2" opacity="0.5" />
+    <circle cx="150" cy="400" r="2" opacity="0.5" />
+  </g>
+</svg>
