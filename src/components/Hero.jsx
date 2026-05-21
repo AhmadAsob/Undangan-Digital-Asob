@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 const Hero = ({ onOpen }) => {
   return (
     <section style={styles.hero}>
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.5, ease: "easeOut" }}
@@ -13,8 +13,8 @@ const Hero = ({ onOpen }) => {
         <h1 style={styles.title}>Asob & Yola</h1>
         <p style={styles.hashtag}>#SahJadiAsobYola</p>
         <div style={styles.divider}></div>
-        <p style={styles.date}>Sunday, 20 June 2026</p>
-        
+        <p style={styles.date}>Saturday, 3 October 2026</p>
+
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}

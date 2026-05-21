@@ -41,9 +41,9 @@ const BrideGroom = () => {
                 <div className="font-script" style={styles.nickname}>Asob</div>
               </div>
               <h3 style={styles.name}>Ahmad Shobari, S.Si</h3>
-              <p style={styles.desc}>Putra dari Bapak Fulan & Ibu Fulana</p>
-              <a href="https://instagram.com" target="_blank" rel="noreferrer" style={styles.igLink}>
-                <span style={styles.igIcon}></span> @ashobari
+              <p style={styles.desc}>Putra dari Bapak Sawir & Ibu Alm.Desnita</p>
+              <a href="https://www.instagram.com/ahmad_asob/" target="_blank" rel="noreferrer" style={styles.igLink}>
+                <span style={styles.igIcon}></span> @ahmad_asob
               </a>
             </motion.div>
 
@@ -63,9 +63,9 @@ const BrideGroom = () => {
                 <div className="font-script" style={styles.nickname}>Yola</div>
               </div>
               <h3 style={styles.name}>Yolanda Azzahra, M.Si</h3>
-              <p style={styles.desc}>Putri dari Bapak Fulan & Ibu Fulana</p>
-              <a href="https://instagram.com" target="_blank" rel="noreferrer" style={styles.igLink}>
-                <span style={styles.igIcon}></span> @yolaazzahra
+              <p style={styles.desc}>Putri dari Bapak Bustami & Ibu Yurmaini, A.Md</p>
+              <a href="https://www.instagram.com/yolandaazzaahraa/" target="_blank" rel="noreferrer" style={styles.igLink}>
+                <span style={styles.igIcon}></span> @yolandaazzaahraa
               </a>
             </motion.div>
           </div>

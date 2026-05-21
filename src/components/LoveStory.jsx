@@ -4,19 +4,19 @@ import FlowerOrnament from './FlowerOrnament';
 const LoveStory = () => {
   const stories = [
     {
-      year: "2020",
+      year: "2017",
       title: "Pertama Bertemu",
-      desc: "Berawal dari pertemuan tak sengaja di sebuah perpustakaan kota, kami mulai mengenal satu sama lain."
+      desc: "Berawal dari pertemuan di XD House."
     },
     {
-      year: "2022",
+      year: "2017",
       title: "Menjalin Kedekatan",
-      desc: "Setelah dua tahun berteman baik, kami memutuskan untuk melangkah ke jenjang yang lebih serius."
+      desc: "Pacaran deh."
     },
     {
-      year: "2025",
+      year: "2026",
       title: "Lamaran",
-      desc: "Di depan keluarga besar, kami mengikat janji untuk saling menjaga dan melengkapi selamanya."
+      desc: "Yaaa yaudah lamaran aja."
     }
   ];
 

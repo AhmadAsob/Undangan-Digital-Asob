@@ -1,26 +1,63 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import FlowerOrnament from './FlowerOrnament';
+import { supabase } from '../supabaseClient';
 
 const GuestBook = () => {
-  const [messages, setMessages] = useState([
-    { id: 1, name: 'Budi Santoso', text: 'Selamat menempuh hidup baru Asob & Yola! Semoga samawa selalu.', date: '2026-05-16' },
-    { id: 2, name: 'Siti Aminah', text: 'Barakallah! Ikut bahagia melihat kalian akhirnya ke pelaminan.', date: '2026-05-15' }
-  ]);
-
+  const [messages, setMessages] = useState([]);
   const [formData, setFormData] = useState({ name: '', text: '' });
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    fetchMessages();
+  }, []);
+
+  const fetchMessages = async () => {
+    const { data, error } = await supabase
+      .from('guestbook')
+      .select('*')
+      .order('created_at', { ascending: false });
+    
+    if (error) {
+      console.error('Error fetching messages:', error);
+    } else {
+      const formattedMessages = data.map(msg => ({
+        id: msg.id,
+        name: msg.name,
+        text: msg.text,
+        date: new Date(msg.created_at).toLocaleDateString('id-ID', {
+          year: 'numeric', month: 'long', day: 'numeric'
+        })
+      }));
+      setMessages(formattedMessages);
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.name && formData.text) {
-      const newMessage = {
-        id: Date.now(),
-        name: formData.name,
-        text: formData.text,
-        date: new Date().toISOString().split('T')[0]
-      };
-      setMessages([newMessage, ...messages]);
-      setFormData({ name: '', text: '' });
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('guestbook')
+        .insert([{ name: formData.name, text: formData.text }])
+        .select();
+
+      if (error) {
+        console.error('Error inserting message:', error);
+      } else if (data && data.length > 0) {
+        const newMsg = data[0];
+        const formattedNewMsg = {
+          id: newMsg.id,
+          name: newMsg.name,
+          text: newMsg.text,
+          date: new Date(newMsg.created_at).toLocaleDateString('id-ID', {
+            year: 'numeric', month: 'long', day: 'numeric'
+          })
+        };
+        setMessages([formattedNewMsg, ...messages]);
+        setFormData({ name: '', text: '' });
+      }
+      setLoading(false);
     }
   };
 
@@ -61,9 +98,10 @@ const GuestBook = () => {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 type="submit"
-                style={styles.submitBtn}
+                style={{ ...styles.submitBtn, opacity: loading ? 0.7 : 1 }}
+                disabled={loading}
               >
-                Kirim Ucapan
+                {loading ? 'Mengirim...' : 'Kirim Ucapan'}
               </motion.button>
             </form>
 

@@ -6,8 +6,8 @@ const DigitalGift = () => {
   const [copied, setCopied] = useState(null);
 
   const bankAccounts = [
-    { name: 'Ahmad Shobari', bank: 'BCA', number: '1234567890' },
-    { name: 'Yolanda Azzahra', bank: 'Mandiri', number: '0987654321' }
+    { name: 'Ahmad Shobari', bank: 'BCA', number: '7145112214' },
+    { name: 'Yolanda Azzahra', bank: 'Mandiri', number: '1110021433384' }
   ];
 
   const copyToClipboard = (text, id) => {
@@ -62,10 +62,10 @@ const DigitalGift = () => {
             style={styles.addressBox}
           >
             <p style={styles.addressLabel}>Atau Kirim Kado Fisik Ke:</p>
-            <p style={styles.addressText}>Jl. Mawar No. 123, Perumahan Indah, Kota Asob</p>
-            
+            <p style={styles.addressText}>Jl. Ampera Komplek Kampung Baru Indah Blok BB.14, Lubuk begalung</p>
+
             <button
-              onClick={() => copyToClipboard('Jl. Mawar No. 123, Perumahan Indah, Kota Asob', 'alamat')}
+              onClick={() => copyToClipboard('Jl. Ampera Komplek Kampung Baru Indah Blok BB.14, Lubuk begalung', 'alamat')}
               style={{ ...styles.copyBtn, marginTop: '20px' }}
             >
               {copied === 'alamat' ? 'Tersalin!' : 'Salin Alamat'}

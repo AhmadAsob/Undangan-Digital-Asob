@@ -20,26 +20,26 @@ const EventDetails = () => {
           <div style={styles.headerSection}>
             <h2 className="font-script" style={styles.heading}>Save The Date</h2>
             <div style={styles.dateLarge}>
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 style={styles.dateDay}
               >
                 SABTU
               </motion.div>
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, scale: 0.5 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 style={styles.dateNum}
               >
-                20
+                3
               </motion.div>
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 style={styles.dateMonth}
               >
-                JUNI 2026
+                Oktober 2026
               </motion.div>
             </div>
           </div>
@@ -47,7 +47,7 @@ const EventDetails = () => {
           {/* Events Section - Minimalist White */}
           <div style={styles.eventsContainer}>
             {/* Akad Nikah */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               style={styles.eventRow}
@@ -56,12 +56,12 @@ const EventDetails = () => {
               <div style={styles.eventDivider}></div>
               <div style={styles.eventDetail}>
                 <div style={styles.time}>08.00 - 10.00 WIB</div>
-                <div style={styles.place}>Masjid Agung Kota Asob</div>
+                <div style={styles.place}>Gedung Pertemuan SMKN 2 Padang</div>
               </div>
             </motion.div>
 
             {/* Resepsi */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
@@ -71,18 +71,18 @@ const EventDetails = () => {
               <div style={styles.eventDivider}></div>
               <div style={styles.eventDetail}>
                 <div style={styles.time}>11.00 - 14.00 WIB</div>
-                <div style={styles.place}>Ballroom Grand Asob Hotel</div>
+                <div style={styles.place}>Gedung Pertemuan SMKN 2 Padang</div>
               </div>
             </motion.div>
           </div>
 
           {/* Location & Action */}
           <div style={styles.footerSection}>
-            <p style={styles.address}>Jl. Mawar No. 123, Kota Asob</p>
+            <p style={styles.address}>Jl. dr. Sutomo No. 5 Simpang Haru, Padang</p>
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              href="https://goo.gl/maps/example"
+              href="https://www.google.com/maps/place/SMK+NEGERI+2+PADANG/@-0.9451118,100.3777069,494m/data=!3m1!1e3!4m6!3m5!1s0x2fd4b974b6b0e70d:0xb107e297c3a91055!8m2!3d-0.9452581!4d100.3782003!16s%2Fg%2F1hm3sq9v2?hl=id&entry=ttu&g_ep=EgoyMDI2MDUxMy4wIKXMDSoASAFQAw%3D%3D"
               target="_blank"
               rel="noreferrer"
               style={styles.linkButton}
