@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 const Countdown = () => {
-  const targetDate = new Date('2026-06-20T08:00:00').getTime();
+  const targetDate = new Date('2026-10-03T08:00:00').getTime();
   const [timeLeft, setTimeLeft] = useState({
     days: 0, hours: 0, minutes: 0, seconds: 0
   });
@@ -74,7 +74,7 @@ const Countdown = () => {
         <motion.a
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Pernikahan+Asob+%26+Yola&dates=20260516T080000Z/20260516T140000Z&details=Selamat+datang+di+pernikahan+kami!&location=Grand+Asob+Hotel"
+          href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Pernikahan+Asob+%26+Yola&dates=20261003T080000Z/20261003T140000Z&details=Selamat+datang+di+pernikahan+kami!&location=Gedung+Pertemuan+SMKN+2+Padang"
           target="_blank"
           rel="noreferrer"
           style={styles.linkButton}
