@@ -166,7 +166,7 @@ function App() {
           }}
           style={styles.video}
         >
-          <source src="/prewed2.mp4" type="video/mp4" />
+          <source src="https://vqkeykmxnbkbsmtjmnsv.supabase.co/storage/v1/object/public/prewed/Video%20Pre%20Wedd%20Cinema%20ASOP%20(1).mp4" type="video/mp4" />
         </video>
 
         {step === 'invitation' && !showMainContent && <div style={styles.overlay}></div>}
