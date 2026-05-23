@@ -88,7 +88,7 @@ const EventDetails = () => {
                 borderColor: 'rgba(255, 255, 255, 0.7)'
               }}
               whileTap={{ scale: 0.95 }}
-              href="https://www.google.com/maps/place/SMK+NEGERI+2+PADANG/@-0.9451118,100.3777069,494m/data=!3m1!1e3!4m6!3m5!1s0x2fd4b974b6b0e70d:0xb107e297c3a91055!8m2!3d-0.9452581!4d100.3782003!16s%2Fg%2F1hm3sq9v2?hl=id&entry=ttu&g_ep=EgoyMDI2MDUxMy4wIKXMDSoASAFQAw%3D%3D"
+              href="https://maps.app.goo.gl/ipVqnJgnB8e22bT46?g_st=iw"
               target="_blank"
               rel="noreferrer"
               style={styles.linkButton}

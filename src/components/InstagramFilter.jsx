@@ -45,7 +45,7 @@ const InstagramFilter = () => {
                                     borderColor: 'rgba(252, 252, 252, 0.7)'
                                 }}
                                 whileTap={{ scale: 0.95 }}
-                                href="MASUKKAN_LINK_SOROTAN_DISINI" // <--- ⚠️ PASTE link Sorotan Instagram Anda di sini
+                                href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE4MTIzNDgyMDU2NTY5MDE2?story_media_id=3903322561644227008&igsh=ZGpzOW01cXdheG54" // <--- ⚠️ PASTE link Sorotan Instagram Anda di sini
                                 target="_blank"
                                 rel="noreferrer"
                                 style={styles.instagramButton}
