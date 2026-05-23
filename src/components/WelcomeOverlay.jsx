@@ -14,7 +14,7 @@ const WelcomeOverlay = ({ onEnter, guestName }) => {
       <div style={styles.bgCircle1}></div>
       <div style={styles.bgCircle2}></div>
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: "easeOut" }}
@@ -24,7 +24,7 @@ const WelcomeOverlay = ({ onEnter, guestName }) => {
         <FlowerOrnament />
 
         <div style={styles.borderTop}></div>
-        
+
         <div style={styles.content}>
           <div style={styles.logoWrapper}>
             <Logo size="medium" color="rgb(141, 110, 99)" />
@@ -49,7 +49,7 @@ const WelcomeOverlay = ({ onEnter, guestName }) => {
             style={styles.button}
           >
             <span style={styles.buttonText}>BUKA UNDANGAN</span>
-            <motion.div 
+            <motion.div
               animate={{ x: [0, 5, 0] }}
               transition={{ repeat: Infinity, duration: 1.5 }}
               style={styles.arrow}

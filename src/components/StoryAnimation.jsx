@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 
 const StoryAnimation = ({ onComplete }) => {
-  // Kata yang akan dianimasikan per huruf
   const text = "Asob & Yola";
   const characters = text.split("");
 
@@ -15,10 +14,9 @@ const StoryAnimation = ({ onComplete }) => {
         setTimeout(onComplete, 6500);
       }}
     >
-      {/* Dark Subtle Overlay for Readability over Video */}
       <div style={styles.darkOverlay} />
 
-      {/* Gold Dust Particles */}
+      {/* Partikel Debu Emas */}
       {[...Array(20)].map((_, i) => (
         <motion.div
           key={i}
@@ -44,36 +42,78 @@ const StoryAnimation = ({ onComplete }) => {
       ))}
 
       <div style={styles.container}>
-        {/* The Ethereal Heart */}
-        <div style={styles.heartWrapper}>
-          <svg width="200" height="200" viewBox="0 0 100 100">
+
+        {/* --- ANIMASI LOGO YANG TERBENTUK --- */}
+        <motion.div
+          style={styles.logoWrapper}
+          initial={{
+            opacity: 0,
+            scale: 0.5,
+            rotateY: -180,
+            filter: 'blur(20px)'
+          }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+            rotateY: 0,
+            filter: 'blur(0px)'
+          }}
+          transition={{
+            duration: 2.5,
+            ease: [0.16, 1, 0.3, 1] // Custom out-expo ease
+          }}
+        >
+          <svg width="180" height="180" viewBox="0 0 500 500">
             <defs>
-              <filter id="gold-glow">
-                <feGaussianBlur stdDeviation="3" result="blur" />
-                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+              {/* Filter untuk memproses PNG menjadi satu warna (Masking) */}
+              <filter id="maskFilterStory">
+                <feColorMatrix
+                  type="matrix"
+                  values="-10 0 0 0 9
+                          -10 0 0 0 9
+                          -10 0 0 0 9
+                          1 0 0 0 0"
+                />
               </filter>
+
+              <mask id="logoMaskStory">
+                <image
+                  href="/logo1.png"
+                  width="500"
+                  height="500"
+                  style={{ filter: 'url(#maskFilterStory)' }}
+                />
+              </mask>
+
+              {/* Efek Kilauan (Shine) */}
+              <linearGradient id="shineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="rgba(255,255,255,0)" />
+                <stop offset="50%" stopColor="rgba(255,255,255,0.8)" />
+                <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+              </linearGradient>
             </defs>
-            <motion.path
-              d="M50 30 C50 10 10 10 10 40 C10 70 50 90 50 90 C50 90 90 70 90 40 C90 10 50 10 50 30"
-              fill="none"
-              stroke="white"
-              strokeWidth="0.5"
-              initial={{ pathLength: 0, opacity: 0 }}
-              animate={{ pathLength: 1, opacity: [0, 1, 0.3] }}
-              transition={{ duration: 4, ease: "easeInOut" }}
+
+            {/* Background Logo (Warna Putih/Emas) */}
+            <rect
+              width="500"
+              height="500"
+              fill="#FFFFFF"
+              mask="url(#logoMaskStory)"
             />
-            <motion.path
-              d="M50 30 C50 10 10 10 10 40 C10 70 50 90 50 90 C50 90 90 70 90 40 C90 10 50 10 50 30"
-              fill="none"
-              stroke="#FFF9C4"
-              strokeWidth="2"
-              filter="url(#gold-glow)"
-              initial={{ pathLength: 0, opacity: 0 }}
-              animate={{ pathLength: 1, opacity: 1 }}
-              transition={{ duration: 3, delay: 0.5, ease: "circOut" }}
+
+            {/* Efek Cahaya Lewat di Atas Logo */}
+            <motion.rect
+              width="500"
+              height="500"
+              fill="url(#shineGradient)"
+              mask="url(#logoMaskStory)"
+              initial={{ x: '-100%', opacity: 0 }}
+              animate={{ x: '100%', opacity: 0.5 }}
+              transition={{ delay: 2, duration: 1.5, repeat: Infinity, repeatDelay: 3 }}
             />
           </svg>
-        </div>
+        </motion.div>
+        {/* --- END LOGO --- */}
 
         {/* Cinematic Letter Reveal */}
         <div style={styles.textWrapper}>
@@ -82,24 +122,20 @@ const StoryAnimation = ({ onComplete }) => {
               key={i}
               initial={{
                 opacity: 0,
-                y: 40,
+                y: 20,
                 rotateY: 90,
-                scale: 0,
-                filter: 'blur(20px)'
+                filter: 'blur(10px)'
               }}
               animate={{
                 opacity: 1,
                 y: 0,
                 rotateY: 0,
-                scale: 1,
                 filter: 'blur(0px)'
               }}
               transition={{
-                delay: 1 + (i * 0.15),
-                duration: 1.2,
-                type: "spring",
-                damping: 15,
-                stiffness: 100
+                delay: 1.5 + (i * 0.1), // Delay disesuaikan agar logo muncul duluan
+                duration: 1,
+                ease: "easeOut"
               }}
               style={styles.char}
             >
@@ -108,7 +144,6 @@ const StoryAnimation = ({ onComplete }) => {
           ))}
         </div>
 
-        {/* Floating Line */}
         <motion.div
           initial={{ width: 0, opacity: 0 }}
           animate={{ width: '100%', opacity: 1 }}
@@ -149,7 +184,7 @@ const styles = {
     left: 0,
     width: '100%',
     height: '100%',
-    background: 'rgba(0, 0, 0, 0.4)', // Subtle dark tint to show video behind
+    background: 'radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%)',
     zIndex: 1,
   },
   dust: {
@@ -168,10 +203,12 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     zIndex: 10,
+    perspective: '1000px',
   },
-  heartWrapper: {
-    marginBottom: '-20px',
-    filter: 'drop-shadow(0 0 20px rgba(255,255,255,0.4))',
+  logoWrapper: {
+    marginBottom: '10px',
+    filter: 'drop-shadow(0 0 25px rgba(255,255,255,0.5))',
+    transformStyle: 'preserve-3d',
   },
   textWrapper: {
     display: 'flex',
@@ -183,21 +220,20 @@ const styles = {
     fontSize: 'clamp(2.5rem, 8vw, 4rem)',
     color: '#FFFFFF',
     display: 'inline-block',
-    textShadow: '0 0 30px rgba(255,255,255,0.6)',
-    transformStyle: 'preserve-3d',
+    textShadow: '0 0 30px rgba(255,255,255,0.5)',
   },
   line: {
     height: '1px',
     background: 'linear-gradient(90deg, transparent, #FFFFFF, transparent)',
-    marginTop: '20px',
+    marginTop: '10px',
     width: '250px',
   },
   tagline: {
     marginTop: '15px',
-    fontSize: '0.7rem',
+    fontSize: '0.75rem',
     color: '#FFFFFF',
     fontWeight: '300',
-    opacity: 0.7,
+    letterSpacing: '4px',
     fontFamily: '"Inter", sans-serif',
   }
 };

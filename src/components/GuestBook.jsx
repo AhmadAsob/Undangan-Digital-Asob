@@ -17,7 +17,7 @@ const GuestBook = () => {
       .from('guestbook')
       .select('*')
       .order('created_at', { ascending: false });
-    
+
     if (error) {
       console.error('Error fetching messages:', error);
     } else {

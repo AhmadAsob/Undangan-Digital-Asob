@@ -212,7 +212,7 @@ function App() {
         >
           {showMainContent && (
             <div style={styles.stickyHeader}>
-              <Logo size="small" />
+              <Logo size="small" color="#FFFFFF" variant="spin" />
             </div>
           )}
 
