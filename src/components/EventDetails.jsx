@@ -89,6 +89,16 @@ const EventDetails = () => {
             >
               LIHAT LOKASI
             </motion.a>
+            <motion.a
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE4MTIzNDgyMDU2NTY5MDE2?story_media_id=3903322561644227008&igsh=ZGpzOW01cXdheG54"
+              target="_blank"
+              rel="noreferrer"
+              style={styles.linkButton}
+            >
+              COBA FRAME INSTAGRAM
+            </motion.a>
           </div>
         </motion.div>
       </div>
