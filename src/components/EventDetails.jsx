@@ -79,25 +79,34 @@ const EventDetails = () => {
           {/* Location & Action */}
           <div style={styles.footerSection}>
             <p style={styles.address}>Jl. dr. Sutomo No. 5 Simpang Haru, Padang</p>
+
+            {/* Tombol Lihat Lokasi yang diselaraskan menjadi Premium */}
             <motion.a
-              whileHover={{ scale: 1.05 }}
+              whileHover={{
+                scale: 1.05,
+                boxShadow: '0 10px 25px rgba(255, 255, 255, 0.1)',
+                borderColor: 'rgba(255, 255, 255, 0.7)'
+              }}
               whileTap={{ scale: 0.95 }}
               href="https://www.google.com/maps/place/SMK+NEGERI+2+PADANG/@-0.9451118,100.3777069,494m/data=!3m1!1e3!4m6!3m5!1s0x2fd4b974b6b0e70d:0xb107e297c3a91055!8m2!3d-0.9452581!4d100.3782003!16s%2Fg%2F1hm3sq9v2?hl=id&entry=ttu&g_ep=EgoyMDI2MDUxMy4wIKXMDSoASAFQAw%3D%3D"
               target="_blank"
               rel="noreferrer"
               style={styles.linkButton}
             >
+              {/* Ikon Map Pin SVG */}
+              <svg
+                style={styles.buttonIcon}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
               LIHAT LOKASI
-            </motion.a>
-            <motion.a
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE4MTIzNDgyMDU2NTY5MDE2?story_media_id=3903322561644227008&igsh=ZGpzOW01cXdheG54"
-              target="_blank"
-              rel="noreferrer"
-              style={styles.linkButton}
-            >
-              COBA FRAME INSTAGRAM
             </motion.a>
           </div>
         </motion.div>
@@ -214,18 +223,33 @@ const styles = {
     marginBottom: '2rem',
     letterSpacing: '1px',
   },
+  /* Format tombol diselaraskan penuh dengan gaya tombol komponen lainnya */
   linkButton: {
-    display: 'inline-block',
-    padding: '14px 40px',
-    backgroundColor: 'transparent',
-    color: '#fff',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '10px',
+    maxWidth: '280px',
+    width: '100%',
+    padding: '14px 0',
+    background: 'linear-gradient(135deg, rgba(35, 30, 25, 0.7) 0%, rgba(15, 12, 10, 0.85) 100%)',
+    color: '#FFFFFF',
     borderRadius: '30px',
     fontWeight: '600',
     fontSize: '0.8rem',
     textDecoration: 'none',
-    border: '1px solid rgba(255,255,255,0.4)',
+    border: '1px solid rgba(255, 255, 255, 0.45)',
     letterSpacing: '2px',
     transition: 'all 0.3s ease',
+    boxSizing: 'border-box',
+    backdropFilter: 'blur(5px)',
+    WebkitBackdropFilter: 'blur(5px)',
+    cursor: 'pointer',
+  },
+  buttonIcon: {
+    width: '16px',
+    height: '16px',
+    color: '#ffffff',
   }
 };
 

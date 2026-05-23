@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import WelcomeOverlay from './components/WelcomeOverlay';
 import Hero from './components/Hero';
 import EventDetails from './components/EventDetails';
+import InstagramFilter from './components/InstagramFilter';
 import Gallery from './components/Gallery';
 import Logo from './components/Logo';
 import Quote from './components/Quote';
@@ -74,7 +75,6 @@ function App() {
       if (video.requestFullscreen) {
         video.requestFullscreen();
       } else if (video.webkitEnterFullscreen) {
-        // Special support for iOS Safari
         video.webkitEnterFullscreen();
       } else if (video.webkitRequestFullscreen) {
         video.webkitRequestFullscreen();
@@ -88,15 +88,12 @@ function App() {
     const resumeVideo = () => {
       if (videoRef.current) {
         const video = videoRef.current;
-
-        // Strategy: Triple-Poke for iOS stability
         const attempts = [100, 500, 1000];
         attempts.forEach(delay => {
           setTimeout(() => {
             if (video.paused) {
               video.play().catch(e => {
                 console.log(`Attempt at ${delay}ms failed:`, e);
-                // If it still fails, try playing muted as a last resort to keep visual running
                 if (delay === 1000) {
                   video.muted = true;
                   video.play().catch(err => console.log("Final attempt failed:", err));
@@ -174,29 +171,39 @@ function App() {
         <AnimatePresence>
           {step === 'cinematic' && (
             <>
+              {/* Tombol Fullscreen Premium */}
               <motion.button
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: '0 10px 25px rgba(255, 255, 255, 0.1)',
+                  borderColor: 'rgba(255, 255, 255, 0.7)'
+                }}
                 whileTap={{ scale: 0.95 }}
                 onClick={handleFullscreen}
                 style={styles.fullscreenBtn}
               >
-                <span style={{ marginRight: '0px' }}>⛶</span>
+                <span style={{ fontSize: '1rem', lineHeight: '1' }}>⛶</span>
               </motion.button>
 
+              {/* Tombol Lewati Video Premium */}
               {showSkip && (
                 <motion.button
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 20 }}
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{
+                    scale: 1.05,
+                    boxShadow: '0 10px 25px rgba(255, 255, 255, 0.1)',
+                    borderColor: 'rgba(255, 255, 255, 0.7)'
+                  }}
                   whileTap={{ scale: 0.95 }}
                   onClick={handleSkipOrComplete}
                   style={styles.skipButton}
                 >
-                  Lewati Video <span style={styles.arrow}>→</span>
+                  LEWATI VIDEO <span style={styles.arrow}>→</span>
                 </motion.button>
               )}
             </>
@@ -240,6 +247,7 @@ function App() {
                   <div id="story"><LoveStory /></div>
                   <div id="countdown"><Countdown /></div>
                   <div id="event"><EventDetails /></div>
+                  <div id="instagram-filter"><InstagramFilter /></div>
                   <div id="gallery"><Gallery /></div>
                   <div id="gift"><DigitalGift /></div>
                   <div id="guestbook"><GuestBook /></div>
@@ -287,55 +295,49 @@ const styles = {
     backgroundColor: 'rgba(62, 39, 35, 0.4)',
     zIndex: 1,
   },
-  muteBtn: {
-    position: 'fixed',
-    top: '30px',
-    right: '30px',
-    width: '45px',
-    height: '45px',
-    borderRadius: '50%',
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    backdropFilter: 'blur(10px)',
-    border: '1px solid rgba(255, 255, 255, 0.3)',
-    color: '#fff',
-    fontSize: '1.2rem',
-    cursor: 'pointer',
-    zIndex: 4000,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  /* Penyelarasan format dengan gaya premium InstagramFilter, Hero, & BrideGroom */
   fullscreenBtn: {
     position: 'absolute',
     bottom: '40px',
     left: '40px',
-    padding: '12px 24px',
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    backdropFilter: 'blur(10px)',
-    border: '1px solid rgba(255, 255, 255, 0.3)',
-    borderRadius: '30px',
-    color: '#fff',
-    fontSize: '0.8rem',
-    fontWeight: '500',
-    letterSpacing: '1px',
+    width: '45px',
+    height: '45px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: 'linear-gradient(135deg, rgba(35, 30, 25, 0.7) 0%, rgba(15, 12, 10, 0.85) 100%)',
+    color: '#FFFFFF',
+    border: '1px solid rgba(255, 255, 255, 0.45)',
+    borderRadius: '50%',
+    backdropFilter: 'blur(5px)',
+    WebkitBackdropFilter: 'blur(5px)',
     cursor: 'pointer',
     zIndex: 3001,
+    transition: 'all 0.3s ease',
+    boxSizing: 'border-box',
   },
   skipButton: {
     position: 'absolute',
     bottom: '40px',
     right: '40px',
-    padding: '12px 24px',
-    backgroundColor: 'rgb(141, 110, 99)',
-    backdropFilter: 'blur(10px)',
-    border: '1px solid rgba(255, 255, 255, 0.3)',
+    padding: '0 24px',
+    height: '45px',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: 'linear-gradient(135deg, rgba(35, 30, 25, 0.7) 0%, rgba(15, 12, 10, 0.85) 100%)',
+    color: '#FFFFFF',
+    border: '1px solid rgba(255, 255, 255, 0.45)',
     borderRadius: '30px',
-    color: '#fff',
+    fontWeight: '600',
     fontSize: '0.8rem',
-    fontWeight: '500',
-    letterSpacing: '1px',
+    letterSpacing: '2px',
+    backdropFilter: 'blur(5px)',
+    WebkitBackdropFilter: 'blur(5px)',
     cursor: 'pointer',
     zIndex: 3001,
+    transition: 'all 0.3s ease',
+    boxSizing: 'border-box',
   },
   arrow: {
     marginLeft: '8px',

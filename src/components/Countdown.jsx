@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
+const TARGET_DATE = new Date('2026-10-03T08:00:00').getTime();
+
 const Countdown = () => {
-  const targetDate = new Date('2026-10-03T08:00:00').getTime();
   const [timeLeft, setTimeLeft] = useState({
     days: 0, hours: 0, minutes: 0, seconds: 0
   });
@@ -10,7 +11,7 @@ const Countdown = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       const now = new Date().getTime();
-      const distance = targetDate - now;
+      const distance = TARGET_DATE - now;
 
       if (distance < 0) {
         clearInterval(timer);
@@ -25,7 +26,7 @@ const Countdown = () => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [targetDate]);
+  }, []);
 
   const items = [
     { label: 'Hari', value: timeLeft.days },
@@ -72,14 +73,33 @@ const Countdown = () => {
         style={styles.btnWrapper}
       >
         <motion.a
-          whileHover={{ scale: 1.05 }}
+          whileHover={{
+            scale: 1.05,
+            boxShadow: '0 10px 25px rgba(255, 255, 255, 0.1)',
+            borderColor: 'rgba(255, 255, 255, 0.7)'
+          }}
           whileTap={{ scale: 0.95 }}
           href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Pernikahan+Asob+%26+Yola&dates=20261003T080000Z/20261003T140000Z&details=Selamat+datang+di+pernikahan+kami!&location=Gedung+Pertemuan+SMKN+2+Padang"
           target="_blank"
           rel="noreferrer"
           style={styles.linkButton}
         >
-          Simpan Kalender
+          {/* Ikon Kalender SVG */}
+          <svg
+            style={styles.buttonIcon}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+            <line x1="16" y1="2" x2="16" y2="6" />
+            <line x1="8" y1="2" x2="8" y2="6" />
+            <line x1="3" y1="10" x2="21" y2="10" />
+          </svg>
+          SIMPAN KALENDER
         </motion.a>
       </motion.div>
     </div>
@@ -133,21 +153,36 @@ const styles = {
   },
   btnWrapper: {
     marginTop: '10px',
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
   },
   linkButton: {
-    padding: '12px 25px',
-    backgroundColor: 'rgb(141, 110, 99)',
-    color: '#fff',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '10px',
+    maxWidth: '280px',
+    width: '100%',
+    padding: '14px 0',
+    background: 'linear-gradient(135deg, rgba(35, 30, 25, 0.7) 0%, rgba(15, 12, 10, 0.85) 100%)',
+    color: '#FFFFFF',
     borderRadius: '30px',
     fontWeight: '600',
-    fontSize: '0.85rem',
+    fontSize: '0.8rem',
     textDecoration: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '8px',
-    minWidth: '160px',
-    justifyContent: 'center',
+    border: '1px solid rgba(255, 255, 255, 0.45)',
+    letterSpacing: '2px',
     transition: 'all 0.3s ease',
+    boxSizing: 'border-box',
+    backdropFilter: 'blur(5px)',
+    WebkitBackdropFilter: 'blur(5px)',
+    cursor: 'pointer',
+  },
+  buttonIcon: {
+    width: '16px',
+    height: '16px',
+    color: '#ffffff',
   }
 };
 

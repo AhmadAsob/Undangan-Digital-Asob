@@ -9,7 +9,7 @@ const WelcomeOverlay = ({ onEnter, guestName }) => {
       transition={{ duration: 1, ease: "easeInOut" }}
       style={styles.overlay}
     >
-      {/* 1. Foto Latar Belakang & Efek Gradasi Gelap Sinematik */}
+      {/* 1. Foto Latar Belakang dari Supabase & Efek Gradasi Gelap Sinematik */}
       <div style={styles.backgroundImage} />
       <div style={styles.darkOverlay} />
 
@@ -112,7 +112,8 @@ const styles = {
     left: 0,
     width: '100%',
     height: '100%',
-    backgroundImage: 'url("/assets/images/gallery/Z52_5105.JPG")',
+    // Menggunakan URL penuh dari Supabase Storage Anda
+    backgroundImage: 'url("https://vqkeykmxnbkbsmtjmnsv.supabase.co/storage/v1/object/public/prewed/Z52_5105.JPG")',
     backgroundSize: 'cover',
     backgroundPosition: 'center 35%',
     zIndex: 1,
@@ -186,7 +187,7 @@ const styles = {
     boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
     textAlign: 'center',
     boxSizing: 'border-box',
-    transform: 'translateY(-10px)', // Sedikit dinaikkan agar ruang tengah terasa luas
+    transform: 'translateY(-10px)',
   },
   toText: {
     fontSize: '0.8rem',
@@ -211,9 +212,7 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
   },
-  /* --- STYLING TOMBOL SINEMATIK BARU --- */
   button: {
-    // Gradasi gelap dengan nuansa hangat/gold tipis di dalam tombol mika kaca
     background: 'linear-gradient(135deg, rgba(30, 25, 20, 0.85) 0%, rgba(15, 12, 10, 0.95) 100%)',
     color: '#FFFFFF',
     width: '100%',
@@ -226,7 +225,6 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     gap: '10px',
-    // Border menggunakan warna emas transparan tipis yang elegan
     border: '1px solid rgba(255, 255, 255, 0.4)',
     boxShadow: '0 8px 25px rgba(0, 0, 0, 0.5)',
     cursor: 'pointer',
@@ -239,17 +237,16 @@ const styles = {
     width: '16px',
     height: '16px',
     opacity: 0.9,
-    color: 'rgba(255, 255, 255, 0.9)', // Warna emas pada ikon amplp
+    color: 'rgba(255, 255, 255, 0.9)',
   },
   buttonText: {
     marginTop: '1px',
     textTransform: 'uppercase',
-    // Efek pendaran teks tipis
     textShadow: '0 0 8px rgba(255, 255, 255, 0.2)',
   },
   arrow: {
     fontSize: '1.1rem',
-    color: 'rgba(255, 250, 250, 0.9)', // Warna emas pada panah penunjuk
+    color: 'rgba(255, 250, 250, 0.9)',
   }
 };
 

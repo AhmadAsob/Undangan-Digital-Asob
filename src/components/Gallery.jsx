@@ -5,27 +5,34 @@ import FlowerOrnament from './FlowerOrnament';
 const Gallery = () => {
   const [selectedImg, setSelectedImg] = useState(null);
 
-  const images = [
-    "/assets/images/gallery/850_1569.JPG",
-    "/assets/images/gallery/850_1607.JPG",
-    "/assets/images/gallery/850_1644.JPG",
-    "/assets/images/gallery/Z52_4966.JPG",
-    "/assets/images/gallery/Z52_4986.JPG",
-    "/assets/images/gallery/Z52_5015.JPG",
-    "/assets/images/gallery/Z52_5105.JPG",
-    "/assets/images/gallery/Z52_5119.JPG",
-    "/assets/images/gallery/Z52_5186.JPG",
-    "/assets/images/gallery/Z52_5191.JPG",
-    "/assets/images/gallery/Z52_5209.JPG",
-    "/assets/images/gallery/Z52_5271.JPG",
-    "/assets/images/gallery/Z52_5278.JPG",
-    "/assets/images/gallery/Z52_5303.JPG",
-    "/assets/images/gallery/Z52_5346.JPG",
-    "/assets/images/gallery/Z52_5377.JPG",
-    "/assets/images/gallery/Z52_5399.JPG",
-    "/assets/images/gallery/Z52_5413.JPG",
-    "/assets/images/gallery/Z52_5425.JPG"
+  // Base URL dari bucket Supabase Anda
+  const SUPABASE_BASE_URL = "https://vqkeykmxnbkbsmtjmnsv.supabase.co/storage/v1/object/public/prewed/";
+
+  // Daftar nama file gambar yang ada di Supabase
+  const filenames = [
+    "850_1569.JPG",
+    "850_1607.JPG",
+    "850_1644.JPG",
+    "Z52_4966.JPG",
+    "Z52_4986.JPG",
+    "Z52_5015.JPG",
+    "Z52_5105.JPG",
+    "Z52_5119.JPG",
+    "Z52_5186.JPG",
+    "Z52_5191.JPG",
+    "Z52_5209.JPG",
+    "Z52_5271.JPG",
+    "Z52_5278.JPG",
+    "Z52_5303.JPG",
+    "Z52_5346.JPG",
+    "Z52_5377.JPG",
+    "Z52_5399.JPG",
+    "Z52_5413.JPG",
+    "Z52_5425.JPG"
   ];
+
+  // Menggabungkan base URL dengan nama file
+  const images = filenames.map(name => `${SUPABASE_BASE_URL}${name}`);
 
   return (
     <section className="section-padding" style={styles.section}>
@@ -58,7 +65,6 @@ const Gallery = () => {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
-                // Kecepatan delay dinamis agar animasi muncul bergantian secara estetik
                 transition={{ delay: (index % 4) * 0.15, duration: 0.8 }}
                 whileHover="hover"
                 onClick={() => setSelectedImg(src)}
@@ -75,6 +81,7 @@ const Gallery = () => {
                       src={src}
                       alt={`Moment ${index + 1}`}
                       style={styles.img}
+                      loading="lazy" // Tambahan: Optimasi loading gambar cloud
                     />
 
                     {/* Overlay halus saat kursor masuk */}
@@ -97,7 +104,7 @@ const Gallery = () => {
                     </motion.div>
                   </div>
 
-                  {/* Kaki Bingkai (Gaya Jurnal/Polaroid Klasik) */}
+                  {/* Kaki Bingkai */}
                   <div style={styles.frameFooter}>
                     {/* <span style={styles.frameDate}>MOMENT {String(index + 1).padStart(2, '0')}</span> */}
                   </div>
@@ -140,6 +147,7 @@ const Gallery = () => {
   );
 };
 
+// Objek styles tetap sama seperti sebelumnya...
 const styles = {
   section: {
     padding: '80px 0',
@@ -182,11 +190,9 @@ const styles = {
     margin: '0 auto',
     lineHeight: '1.6',
   },
-
-  /* --- MASONRY LAYOUT (FOTO UTUH TIDAK TERPOTONG) --- */
   masonryGrid: {
     columnCount: 2,
-    columnGap: '25px', // Jarak antar bingkai diperlebar sedikit agar bernapas
+    columnGap: '25px',
     width: '100%',
   },
   frameWrapper: {
@@ -196,11 +202,9 @@ const styles = {
     breakInside: 'avoid',
     cursor: 'pointer',
   },
-
-  /* --- DESAIN BINGKAI POLAROID PREMIUM --- */
   polaroidFrame: {
-    padding: '12px 12px 20px 12px', // Bagian bawah lebih lebar khas polaroid
-    backgroundColor: 'rgba(255, 255, 255, 0.06)', // Efek kaca putih tipis
+    padding: '12px 12px 20px 12px',
+    backgroundColor: 'rgba(255, 255, 255, 0.06)',
     backdropFilter: 'blur(5px)',
     borderRadius: '16px',
     border: '1px solid rgba(255, 255, 255, 0.15)',
@@ -216,7 +220,7 @@ const styles = {
   },
   img: {
     width: '100%',
-    height: 'auto', // Mengikuti rasio asli gambar 100%
+    height: 'auto',
     display: 'block',
   },
   overlay: {
@@ -250,8 +254,6 @@ const styles = {
     fontFamily: '"Inter", sans-serif',
     fontWeight: '400',
   },
-  /* -------------------------------------- */
-
   lightbox: {
     position: 'fixed',
     top: 0,

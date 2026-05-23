@@ -5,13 +5,11 @@ import FlowerOrnament from './FlowerOrnament';
 const DigitalGift = () => {
   const [copied, setCopied] = useState(null);
 
-  // Menambahkan properti logoUrl ke masing-masing objek bank
   const bankAccounts = [
     {
       name: 'Ahmad Shobari',
       bank: 'BCA',
       number: '7145112214',
-      // Menggunakan logo putih/transparan agar serasi dengan desain tema Anda
       logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg'
     },
     {
@@ -40,7 +38,9 @@ const DigitalGift = () => {
           <FlowerOrnament />
           <div style={styles.header}>
             <h2 className="font-script" style={styles.title}>Wedding Gift</h2>
-            <p style={styles.subtitle}>Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Namun jika Anda ingin memberikan tanda kasih, Anda dapat memberikannya melalui:</p>
+            <p style={styles.subtitle}>
+              Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Namun jika Anda ingin memberikan tanda kasih, Anda dapat memberikannya melalui:
+            </p>
           </div>
 
           <div style={styles.grid}>
@@ -53,7 +53,6 @@ const DigitalGift = () => {
                 transition={{ delay: index * 0.2 }}
                 style={styles.giftCard}
               >
-                {/* MENGGANTI TEKS MENJADI LOGO IMAGE */}
                 <div style={styles.logoContainer}>
                   <img
                     src={acc.logoUrl}
@@ -65,12 +64,31 @@ const DigitalGift = () => {
                 <div style={styles.accountNumber}>{acc.number}</div>
                 <div style={styles.accountHolder}>{acc.name}</div>
 
-                <button
+                {/* Mengubah button biasa menjadi motion.button premium */}
+                <motion.button
+                  whileHover={{
+                    scale: 1.03,
+                    boxShadow: '0 10px 25px rgba(255, 255, 255, 0.1)',
+                    borderColor: 'rgba(255, 255, 255, 0.7)'
+                  }}
+                  whileTap={{ scale: 0.97 }}
                   onClick={() => copyToClipboard(acc.number, acc.number)}
                   style={styles.copyBtn}
                 >
-                  {copied === acc.number ? 'Tersalin!' : 'Salin No. Rekening'}
-                </button>
+                  <svg
+                    style={styles.buttonIcon}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                  </svg>
+                  {copied === acc.number ? 'TERSALIN!' : 'SALIN NO. REKENING'}
+                </motion.button>
               </motion.div>
             ))}
           </div>
@@ -84,12 +102,31 @@ const DigitalGift = () => {
             <p style={styles.addressLabel}>Atau Kirim Kado Fisik Ke:</p>
             <p style={styles.addressText}>Jl. Ampera Komplek Kampung Baru Indah Blok BB.14, Lubuk begalung</p>
 
-            <button
+            {/* Mengubah button alamat menjadi motion.button premium */}
+            <motion.button
+              whileHover={{
+                scale: 1.03,
+                boxShadow: '0 10px 25px rgba(255, 255, 255, 0.1)',
+                borderColor: 'rgba(255, 255, 255, 0.7)'
+              }}
+              whileTap={{ scale: 0.97 }}
               onClick={() => copyToClipboard('Jl. Ampera Komplek Kampung Baru Indah Blok BB.14, Lubuk begalung', 'alamat')}
-              style={{ ...styles.copyBtn, marginTop: '20px' }}
+              style={styles.addressCopyBtn}
             >
-              {copied === 'alamat' ? 'Tersalin!' : 'Salin Alamat'}
-            </button>
+              <svg
+                style={styles.buttonIcon}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              {copied === 'alamat' ? 'TERSALIN!' : 'SALIN ALAMAT'}
+            </motion.button>
           </motion.div>
         </motion.div>
       </div>
@@ -147,9 +184,8 @@ const styles = {
     gap: '15px',
     minWidth: '280px',
   },
-  /* --- STYLING BARU UNTUK KONTEN LOGO BANK --- */
   logoContainer: {
-    height: '45px', // Menjaga ketinggian area logo agar seimbang
+    height: '45px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -159,10 +195,8 @@ const styles = {
     maxHeight: '100%',
     maxWidth: '140px',
     objectFit: 'contain',
-    // Menggunakan filter brightness agar logo berwarna gelap bawaan terlihat jelas dan elegan di background transparan-gelap
     filter: 'brightness(0) invert(1)',
   },
-  /* ------------------------------------------ */
   accountNumber: {
     fontSize: '1.6rem',
     fontWeight: '700',
@@ -175,18 +209,28 @@ const styles = {
     color: '#FFFFFF',
     opacity: 0.9,
   },
+  /* Perubahan gaya tombol utama biar serasi (Premium Dark Glassmorphic) */
   copyBtn: {
-    padding: '12px 25px',
-    backgroundColor: 'rgb(141, 110, 99)',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '8px',
+    width: '100%',
+    maxWidth: '220px',
+    padding: '12px 0',
+    background: 'linear-gradient(135deg, rgba(35, 30, 25, 0.7) 0%, rgba(15, 12, 10, 0.85) 100%)',
     color: '#FFFFFF',
     borderRadius: '30px',
-    fontSize: '0.85rem',
+    fontSize: '0.8rem',
     fontWeight: '600',
-    border: 'none',
+    border: '1px solid rgba(255, 255, 255, 0.45)',
+    letterSpacing: '1.5px',
     cursor: 'pointer',
     transition: 'all 0.3s ease',
+    boxSizing: 'border-box',
+    backdropFilter: 'blur(5px)',
+    WebkitBackdropFilter: 'blur(5px)',
     marginTop: '10px',
-    boxShadow: '0 5px 15px rgba(141, 110, 99, 0.2)',
   },
   addressBox: {
     marginTop: '40px',
@@ -209,6 +253,34 @@ const styles = {
     color: '#FFFFFF',
     lineHeight: '1.6',
     opacity: 0.9,
+  },
+  /* Tombol salin alamat mewarisi style utama dengan tambahan margin atas */
+  addressCopyBtn: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '8px',
+    width: '100%',
+    maxWidth: '220px',
+    padding: '12px 0',
+    background: 'linear-gradient(135deg, rgba(35, 30, 25, 0.7) 0%, rgba(15, 12, 10, 0.85) 100%)',
+    color: '#FFFFFF',
+    borderRadius: '30px',
+    fontSize: '0.8rem',
+    fontWeight: '600',
+    border: '1px solid rgba(255, 255, 255, 0.45)',
+    letterSpacing: '1.5px',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    boxSizing: 'border-box',
+    backdropFilter: 'blur(5px)',
+    WebkitBackdropFilter: 'blur(5px)',
+    marginTop: '20px',
+  },
+  buttonIcon: {
+    width: '14px',
+    height: '14px',
+    color: '#ffffff',
   }
 };
 

@@ -1,199 +1,253 @@
 import { motion } from 'framer-motion';
-import FlowerOrnament from './FlowerOrnament';
+import Logo from './Logo';
 
-const BrideGroom = () => {
+const WelcomeOverlay = ({ onEnter, guestName }) => {
   return (
-    <section className="section-padding" style={styles.section}>
-      <div className="container">
+    <motion.div
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0, scale: 1.05, filter: 'blur(8px)' }}
+      transition={{ duration: 1, ease: "easeInOut" }}
+      style={styles.overlay}
+    >
+      {/* 1. Foto Latar Belakang dari Supabase & Efek Gradasi Gelap Sinematik */}
+      <div style={styles.backgroundImage} />
+      <div style={styles.darkOverlay} />
+
+      {/* 2. Kontainer Konten Utama (Mengalir Proporsional dari Atas ke Bawah) */}
+      <div style={styles.mainContainer}>
+
+        {/* AREA LOGO (Polos & Bersih Tanpa Bingkai/Blur) */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          style={styles.card}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          style={styles.logoContainer}
         >
-          <motion.h2
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="font-script"
-            style={styles.sectionTitle}
-          >
-            Bride & Groom
-          </motion.h2>
-          <FlowerOrnament />
-          <div style={styles.header}>
-            <h2 style={styles.arabicSalam}>اَلسَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ</h2>
-            <p style={styles.headerSubtitle}>Maha Suci Allah yang telah menciptakan mahluk-Nya berpasang-pasangan. Dengan memohon rahmat serta ridho-Nya, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami:</p>
-          </div>
-
-          <div style={styles.grid}>
-            {/* Groom */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.2 }}
-              style={styles.profile}
-            >
-              <div style={styles.imageWrapper}>
-                <div style={styles.imageFrame}></div>
-                <img src="/assets/images/profile/groom.jpg" alt="Groom" style={styles.image} />
-                <div className="font-script" style={styles.nickname}>Asob</div>
-              </div>
-              <h3 style={styles.name}>Ahmad Shobari, S.Si</h3>
-              <p style={styles.desc}>Putra dari Bapak Sawir & Ibu Alm.Desnita</p>
-              <a href="https://www.instagram.com/ahmad_asob/" target="_blank" rel="noreferrer" style={styles.igLink}>
-                <span style={styles.igIcon}></span> @ahmad_asob
-              </a>
-            </motion.div>
-
-            <div style={styles.ampersand}>&</div>
-
-            {/* Bride */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.4 }}
-              style={styles.profile}
-            >
-              <div style={styles.imageWrapper}>
-                <div style={styles.imageFrame}></div>
-                <img src="/assets/images/profile/bride.jpg" alt="Bride" style={styles.image} />
-                <div className="font-script" style={styles.nickname}>Yola</div>
-              </div>
-              <h3 style={styles.name}>Yolanda Azzahra, M.Si</h3>
-              <p style={styles.desc}>Putri dari Bapak Bustami & Ibu Yurmaini, A.Md</p>
-              <a href="https://www.instagram.com/yolandaazzaahraa/" target="_blank" rel="noreferrer" style={styles.igLink}>
-                <span style={styles.igIcon}></span> @yolandaazzaahraa
-              </a>
-            </motion.div>
-          </div>
+          <Logo size="large" color="#FFFFFF" />
         </motion.div>
+
+        {/* TEKS PEMBUKA & NAMA MEMPELAI */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.3 }}
+          style={styles.textSection}
+        >
+          <p style={styles.subTitle}>THE WEDDING OF</p>
+          <h1 style={styles.title}>Asob & Yola</h1>
+          <div style={styles.divider}></div>
+        </motion.div>
+
+        {/* KOTAK TAMU UNDANGAN (Glassmorphism Transparan) */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.5 }}
+          style={styles.guestCard}
+        >
+          <p style={styles.toText}>Kpd Yth. Bapak/Ibu/Saudara/i</p>
+          <h2 style={styles.guestName}>{guestName || 'Tamu Undangan'}</h2>
+        </motion.div>
+
+        {/* TOMBOL BUKA UNDANGAN (Gaya Sinematik Gelap & Emas Premium) */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.7 }}
+          style={styles.buttonWrapper}
+        >
+          <motion.button
+            whileHover={{
+              scale: 1.03,
+              boxShadow: '0 15px 40px rgba(212, 175, 55, 0.25)',
+              borderColor: 'rgba(255, 255, 255, 0.8)'
+            }}
+            whileTap={{ scale: 0.98 }}
+            onClick={onEnter}
+            style={styles.button}
+          >
+            {/* Ikon Surat Kecil di Samping Teks */}
+            <svg
+              style={styles.buttonIcon}
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L22 8m-9 11h.01M21 16V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2h14a2 2 0 002-2z" />
+            </svg>
+            <span style={styles.buttonText}>BUKA UNDANGAN</span>
+            <motion.span
+              animate={{ x: [0, 5, 0] }}
+              transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+              style={styles.arrow}
+            >
+              →
+            </motion.span>
+          </motion.button>
+        </motion.div>
+
       </div>
-    </section>
+    </motion.div>
   );
 };
 
 const styles = {
-  section: {
-    backgroundColor: 'transparent',
-    textAlign: 'center',
-    overflow: 'hidden',
-    position: 'relative',
-  },
-  card: {
-    padding: '60px 20px',
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
-    backdropFilter: 'blur(3px)',
-    borderRadius: '50px',
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  header: {
-    maxWidth: '700px',
-    margin: '0 auto 60px',
-  },
-  sectionTitle: {
-    fontSize: '4.5rem',
-    color: '#FFFFFF',
-    marginBottom: '3rem',
-  },
-  arabicSalam: {
-    fontSize: '2.2rem',
-    fontFamily: 'serif',
-    color: '#FFFFFF',
-    marginBottom: '1.5rem',
-    lineHeight: '1.8',
-  },
-  headerSubtitle: {
-    color: '#FFFFFF',
-    lineHeight: '1.6',
-  },
-  grid: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: '40px',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-  },
-  profile: {
-    flex: '1',
-    minWidth: '300px',
+  overlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    zIndex: 2000,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+    boxSizing: 'border-box',
   },
-  imageWrapper: {
-    position: 'relative',
-    width: 'clamp(200px, 25vw, 280px)',
-    height: 'clamp(280px, 35vw, 380px)',
-    marginBottom: '40px',
-  },
-  nickname: {
+  backgroundImage: {
     position: 'absolute',
-    bottom: '-20px',
-    left: '50%',
-    transform: 'translateX(-50%)',
-    fontSize: 'clamp(3rem, 8vw, 4.5rem)',
-    color: '#fff',
-    textShadow: '2px 2px 20px rgba(0,0,0,0.5)',
-    zIndex: 10,
-    width: '100%',
-    textAlign: 'center',
-    pointerEvents: 'none',
-  },
-  imageFrame: {
-    position: 'absolute',
-    top: '-10px',
-    left: '-10px',
-    right: '-10px',
-    bottom: '-10px',
-    border: '1px solid rgba(255, 255, 255, 0.3)',
-    borderRadius: '150px',
-    zIndex: 1,
-  },
-  image: {
+    top: 0,
+    left: 0,
     width: '100%',
     height: '100%',
-    objectFit: 'cover',
-    borderRadius: '150px',
-    position: 'relative',
+    // Menggunakan URL penuh dari Supabase Storage Anda
+    backgroundImage: 'url("https://vqkeykmxnbkbsmtjmnsv.supabase.co/storage/v1/object/public/prewed/Z52_5105.JPG")',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center 35%',
+    zIndex: 1,
+  },
+  darkOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    background: 'linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.85) 100%)',
     zIndex: 2,
-    boxShadow: '0 15px 40px rgba(0,0,0,0.2)',
   },
-  name: {
-    fontSize: '1.8rem',
+  mainContainer: {
+    position: 'relative',
+    zIndex: 10,
+    width: '100%',
+    maxWidth: '400px',
+    height: '100%',
+    padding: '70px 30px 60px 30px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    boxSizing: 'border-box',
+  },
+  logoContainer: {
+    width: '120px',
+    height: '120px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '10px',
+    filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.5))',
+  },
+  textSection: {
+    width: '100%',
+    textAlign: 'center',
+  },
+  subTitle: {
+    fontSize: '0.8rem',
+    letterSpacing: '5px',
+    color: '#FFFFFF',
+    opacity: 0.85,
+    marginBottom: '12px',
+    fontWeight: '400',
+    fontFamily: '"Inter", sans-serif',
+  },
+  title: {
+    fontSize: 'clamp(2.6rem, 8.5vw, 3.4rem)',
     fontFamily: '"Playfair Display", serif',
-    fontWeight: '700',
     color: '#FFFFFF',
-    marginBottom: '0.5rem',
+    margin: 0,
+    fontWeight: '400',
+    textShadow: '0 2px 20px rgba(0,0,0,0.6)',
   },
-  desc: {
+  divider: {
+    width: '35px',
+    height: '1px',
+    backgroundColor: 'rgba(255, 255, 255, 0.35)',
+    margin: '20px auto 0 auto',
+  },
+  guestCard: {
+    width: '100%',
+    padding: '28px 20px',
+    borderRadius: '24px',
+    backgroundColor: 'rgba(255, 255, 255, 0.06)',
+    backdropFilter: 'blur(15px)',
+    WebkitBackdropFilter: 'blur(15px)',
+    border: '1px solid rgba(255, 255, 255, 0.12)',
+    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
+    textAlign: 'center',
+    boxSizing: 'border-box',
+    transform: 'translateY(-10px)',
+  },
+  toText: {
+    fontSize: '0.8rem',
     color: '#FFFFFF',
-    marginBottom: '1rem',
-    fontSize: '0.9rem',
+    opacity: 0.7,
+    margin: '0 0 10px 0',
+    fontStyle: 'italic',
+    fontFamily: '"Inter", sans-serif',
+    letterSpacing: '0.5px',
   },
-  igLink: {
+  guestName: {
+    fontSize: 'clamp(1.5rem, 5.5vw, 1.9rem)',
+    fontFamily: '"Playfair Display", serif',
+    color: '#FFFFFF',
+    margin: 0,
+    fontWeight: '600',
+    letterSpacing: '0.5px',
+    textShadow: '0 2px 12px rgba(0,0,0,0.4)',
+  },
+  buttonWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  button: {
+    background: 'linear-gradient(135deg, rgba(30, 25, 20, 0.85) 0%, rgba(15, 12, 10, 0.95) 100%)',
+    color: '#FFFFFF',
+    width: '100%',
+    padding: '16px 30px',
+    borderRadius: '40px',
+    fontSize: '0.85rem',
+    fontWeight: '600',
+    letterSpacing: '3px',
     display: 'flex',
     alignItems: 'center',
-    gap: '8px',
-    color: '#FFFFFF',
-    textDecoration: 'none',
-    fontSize: '0.9rem',
-    fontWeight: '500',
-    padding: '8px 16px',
-    borderRadius: '20px',
+    justifyContent: 'center',
+    gap: '10px',
     border: '1px solid rgba(255, 255, 255, 0.4)',
+    boxShadow: '0 8px 25px rgba(0, 0, 0, 0.5)',
+    cursor: 'pointer',
+    fontFamily: '"Inter", sans-serif',
+    backdropFilter: 'blur(5px)',
+    WebkitBackdropFilter: 'blur(5px)',
     transition: 'all 0.3s ease',
   },
-  ampersand: {
-    fontSize: '4rem',
-    fontFamily: '"Playfair Display", serif',
-    color: '#BCAAA4',
-    fontStyle: 'italic',
-    padding: '20px',
+  buttonIcon: {
+    width: '16px',
+    height: '16px',
+    opacity: 0.9,
+    color: 'rgba(255, 255, 255, 0.9)',
+  },
+  buttonText: {
+    marginTop: '1px',
+    textTransform: 'uppercase',
+    textShadow: '0 0 8px rgba(255, 255, 255, 0.2)',
+  },
+  arrow: {
+    fontSize: '1.1rem',
+    color: 'rgba(255, 250, 250, 0.9)',
   }
 };
 
-export default BrideGroom;
+export default WelcomeOverlay;

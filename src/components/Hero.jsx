@@ -15,13 +15,31 @@ const Hero = ({ onOpen }) => {
         <div style={styles.divider}></div>
         <p style={styles.date}>Saturday, 3 October 2026</p>
 
+        {/* Tombol yang sudah diselaraskan dengan gaya premium InstagramFilter */}
         <motion.button
-          whileHover={{ scale: 1.05 }}
+          whileHover={{
+            scale: 1.05,
+            boxShadow: '0 10px 25px rgba(255, 255, 255, 0.1)',
+            borderColor: 'rgba(255, 255, 255, 0.7)'
+          }}
           whileTap={{ scale: 0.95 }}
           onClick={onOpen}
           style={styles.button}
         >
-          Lihat Detail Acara
+          {/* Ikon Surat Terbuka / Detail Acara SVG */}
+          <svg
+            style={styles.buttonIcon}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+            <polyline points="22,6 12,13 2,6" />
+          </svg>
+          LIHAT DETAIL ACARA
         </motion.button>
       </motion.div>
     </section>
@@ -42,7 +60,7 @@ const styles = {
     padding: 'clamp(2rem, 8vw, 4rem)',
     maxWidth: '600px',
     width: '100%',
-    backgroundColor: 'transparent', // Tanpa bingkai kotak
+    backgroundColor: 'transparent',
     border: 'none',
     backdropFilter: 'none',
   },
@@ -85,17 +103,33 @@ const styles = {
     color: '#fff',
     textShadow: '0 2px 10px rgba(0,0,0,0.3)',
   },
+  /* Samakan format & struktur styling dengan InstagramFilter */
   button: {
-    padding: '14px 40px',
-    fontSize: '1rem',
-    backgroundColor: '#8D6E63',
-    color: '#fff',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '10px',
+    maxWidth: '280px',
+    width: '100%',
+    padding: '14px 0',
+    background: 'linear-gradient(135deg, rgba(35, 30, 25, 0.7) 0%, rgba(15, 12, 10, 0.85) 100%)',
+    color: '#FFFFFF',
     borderRadius: '30px',
-    boxShadow: '0 10px 20px rgba(0,0,0,0.2)',
-    fontWeight: '500',
-    letterSpacing: '1px',
-    border: 'none',
+    fontWeight: '600',
+    fontSize: '0.8rem',
+    textDecoration: 'none',
+    border: '1px solid rgba(255, 255, 255, 0.45)', // Menggunakan aksen border putih elegan agar serasi dengan teks Hero
+    letterSpacing: '2px',
+    transition: 'all 0.3s ease',
+    boxSizing: 'border-box',
+    backdropFilter: 'blur(5px)',
+    WebkitBackdropFilter: 'blur(5px)',
     cursor: 'pointer',
+  },
+  buttonIcon: {
+    width: '16px',
+    height: '16px',
+    color: '#ffffff', // Warna ikon mengikuti warna teks tombol utama
   }
 };
 

@@ -94,14 +94,33 @@ const GuestBook = () => {
                 onChange={(e) => setFormData({ ...formData, text: e.target.value })}
                 style={{ ...styles.input, height: '120px', resize: 'none' }}
               ></textarea>
+
+              {/* Mengubah button biasa menjadi motion.button premium */}
               <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={loading ? {} : {
+                  scale: 1.03,
+                  boxShadow: '0 10px 25px rgba(255, 255, 255, 0.1)',
+                  borderColor: 'rgba(255, 255, 255, 0.7)'
+                }}
+                whileTap={loading ? {} : { scale: 0.97 }}
                 type="submit"
-                style={{ ...styles.submitBtn, opacity: loading ? 0.7 : 1 }}
+                style={{ ...styles.submitBtn, opacity: loading ? 0.6 : 1 }}
                 disabled={loading}
               >
-                {loading ? 'Mengirim...' : 'Kirim Ucapan'}
+                {/* Ikon Paper Plane SVG */}
+                <svg
+                  style={styles.buttonIcon}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+                {loading ? 'MENGIRIM...' : 'KIRIM UCAPAN'}
               </motion.button>
             </form>
 
@@ -116,8 +135,8 @@ const GuestBook = () => {
                       style={styles.msgCard}
                     >
                       <h4 style={styles.msgName}>{msg.name}</h4>
-                      <p style={styles.msgText}>{msg.text}</p>
                       <span style={styles.msgDate}>{msg.date}</span>
+                      <p style={styles.msgText}>{msg.text}</p>
                     </motion.div>
                   ))}
                 </AnimatePresence>
@@ -174,30 +193,48 @@ const styles = {
     flexDirection: 'column',
     gap: '20px',
     width: '100%',
+    alignItems: 'center', // Membantu memusatkan tombol
   },
   input: {
     width: '100%',
     padding: '15px 20px',
-    borderRadius: '12px',
-    border: '1px solid #D7CCC8',
-    backgroundColor: 'rgba(255,255,255,0.8)',
+    borderRadius: '15px',
+    border: '1px solid rgba(255, 255, 255, 0.2)',
+    backgroundColor: 'rgba(255, 255, 255, 0.9)', // Sedikit lebih solid dari sebelumnya untuk visibilitas ketikan teks gelap
     fontSize: '1rem',
     outline: 'none',
-    color: '#3E2723',
+    color: '#231E19',
     fontFamily: 'inherit',
-    transition: 'border-color 0.3s',
+    transition: 'all 0.3s ease',
+    boxSizing: 'border-box',
   },
+  /* Perubahan gaya tombol menjadi Premium Dark Glassmorphic */
   submitBtn: {
-    marginTop: '10px',
-    padding: '16px',
-    backgroundColor: '#8D6E63',
-    color: '#fff',
-    borderRadius: '12px',
-    fontSize: '1.1rem',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '10px',
+    width: '100%',
+    maxWidth: '280px',
+    padding: '14px 0',
+    background: 'linear-gradient(135deg, rgba(35, 30, 25, 0.7) 0%, rgba(15, 12, 10, 0.85) 100%)',
+    color: '#FFFFFF',
+    borderRadius: '30px',
+    fontSize: '0.8rem',
     fontWeight: '600',
-    border: 'none',
+    border: '1px solid rgba(255, 255, 255, 0.45)',
+    letterSpacing: '2px',
     cursor: 'pointer',
-    boxShadow: '0 8px 25px rgba(141, 110, 99, 0.25)',
+    transition: 'all 0.3s ease',
+    boxSizing: 'border-box',
+    backdropFilter: 'blur(5px)',
+    WebkitBackdropFilter: 'blur(5px)',
+    marginTop: '10px',
+  },
+  buttonIcon: {
+    width: '14px',
+    height: '14px',
+    color: '#ffffff',
   },
   listWrapper: {
     width: '100%',
@@ -222,13 +259,13 @@ const styles = {
     fontSize: '1.1rem',
     fontWeight: '700',
     color: '#FFFFFF',
-    marginBottom: '5px',
+    marginBottom: '2px',
     display: 'block',
   },
   msgDate: {
     fontSize: '0.75rem',
-    color: 'rgba(255, 255, 255, 0.6)',
-    marginBottom: '10px',
+    color: 'rgba(255, 255, 255, 0.5)',
+    marginBottom: '12px',
     display: 'block',
   },
   msgText: {
