@@ -38,7 +38,7 @@ const Closing = () => {
             Asob & Yola
           </motion.h2>
 
-          <p style={styles.hashtag}>#SahJadiAsobYola</p>
+          <p style={styles.hashtag}>#AsobLockedInYola</p>
         </motion.div>
       </div>
     </section>

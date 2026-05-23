@@ -29,7 +29,7 @@ const Gallery = () => {
 
   return (
     <section className="section-padding" style={styles.section}>
-      <div className="container">
+      <div className="container" style={styles.container}>
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -50,21 +50,57 @@ const Gallery = () => {
             <p style={styles.subtitle}>Mengabadikan setiap detik kebersamaan dalam harmoni visual.</p>
           </div>
 
+          {/* Menggunakan Masonry Layout murni (Foto utuh tidak akan terpotong) */}
           <div style={styles.masonryGrid}>
             {images.map((src, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: (index % 10) * 0.1 }}
-                whileHover={{ scale: 1.02 }}
+                viewport={{ once: true, margin: "-50px" }}
+                // Kecepatan delay dinamis agar animasi muncul bergantian secara estetik
+                transition={{ delay: (index % 4) * 0.15, duration: 0.8 }}
+                whileHover="hover"
                 onClick={() => setSelectedImg(src)}
-                style={styles.imgWrapper}
+                style={styles.frameWrapper}
               >
-                <img src={src} alt={`Moment ${index + 1}`} style={styles.img} />
-                <div style={styles.overlay}>
-                  <span style={styles.zoomIcon}>VIEW</span>
+                {/* Frame Foto Utama */}
+                <div style={styles.polaroidFrame}>
+                  <div style={styles.imgContainer}>
+                    <motion.img
+                      variants={{
+                        hover: { scale: 1.05 }
+                      }}
+                      transition={{ duration: 0.5, ease: "easeOut" }}
+                      src={src}
+                      alt={`Moment ${index + 1}`}
+                      style={styles.img}
+                    />
+
+                    {/* Overlay halus saat kursor masuk */}
+                    <motion.div
+                      variants={{
+                        hover: { opacity: 1 }
+                      }}
+                      transition={{ duration: 0.3 }}
+                      style={styles.overlay}
+                    >
+                      <motion.span
+                        variants={{
+                          hover: { y: 0, opacity: 1 }
+                        }}
+                        initial={{ y: 10, opacity: 0 }}
+                        style={styles.viewText}
+                      >
+                        LIHAT FOTO
+                      </motion.span>
+                    </motion.div>
+                  </div>
+
+                  {/* Kaki Bingkai (Gaya Jurnal/Polaroid Klasik) */}
+                  <div style={styles.frameFooter}>
+                    {/* <span style={styles.frameDate}>MOMENT {String(index + 1).padStart(2, '0')}</span> */}
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -72,6 +108,7 @@ const Gallery = () => {
         </motion.div>
       </div>
 
+      {/* Lightbox Pop-up */}
       <AnimatePresence>
         {selectedImg && (
           <motion.div
@@ -82,13 +119,20 @@ const Gallery = () => {
             style={styles.lightbox}
           >
             <motion.img
-              initial={{ scale: 0.8 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.8 }}
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              transition={{ type: "spring", damping: 25 }}
               src={selectedImg}
               style={styles.fullImg}
             />
-            <button style={styles.closeBtn}>×</button>
+            <motion.button
+              whileHover={{ scale: 1.1, rotate: 90 }}
+              whileTap={{ scale: 0.9 }}
+              style={styles.closeBtn}
+            >
+              ×
+            </motion.button>
           </motion.div>
         )}
       </AnimatePresence>
@@ -98,64 +142,82 @@ const Gallery = () => {
 
 const styles = {
   section: {
-    padding: '60px 0',
+    padding: '80px 0',
     backgroundColor: 'transparent',
     position: 'relative',
   },
+  container: {
+    padding: '0 15px',
+  },
   card: {
-    padding: '80px 15px',
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
-    backdropFilter: 'blur(10px)',
+    padding: 'clamp(40px, 6vw, 80px) clamp(15px, 4vw, 40px)',
+    backgroundColor: 'rgba(255, 255, 255, 0.02)',
+    backdropFilter: 'blur(15px)',
     borderRadius: '40px',
     maxWidth: '1200px',
     margin: '0 auto',
     position: 'relative',
-    border: '1px solid rgba(255,255,255,0.1)',
+    border: '1px solid rgba(255,255,255,0.08)',
   },
   header: {
     textAlign: 'center',
-    marginBottom: '50px',
+    marginBottom: '60px',
   },
   title: {
-    fontSize: '4.5rem',
+    fontSize: 'clamp(3rem, 7vw, 4.5rem)',
     color: '#FFFFFF',
     marginBottom: '10px',
   },
   line: {
-    width: '50px',
-    height: '2px',
-    backgroundColor: 'rgb(141, 110, 99)',
-    margin: '0 auto 15px',
+    width: '60px',
+    height: '1px',
+    backgroundColor: 'rgba(141, 110, 99, 0.6)',
+    margin: '0 auto 20px',
   },
   subtitle: {
-    color: 'rgba(255,255,255,0.7)',
+    color: 'rgba(255,255,255,0.6)',
     fontSize: '0.9rem',
-    letterSpacing: '1px',
+    letterSpacing: '2px',
     maxWidth: '450px',
     margin: '0 auto',
+    lineHeight: '1.6',
   },
+
+  /* --- MASONRY LAYOUT (FOTO UTUH TIDAK TERPOTONG) --- */
   masonryGrid: {
     columnCount: 2,
-    columnGap: '15px',
+    columnGap: '25px', // Jarak antar bingkai diperlebar sedikit agar bernapas
     width: '100%',
   },
-  imgWrapper: {
+  frameWrapper: {
     display: 'inline-block',
     width: '100%',
-    marginBottom: '15px',
-    borderRadius: '15px',
-    overflow: 'hidden',
-    cursor: 'pointer',
-    position: 'relative',
-    border: '1px solid rgba(255,255,255,0.1)',
-    boxShadow: '0 8px 25px rgba(0,0,0,0.15)',
+    marginBottom: '25px',
     breakInside: 'avoid',
+    cursor: 'pointer',
+  },
+
+  /* --- DESAIN BINGKAI POLAROID PREMIUM --- */
+  polaroidFrame: {
+    padding: '12px 12px 20px 12px', // Bagian bawah lebih lebar khas polaroid
+    backgroundColor: 'rgba(255, 255, 255, 0.06)', // Efek kaca putih tipis
+    backdropFilter: 'blur(5px)',
+    borderRadius: '16px',
+    border: '1px solid rgba(255, 255, 255, 0.15)',
+    boxShadow: '0 15px 35px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255,255,255,0.2)',
+    transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s',
+  },
+  imgContainer: {
+    width: '100%',
+    borderRadius: '10px',
+    overflow: 'hidden',
+    position: 'relative',
+    backgroundColor: 'rgba(0,0,0,0.1)',
   },
   img: {
     width: '100%',
-    height: 'auto',
+    height: 'auto', // Mengikuti rasio asli gambar 100%
     display: 'block',
-    transition: 'transform 0.5s ease',
   },
   overlay: {
     position: 'absolute',
@@ -163,30 +225,40 @@ const styles = {
     left: 0,
     width: '100%',
     height: '100%',
-    backgroundColor: 'rgba(141, 110, 99, 0.2)',
+    background: 'linear-gradient(to top, rgba(62, 39, 35, 0.4), rgba(141, 110, 99, 0.1))',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     opacity: 0,
-    transition: 'opacity 0.3s ease',
   },
-  zoomIcon: {
-    color: '#fff',
+  viewText: {
+    color: '#FFFFFF',
+    fontSize: '0.75rem',
+    fontWeight: '600',
+    letterSpacing: '3px',
+    borderBottom: '1px solid rgba(255,255,255,0.6)',
+    paddingBottom: '4px',
+  },
+  frameFooter: {
+    marginTop: '15px',
+    textAlign: 'center',
+  },
+  frameDate: {
     fontSize: '0.7rem',
-    fontWeight: '700',
-    letterSpacing: '2px',
-    border: '1px solid rgba(255,255,255,0.5)',
-    padding: '6px 15px',
-    borderRadius: '20px',
-    backdropFilter: 'blur(3px)',
+    color: 'rgba(255, 255, 255, 0.5)',
+    letterSpacing: '4px',
+    fontFamily: '"Inter", sans-serif',
+    fontWeight: '400',
   },
+  /* -------------------------------------- */
+
   lightbox: {
     position: 'fixed',
     top: 0,
     left: 0,
     width: '100%',
     height: '100%',
-    backgroundColor: 'rgba(0,0,0,0.95)',
+    backgroundColor: 'rgba(15, 11, 9, 0.98)',
     zIndex: 9999,
     display: 'flex',
     justifyContent: 'center',
@@ -195,18 +267,20 @@ const styles = {
   },
   fullImg: {
     maxWidth: '95%',
-    maxHeight: '90vh',
-    borderRadius: '8px',
+    maxHeight: '85vh',
+    borderRadius: '16px',
+    boxShadow: '0 25px 60px rgba(0,0,0,0.5)',
   },
   closeBtn: {
     position: 'absolute',
     top: '30px',
     right: '30px',
-    fontSize: '2.5rem',
-    color: '#fff',
+    fontSize: '3rem',
+    color: 'rgba(255,255,255,0.7)',
     background: 'none',
     border: 'none',
     cursor: 'pointer',
+    lineHeight: 1,
   }
 };
 

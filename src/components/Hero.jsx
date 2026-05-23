@@ -11,7 +11,7 @@ const Hero = ({ onOpen }) => {
       >
         <span style={styles.subTitle}>THE WEDDING OF</span>
         <h1 style={styles.title}>Asob & Yola</h1>
-        <p style={styles.hashtag}>#SahJadiAsobYola</p>
+        <p style={styles.hashtag}>#AsobLockedInYola</p>
         <div style={styles.divider}></div>
         <p style={styles.date}>Saturday, 3 October 2026</p>
 

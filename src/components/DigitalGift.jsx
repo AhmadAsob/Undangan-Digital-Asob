@@ -1,13 +1,25 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import FlowerOrnament from './FlowerOrnament';
 
 const DigitalGift = () => {
   const [copied, setCopied] = useState(null);
 
+  // Menambahkan properti logoUrl ke masing-masing objek bank
   const bankAccounts = [
-    { name: 'Ahmad Shobari', bank: 'BCA', number: '7145112214' },
-    { name: 'Yolanda Azzahra', bank: 'Mandiri', number: '1110021433384' }
+    {
+      name: 'Ahmad Shobari',
+      bank: 'BCA',
+      number: '7145112214',
+      // Menggunakan logo putih/transparan agar serasi dengan desain tema Anda
+      logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg'
+    },
+    {
+      name: 'Yolanda Azzahra',
+      bank: 'Mandiri',
+      number: '1110021433384',
+      logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/ad/Bank_Mandiri_logo_2016.svg'
+    }
   ];
 
   const copyToClipboard = (text, id) => {
@@ -27,7 +39,7 @@ const DigitalGift = () => {
         >
           <FlowerOrnament />
           <div style={styles.header}>
-            <h2 className="font-script" style={styles.title}>Kirim Kado</h2>
+            <h2 className="font-script" style={styles.title}>Wedding Gift</h2>
             <p style={styles.subtitle}>Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Namun jika Anda ingin memberikan tanda kasih, Anda dapat memberikannya melalui:</p>
           </div>
 
@@ -41,7 +53,15 @@ const DigitalGift = () => {
                 transition={{ delay: index * 0.2 }}
                 style={styles.giftCard}
               >
-                <div style={styles.bankName}>{acc.bank}</div>
+                {/* MENGGANTI TEKS MENJADI LOGO IMAGE */}
+                <div style={styles.logoContainer}>
+                  <img
+                    src={acc.logoUrl}
+                    alt={`Logo ${acc.bank}`}
+                    style={styles.bankLogo}
+                  />
+                </div>
+
                 <div style={styles.accountNumber}>{acc.number}</div>
                 <div style={styles.accountHolder}>{acc.name}</div>
 
@@ -127,12 +147,22 @@ const styles = {
     gap: '15px',
     minWidth: '280px',
   },
-  bankName: {
-    fontSize: '1.4rem',
-    fontWeight: '700',
-    color: '#FFFFFF',
-    letterSpacing: '1px',
+  /* --- STYLING BARU UNTUK KONTEN LOGO BANK --- */
+  logoContainer: {
+    height: '45px', // Menjaga ketinggian area logo agar seimbang
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: '5px',
   },
+  bankLogo: {
+    maxHeight: '100%',
+    maxWidth: '140px',
+    objectFit: 'contain',
+    // Menggunakan filter brightness agar logo berwarna gelap bawaan terlihat jelas dan elegan di background transparan-gelap
+    filter: 'brightness(0) invert(1)',
+  },
+  /* ------------------------------------------ */
   accountNumber: {
     fontSize: '1.6rem',
     fontWeight: '700',
