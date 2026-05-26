@@ -158,7 +158,7 @@ const styles = {
     marginBottom: '3rem',
   },
   arabicSalam: {
-    fontSize: '2.2rem',
+    fontSize: 'clamp(1.5rem, 4vw, 2.2rem)',
     fontFamily: 'serif',
     color: '#FFFFFF',
     marginBottom: '1.5rem',

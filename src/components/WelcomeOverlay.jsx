@@ -113,7 +113,7 @@ const styles = {
     width: '100%',
     height: '100%',
     // Menggunakan URL penuh dari Supabase Storage Anda
-    backgroundImage: 'url("https://vqkeykmxnbkbsmtjmnsv.supabase.co/storage/v1/object/public/prewed/Z52_5105.JPG")',
+    backgroundImage: 'url("https://vqkeykmxnbkbsmtjmnsv.supabase.co/storage/v1/object/public/prewed/850_1569.jpg")',
     backgroundSize: 'cover',
     backgroundPosition: 'center 35%',
     zIndex: 1,
