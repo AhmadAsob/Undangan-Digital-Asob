@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import FlowerOrnament from './FlowerOrnament';
 
 const Gallery = () => {
   const [selectedImg, setSelectedImg] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
+  const thumbnailRefs = useRef([]);
 
   // Base URL dari folder lokal assets Anda
   const BASE_URL = "/assets/images/gallery/";
@@ -34,6 +37,90 @@ const Gallery = () => {
   // Menggabungkan base URL dengan nama file
   const images = filenames.map(name => `${BASE_URL}${name}`);
 
+  const handleNext = () => {
+    setDirection(1);
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const handlePrev = () => {
+    setDirection(-1);
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  const handleDragEnd = (event, info) => {
+    const swipeThreshold = 50;
+    if (info.offset.x < -swipeThreshold) {
+      handleNext();
+    } else if (info.offset.x > swipeThreshold) {
+      handlePrev();
+    }
+  };
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (selectedImg) return; // Disable slider keys when lightbox is active
+      if (e.key === 'ArrowRight') {
+        handleNext();
+      } else if (e.key === 'ArrowLeft') {
+        handlePrev();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [currentIndex, selectedImg]);
+
+  // Scroll active thumbnail into view
+  useEffect(() => {
+    if (thumbnailRefs.current[currentIndex]) {
+      thumbnailRefs.current[currentIndex].scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'center'
+      });
+    }
+  }, [currentIndex]);
+
+  const slideVariants = {
+    enter: (dir) => ({
+      x: dir > 0 ? '100%' : '-100%',
+      opacity: 0,
+      scale: 0.95,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      scale: 1,
+      zIndex: 2,
+      transition: {
+        x: { type: "spring", stiffness: 300, damping: 30 },
+        opacity: { duration: 0.3 },
+        scale: { duration: 0.4 },
+      },
+    },
+    exit: (dir) => ({
+      x: dir < 0 ? '100%' : '-100%',
+      opacity: 0,
+      scale: 0.95,
+      zIndex: 1,
+      transition: {
+        x: { type: "spring", stiffness: 300, damping: 30 },
+        opacity: { duration: 0.3 },
+        scale: { duration: 0.4 },
+      },
+    }),
+  };
+
+  // Decorative corners for the frame
+  const CornerDecor = () => (
+    <>
+      <div style={{...styles.cornerLine, top: 12, left: 12, borderTop: '2px solid #E6C387', borderLeft: '2px solid #E6C387'}} />
+      <div style={{...styles.cornerLine, top: 12, right: 12, borderTop: '2px solid #E6C387', borderRight: '2px solid #E6C387'}} />
+      <div style={{...styles.cornerLine, bottom: 12, left: 12, borderBottom: '2px solid #E6C387', borderLeft: '2px solid #E6C387'}} />
+      <div style={{...styles.cornerLine, bottom: 12, right: 12, borderBottom: '2px solid #E6C387', borderRight: '2px solid #E6C387'}} />
+    </>
+  );
+
   return (
     <section className="section-padding" style={styles.section}>
       <div className="container" style={styles.container}>
@@ -57,60 +144,105 @@ const Gallery = () => {
             <p style={styles.subtitle}>Mengabadikan setiap detik kebersamaan dalam harmoni visual.</p>
           </div>
 
-          {/* Menggunakan Masonry Layout murni (Foto utuh tidak akan terpotong) */}
-          <div style={styles.masonryGrid}>
-            {images.map((src, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ delay: (index % 4) * 0.15, duration: 0.8 }}
-                whileHover="hover"
-                onClick={() => setSelectedImg(src)}
-                style={styles.frameWrapper}
-              >
-                {/* Frame Foto Utama */}
-                <div style={styles.polaroidFrame}>
-                  <div style={styles.imgContainer}>
+          {/* Interactive Slider Container */}
+          <div style={styles.sliderContainer}>
+            {/* The gold-bordered frame wrapper */}
+            <div style={styles.frameOuter}>
+              {/* Corner decorations */}
+              <CornerDecor />
+              
+              <div style={styles.sliderWrapper}>
+                {/* Blurred background image */}
+                <AnimatePresence initial={false} custom={direction}>
+                  <motion.img
+                    key={`bg-${currentIndex}`}
+                    src={images[currentIndex]}
+                    style={styles.blurredBg}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 0.3 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                  />
+                </AnimatePresence>
+
+                {/* Main Image */}
+                <div style={styles.mainImgWrapper}>
+                  <AnimatePresence initial={false} custom={direction} mode="popLayout">
                     <motion.img
-                      variants={{
-                        hover: { scale: 1.05 }
-                      }}
-                      transition={{ duration: 0.5, ease: "easeOut" }}
-                      src={src}
-                      alt={`Moment ${index + 1}`}
-                      style={styles.img}
-                      loading="lazy" // Tambahan: Optimasi loading gambar cloud
+                      key={currentIndex}
+                      custom={direction}
+                      variants={slideVariants}
+                      initial="enter"
+                      animate="center"
+                      exit="exit"
+                      drag="x"
+                      dragConstraints={{ left: 0, right: 0 }}
+                      dragElastic={0.6}
+                      onDragEnd={handleDragEnd}
+                      onClick={() => setSelectedImg(images[currentIndex])}
+                      src={images[currentIndex]}
+                      alt={`Moment ${currentIndex + 1}`}
+                      style={styles.mainImg}
                     />
-
-                    {/* Overlay halus saat kursor masuk */}
-                    <motion.div
-                      variants={{
-                        hover: { opacity: 1 }
-                      }}
-                      transition={{ duration: 0.3 }}
-                      style={styles.overlay}
-                    >
-                      <motion.span
-                        variants={{
-                          hover: { y: 0, opacity: 1 }
-                        }}
-                        initial={{ y: 10, opacity: 0 }}
-                        style={styles.viewText}
-                      >
-                        LIHAT FOTO
-                      </motion.span>
-                    </motion.div>
-                  </div>
-
-                  {/* Kaki Bingkai */}
-                  <div style={styles.frameFooter}>
-                    {/* <span style={styles.frameDate}>MOMENT {String(index + 1).padStart(2, '0')}</span> */}
-                  </div>
+                  </AnimatePresence>
                 </div>
-              </motion.div>
-            ))}
+
+                {/* Slide Counter */}
+                <div style={styles.counterBadge}>
+                  <span style={styles.counterCurrent}>{String(currentIndex + 1).padStart(2, '0')}</span>
+                  <span style={styles.counterDivider}>/</span>
+                  <span style={styles.counterTotal}>{String(images.length).padStart(2, '0')}</span>
+                </div>
+
+                {/* Navigation Buttons */}
+                <motion.button
+                  whileHover={{ scale: 1.1, backgroundColor: 'rgba(18, 14, 11, 0.9)' }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={handlePrev}
+                  style={{...styles.navButton, left: '15px'}}
+                  aria-label="Previous slide"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E6C387" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
+                </motion.button>
+
+                <motion.button
+                  whileHover={{ scale: 1.1, backgroundColor: 'rgba(18, 14, 11, 0.9)' }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={handleNext}
+                  style={{...styles.navButton, right: '15px'}}
+                  aria-label="Next slide"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E6C387" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </motion.button>
+              </div>
+            </div>
+
+            {/* Thumbnail Scrollbar */}
+            <div style={styles.thumbnailContainer} className="no-scrollbar">
+              {images.map((img, idx) => (
+                <div
+                  key={idx}
+                  ref={el => thumbnailRefs.current[idx] = el}
+                  onClick={() => {
+                    setDirection(idx > currentIndex ? 1 : -1);
+                    setCurrentIndex(idx);
+                  }}
+                  style={{
+                    ...styles.thumbnailWrapper,
+                    border: idx === currentIndex ? '2px solid #E6C387' : '1px solid rgba(255, 255, 255, 0.15)',
+                    boxShadow: idx === currentIndex ? '0 0 10px rgba(230, 195, 137, 0.4)' : 'none',
+                    opacity: idx === currentIndex ? 1 : 0.4,
+                    transform: idx === currentIndex ? 'scale(1.05)' : 'scale(1)',
+                  }}
+                >
+                  <img src={img} alt={`Thumbnail ${idx + 1}`} style={styles.thumbnailImg} />
+                </div>
+              ))}
+            </div>
           </div>
         </motion.div>
       </div>
@@ -147,7 +279,6 @@ const Gallery = () => {
   );
 };
 
-// Objek styles tetap sama seperti sebelumnya...
 const styles = {
   section: {
     padding: '80px 0',
@@ -169,7 +300,7 @@ const styles = {
   },
   header: {
     textAlign: 'center',
-    marginBottom: '60px',
+    marginBottom: '40px',
   },
   title: {
     fontSize: 'clamp(3.5rem, 7vw, 4.5rem)',
@@ -190,69 +321,137 @@ const styles = {
     margin: '0 auto',
     lineHeight: '1.6',
   },
-  masonryGrid: {
-    columnCount: 2,
-    columnGap: '25px',
+  sliderContainer: {
+    maxWidth: '800px',
+    margin: '0 auto',
     width: '100%',
   },
-  frameWrapper: {
-    display: 'inline-block',
-    width: '100%',
-    marginBottom: '25px',
-    breakInside: 'avoid',
-    cursor: 'pointer',
-  },
-  polaroidFrame: {
-    padding: '12px 12px 20px 12px',
-    backgroundColor: 'rgba(255, 255, 255, 0.06)',
-    backdropFilter: 'blur(5px)',
-    borderRadius: '16px',
-    border: '1px solid rgba(255, 255, 255, 0.15)',
-    boxShadow: '0 15px 35px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255,255,255,0.2)',
-    transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s',
-  },
-  imgContainer: {
-    width: '100%',
-    borderRadius: '10px',
-    overflow: 'hidden',
+  frameOuter: {
     position: 'relative',
-    backgroundColor: 'rgba(0,0,0,0.1)',
+    padding: '12px',
+    borderRadius: '24px',
+    border: '1px solid rgba(230, 195, 135, 0.25)',
+    backgroundColor: 'rgba(18, 14, 11, 0.3)',
+    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
   },
-  img: {
+  cornerLine: {
+    position: 'absolute',
+    width: '16px',
+    height: '16px',
+    pointerEvents: 'none',
+    zIndex: 3,
+  },
+  sliderWrapper: {
+    position: 'relative',
     width: '100%',
-    height: 'auto',
-    display: 'block',
+    height: 'clamp(320px, 55vh, 480px)',
+    borderRadius: '16px',
+    overflow: 'hidden',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#0a0807',
+    border: '1px solid rgba(230, 195, 135, 0.1)',
   },
-  overlay: {
+  blurredBg: {
     position: 'absolute',
     top: 0,
     left: 0,
     width: '100%',
     height: '100%',
-    background: 'linear-gradient(to top, rgba(62, 39, 35, 0.4), rgba(141, 110, 99, 0.1))',
+    objectFit: 'cover',
+    filter: 'blur(20px) brightness(0.2)',
+    transform: 'scale(1.15)',
+    zIndex: 0,
+    pointerEvents: 'none',
+  },
+  mainImgWrapper: {
+    width: '100%',
+    height: '100%',
+    position: 'relative',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    opacity: 0,
+    zIndex: 2,
   },
-  viewText: {
-    color: '#FFFFFF',
-    fontSize: '0.75rem',
-    fontWeight: '600',
-    letterSpacing: '3px',
-    borderBottom: '1px solid rgba(255,255,255,0.6)',
-    paddingBottom: '4px',
+  mainImg: {
+    position: 'absolute',
+    maxWidth: '90%',
+    maxHeight: '90%',
+    objectFit: 'contain',
+    cursor: 'zoom-in',
+    userSelect: 'none',
+    WebkitUserDrag: 'none',
   },
-  frameFooter: {
-    marginTop: '15px',
-    textAlign: 'center',
+  counterBadge: {
+    position: 'absolute',
+    bottom: '20px',
+    right: '20px',
+    backgroundColor: 'rgba(18, 14, 11, 0.75)',
+    backdropFilter: 'blur(10px)',
+    border: '1px solid rgba(230, 195, 137, 0.3)',
+    borderRadius: '30px',
+    padding: '6px 14px',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '6px',
+    zIndex: 10,
+    fontFamily: '"Playfair Display", serif',
   },
-  frameDate: {
-    fontSize: '0.7rem',
-    color: 'rgba(255, 255, 255, 0.5)',
-    letterSpacing: '4px',
-    fontFamily: '"Inter", sans-serif',
-    fontWeight: '400',
+  counterCurrent: {
+    color: '#E6C387',
+    fontWeight: 'bold',
+    fontSize: '0.9rem',
+    letterSpacing: '1px',
+  },
+  counterDivider: {
+    color: 'rgba(230, 195, 137, 0.4)',
+    fontSize: '0.8rem',
+  },
+  counterTotal: {
+    color: 'rgba(255, 255, 255, 0.6)',
+    fontSize: '0.8rem',
+  },
+  navButton: {
+    position: 'absolute',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    width: '45px',
+    height: '45px',
+    borderRadius: '50%',
+    backgroundColor: 'rgba(18, 14, 11, 0.65)',
+    backdropFilter: 'blur(8px)',
+    border: '1px solid rgba(230, 195, 137, 0.35)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    cursor: 'pointer',
+    zIndex: 10,
+    outline: 'none',
+  },
+  thumbnailContainer: {
+    display: 'flex',
+    gap: '12px',
+    overflowX: 'auto',
+    padding: '12px 4px',
+    marginTop: '20px',
+    scrollbarWidth: 'none',
+    msOverflowStyle: 'none',
+    scrollBehavior: 'smooth',
+  },
+  thumbnailWrapper: {
+    flexShrink: 0,
+    width: '70px',
+    height: '70px',
+    borderRadius: '10px',
+    overflow: 'hidden',
+    cursor: 'pointer',
+    transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+  },
+  thumbnailImg: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
   },
   lightbox: {
     position: 'fixed',

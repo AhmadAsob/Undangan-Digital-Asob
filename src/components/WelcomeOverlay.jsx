@@ -233,7 +233,7 @@ const styles = {
     opacity: 0.7,
     margin: '0 0 10px 0',
     fontStyle: 'italic',
-    fontFamily: '"Inter", sans-serif',
+    fontFamily: '"Playfair Display", serif',
     letterSpacing: '0.5px',
   },
   guestName: {
@@ -266,7 +266,7 @@ const styles = {
     border: '1px solid rgba(255, 255, 255, 0.4)',
     boxShadow: '0 10px 30px rgba(197, 168, 128, 0.25)',
     cursor: 'pointer',
-    fontFamily: '"Inter", sans-serif',
+    fontFamily: '"Playfair Display", serif',
     backdropFilter: 'blur(5px)',
     WebkitBackdropFilter: 'blur(5px)',
     transition: 'all 0.3s ease',
