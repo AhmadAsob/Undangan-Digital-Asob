@@ -1,46 +1,56 @@
 import React from 'react';
 
-const FlowerOrnament = ({ className }) => (
-  <div className={className} style={styles.container}>
-    <svg 
-      width="100%" 
-      height="100%" 
-      viewBox="0 0 450 600" 
-      fill="none" 
-      xmlns="http://www.w3.org/2000/svg"
-      style={styles.svg}
-      preserveAspectRatio="none"
-    >
-      {/* Garis Bingkai Utama di Pinggir Luar */}
-      <g stroke="#C5A880" strokeWidth="1.5" opacity="0.75" fill="none">
-        {/* Kiri Atas */}
-        <path d="M5 120 L5 80 C5 30 30 5 80 5 L120 5" />
-        <path d="M15 15 Q40 -5 65 20 Q90 45 65 70 Q40 95 15 70 Q-10 45 15 15" />
-        
-        {/* Kanan Atas */}
-        <path d="M330 5 L370 5 C420 5 445 30 445 80 L445 120" />
-        <path d="M435 15 Q410 -5 385 20 Q360 45 385 70 Q410 95 435 70 Q460 45 435 15" />
-        
-        {/* Kiri Bawah */}
-        <path d="M5 480 L5 520 C5 570 30 595 80 595 L120 595" />
-        <path d="M15 585 Q40 605 65 580 Q90 555 65 530 Q40 505 15 530 Q-10 555 15 585" />
-        
-        {/* Kanan Bawah */}
-        <path d="M330 595 L370 595 C420 595 445 570 445 520 L445 480" />
-        <path d="M435 585 Q410 605 385 580 Q360 555 385 530 Q410 505 435 530 Q460 555 435 585" />
-      </g>
-
-      {/* Garis Hubung Tipis di Sisi */}
-      <path d="M120 5 L330 5 M120 595 L330 595 M5 120 L5 480 M445 120 L445 480" stroke="#C5A880" strokeWidth="0.5" opacity="0.4" />
-
-      {/* Titik Dekoratif Utama */}
-      <circle cx="225" cy="5" r="4" fill="#C5A880" opacity="0.8" />
-      <circle cx="225" cy="595" r="4" fill="#C5A880" opacity="0.8" />
-      <circle cx="5" cy="300" r="3" fill="#C5A880" opacity="0.6" />
-      <circle cx="445" cy="300" r="3" fill="#C5A880" opacity="0.6" />
-    </svg>
-  </div>
+const CornerSVG = () => (
+  <svg width="90" height="90" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    {/* Outer luxury border lines */}
+    <path d="M 8 8 L 90 8" stroke="#C5A880" strokeWidth="1.5" strokeLinecap="round" opacity="0.8" />
+    <path d="M 8 8 L 8 90" stroke="#C5A880" strokeWidth="1.5" strokeLinecap="round" opacity="0.8" />
+    
+    {/* Inner parallel accent line */}
+    <path d="M 16 16 L 70 16" stroke="#C5A880" strokeWidth="0.8" opacity="0.5" />
+    <path d="M 16 16 L 16 70" stroke="#C5A880" strokeWidth="0.8" opacity="0.5" />
+    
+    {/* Elegant Art Deco concentric arcs */}
+    <path d="M 8 20 C 25 20 38 33 38 50" stroke="#C5A880" strokeWidth="0.8" opacity="0.6" />
+    <path d="M 20 8 C 20 25 33 38 50 38" stroke="#C5A880" strokeWidth="0.8" opacity="0.6" />
+    
+    {/* Stylized geometric leaf/flower pointing to the center */}
+    <path d="M 8 8 Q 32 18 36 36 Q 18 32 8 8 Z" fill="none" stroke="#C5A880" strokeWidth="1" opacity="0.85" />
+    <path d="M 8 8 L 26 26" stroke="#C5A880" strokeWidth="1.5" strokeLinecap="round" opacity="0.85" />
+    
+    {/* Small solid gold details */}
+    <circle cx="8" cy="8" r="3" fill="#C5A880" />
+    <circle cx="26" cy="26" r="2" fill="#C5A880" />
+    <circle cx="42" cy="16" r="1.5" fill="#C5A880" opacity="0.7" />
+    <circle cx="16" cy="42" r="1.5" fill="#C5A880" opacity="0.7" />
+  </svg>
 );
+
+const FlowerOrnament = () => {
+  return (
+    <div style={styles.container}>
+      {/* Top Left Corner */}
+      <div style={{ ...styles.corner, top: 0, left: 0 }}>
+        <CornerSVG />
+      </div>
+      
+      {/* Top Right Corner */}
+      <div style={{ ...styles.corner, top: 0, right: 0, transform: 'rotate(90deg)' }}>
+        <CornerSVG />
+      </div>
+      
+      {/* Bottom Right Corner */}
+      <div style={{ ...styles.corner, bottom: 0, right: 0, transform: 'rotate(180deg)' }}>
+        <CornerSVG />
+      </div>
+      
+      {/* Bottom Left Corner */}
+      <div style={{ ...styles.corner, bottom: 0, left: 0, transform: 'rotate(270deg)' }}>
+        <CornerSVG />
+      </div>
+    </div>
+  );
+};
 
 const styles = {
   container: {
@@ -49,12 +59,16 @@ const styles = {
     left: 0,
     width: '100%',
     height: '100%',
-    zIndex: 0,
     pointerEvents: 'none',
+    zIndex: 0,
   },
-  svg: {
-    width: '100%',
-    height: '100%',
+  corner: {
+    position: 'absolute',
+    width: '90px',
+    height: '90px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   }
 };
 

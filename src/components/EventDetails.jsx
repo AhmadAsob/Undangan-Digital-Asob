@@ -70,7 +70,7 @@ const EventDetails = () => {
               <div style={styles.eventLabel}>RESEPSI</div>
               <div style={styles.eventDivider}></div>
               <div style={styles.eventDetail}>
-                <div style={styles.time}>11.00 - 14.00 WIB</div>
+                <div style={styles.time}>11.00 - 16.00 WIB</div>
                 <div style={styles.place}>Gedung Pertemuan SMKN 2 Padang</div>
               </div>
             </motion.div>
