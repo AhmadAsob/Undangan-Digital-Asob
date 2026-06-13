@@ -78,8 +78,8 @@ const styles = {
     fontFamily: '"Playfair Display", serif',
     marginBottom: '0.5rem',
     lineHeight: '1.2',
-    color: '#fff',
-    textShadow: '0 2px 15px rgba(0,0,0,0.4)',
+    color: '#E6C387',
+    textShadow: '0 4px 25px rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.7)',
   },
   hashtag: {
     fontSize: '0.9rem',

@@ -95,9 +95,9 @@ const styles = {
   },
   coupleNames: {
     fontSize: 'clamp(3.5rem, 12vw, 5.5rem)',
-    color: '#C5A880',
+    color: '#E6C387',
     marginBottom: '20px',
-    textShadow: '0 4px 20px rgba(0,0,0,0.2)',
+    textShadow: '0 4px 20px rgba(0,0,0,0.4)',
   },
   hashtag: {
     fontSize: '1.3rem',

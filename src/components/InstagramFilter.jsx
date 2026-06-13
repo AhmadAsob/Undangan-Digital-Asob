@@ -96,7 +96,7 @@ const styles = {
     },
     heading: {
         fontSize: 'clamp(3.5rem, 12vw, 5.5rem)',
-        color: '#FFFFFF',
+        color: '#C5A880',
         marginBottom: '1rem',
     },
     eventsContainer: {

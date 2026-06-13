@@ -9,8 +9,13 @@ const WelcomeOverlay = ({ onEnter, guestName }) => {
       transition={{ duration: 1, ease: "easeInOut" }}
       style={styles.overlay}
     >
-      {/* 1. Foto Latar Belakang dari Supabase & Efek Gradasi Gelap Sinematik */}
-      <div style={styles.backgroundImage} />
+      {/* 1. Foto Latar Belakang dengan Efek Ken Burns Zoom & Gradasi Gelap Sinematik */}
+      <motion.div 
+        initial={{ scale: 1 }}
+        animate={{ scale: 1.08 }}
+        transition={{ duration: 20, ease: "linear", repeat: Infinity, repeatType: "reverse" }}
+        style={styles.backgroundImage} 
+      />
       <div style={styles.darkOverlay} />
 
       {/* 2. Kontainer Konten Utama (Mengalir Proporsional dari Atas ke Bawah) */}
@@ -26,17 +31,37 @@ const WelcomeOverlay = ({ onEnter, guestName }) => {
           <Logo size="large" color="#FFFFFF" />
         </motion.div>
 
-        {/* TEKS PEMBUKA & NAMA MEMPELAI */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.3 }}
-          style={styles.textSection}
-        >
-          <p style={styles.subTitle}>THE WEDDING OF</p>
-          <h1 style={styles.title}>Asob & Yola</h1>
-          <div style={styles.divider}></div>
-        </motion.div>
+        {/* TEKS PEMBUKA & NAMA MEMPELAI (Cinematic Reveal) */}
+        <div style={styles.textSection}>
+          <motion.p
+            initial={{ opacity: 0, letterSpacing: '0px', y: -10 }}
+            animate={{ opacity: 1, letterSpacing: '6px', y: 0 }}
+            transition={{ duration: 1.6, ease: "easeOut" }}
+            style={styles.subTitle}
+          >
+            THE WEDDING OF
+          </motion.p>
+          
+          <motion.h1
+            initial={{ opacity: 0, y: 35, filter: 'blur(8px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 1.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            style={styles.title}
+          >
+            Asob & Yola
+          </motion.h1>
+
+          <motion.div
+            initial={{ width: 0, opacity: 0 }}
+            animate={{ width: '140px', opacity: 1 }}
+            transition={{ duration: 1.5, delay: 0.8, ease: "easeOut" }}
+            style={styles.dividerContainer}
+          >
+            <div style={styles.dividerLine} />
+            <span style={styles.dividerDot}>✦</span>
+            <div style={styles.dividerLine} />
+          </motion.div>
+        </div>
 
         {/* KOTAK TAMU UNDANGAN (Glassmorphism Transparan) */}
         <motion.div
@@ -59,8 +84,8 @@ const WelcomeOverlay = ({ onEnter, guestName }) => {
           <motion.button
             whileHover={{
               scale: 1.03,
-              boxShadow: '0 15px 40px rgba(212, 175, 55, 0.25)',
-              borderColor: 'rgba(255, 255, 255, 0.8)'
+              boxShadow: '0 15px 40px rgba(197, 168, 128, 0.35)',
+              borderColor: 'rgba(255, 255, 255, 0.9)'
             }}
             whileTap={{ scale: 0.98 }}
             onClick={onEnter}
@@ -154,37 +179,50 @@ const styles = {
     textAlign: 'center',
   },
   subTitle: {
-    fontSize: '0.8rem',
-    letterSpacing: '5px',
-    color: '#C5A880', /* Changed from #FFFFFF to Gold */
-    opacity: 0.85,
-    marginBottom: '12px',
+    fontSize: '1.05rem',
+    letterSpacing: '7px',
+    color: '#E6C387',
+    opacity: 0.95,
+    marginBottom: '14px',
     fontWeight: '400',
-    fontFamily: '"Inter", sans-serif',
+    fontFamily: '"Playfair Display", serif',
+    textShadow: '0 2px 10px rgba(0,0,0,0.5)',
   },
   title: {
     fontSize: 'clamp(2.6rem, 8.5vw, 3.4rem)',
     fontFamily: '"Playfair Display", serif',
-    color: '#FFFFFF',
+    color: '#E6C387',
     margin: 0,
     fontWeight: '400',
-    textShadow: '0 2px 20px rgba(0,0,0,0.6)',
+    textShadow: '0 4px 25px rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.7)',
   },
-  divider: {
-    width: '35px',
+  dividerContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '12px',
+    margin: '25px auto 0 auto',
+    width: '150px',
+  },
+  dividerLine: {
     height: '1px',
-    backgroundColor: '#C5A880', /* Changed from white to Gold */
-    margin: '20px auto 0 auto',
+    flex: 1,
+    backgroundColor: 'rgba(197, 168, 128, 0.4)',
+  },
+  dividerDot: {
+    color: '#C5A880',
+    fontSize: '0.8rem',
+    lineHeight: 1,
   },
   guestCard: {
     width: '100%',
     padding: '28px 20px',
     borderRadius: '24px',
-    backgroundColor: 'rgba(255, 255, 255, 0.06)',
+    backgroundColor: 'rgba(18, 14, 11, 0.55)',
     backdropFilter: 'blur(15px)',
     WebkitBackdropFilter: 'blur(15px)',
-    border: '1px solid rgba(255, 255, 255, 0.12)',
-    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
+    border: '1px solid rgba(197, 168, 128, 0.2)',
+    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.5)',
     textAlign: 'center',
     boxSizing: 'border-box',
     transform: 'translateY(-10px)',
@@ -201,7 +239,7 @@ const styles = {
   guestName: {
     fontSize: 'clamp(1.5rem, 5.5vw, 1.9rem)',
     fontFamily: '"Playfair Display", serif',
-    color: '#FFFFFF',
+    color: '#E6C387',
     margin: 0,
     fontWeight: '600',
     letterSpacing: '0.5px',
@@ -213,20 +251,20 @@ const styles = {
     justifyContent: 'center',
   },
   button: {
-    background: 'linear-gradient(135deg, rgba(30, 25, 20, 0.85) 0%, rgba(15, 12, 10, 0.95) 100%)',
-    color: '#FFFFFF',
+    background: 'linear-gradient(135deg, #C5A880 0%, #A1887F 100%)',
+    color: '#120e0b',
     width: '100%',
     padding: '16px 30px',
     borderRadius: '40px',
     fontSize: '0.85rem',
-    fontWeight: '600',
+    fontWeight: '700',
     letterSpacing: '3px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     gap: '10px',
     border: '1px solid rgba(255, 255, 255, 0.4)',
-    boxShadow: '0 8px 25px rgba(0, 0, 0, 0.5)',
+    boxShadow: '0 10px 30px rgba(197, 168, 128, 0.25)',
     cursor: 'pointer',
     fontFamily: '"Inter", sans-serif',
     backdropFilter: 'blur(5px)',
