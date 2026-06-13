@@ -234,7 +234,7 @@ const styles = {
     color: '#FFFFFF',
     fontWeight: '300',
     letterSpacing: '4px',
-    fontFamily: '"Playfair Display", serif',
+    fontFamily: '"Signika Negative", sans-serif',
   }
 };
 
