@@ -106,7 +106,7 @@ const styles = {
   },
   sectionTitle: {
     fontSize: '4.5rem',
-    color: '#FFFFFF',
+    color: '#C5A880',
     marginBottom: '2rem',
     position: 'relative',
     zIndex: 2,

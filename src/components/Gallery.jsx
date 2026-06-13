@@ -5,34 +5,34 @@ import FlowerOrnament from './FlowerOrnament';
 const Gallery = () => {
   const [selectedImg, setSelectedImg] = useState(null);
 
-  // Base URL dari bucket Supabase Anda
-  const SUPABASE_BASE_URL = "https://vqkeykmxnbkbsmtjmnsv.supabase.co/storage/v1/object/public/prewed/";
+  // Base URL dari folder lokal assets Anda
+  const BASE_URL = "/assets/images/gallery/";
 
-  // Daftar nama file gambar yang ada di Supabase
+  // Daftar nama file gambar yang ada di folder lokal (case-sensitive)
   const filenames = [
-    "850_1569.jpg",
-    "850_1607.jpg",
+    "850_1569.JPG",
+    "850_1607.JPG",
     "850_1644.JPG",
-    "Z52_4966.jpg",
-    "Z52_4986.jpg",
-    "Z52_5015.jpg",
-    "Z52_5105.jpg",
-    "Z52_5119.jpg",
-    "Z52_5185.jpg",
-    "Z52_5191.jpg",
-    "Z52_5209.jpg",
-    "Z52_5271.jpg",
-    "Z52_5278.jpg",
-    "Z52_5303.jpg",
-    "Z52_5346.jpg",
+    "Z52_4966.JPG",
+    "Z52_4986.JPG",
+    "Z52_5015.JPG",
+    "Z52_5105.JPG",
+    "Z52_5119.JPG",
+    "Z52_5186.JPG",
+    "Z52_5191.JPG",
+    "Z52_5209.JPG",
+    "Z52_5271.JPG",
+    "Z52_5278.JPG",
+    "Z52_5303.JPG",
+    "Z52_5346.JPG",
     "Z52_5377.JPG",
     "Z52_5399.JPG",
-    "Z52_5413.jpg",
-    "Z52_5425.jpg"
+    "Z52_5413.JPG",
+    "Z52_5425.JPG"
   ];
 
   // Menggabungkan base URL dengan nama file
-  const images = filenames.map(name => `${SUPABASE_BASE_URL}${name}`);
+  const images = filenames.map(name => `${BASE_URL}${name}`);
 
   return (
     <section className="section-padding" style={styles.section}>
@@ -172,8 +172,8 @@ const styles = {
     marginBottom: '60px',
   },
   title: {
-    fontSize: 'clamp(3rem, 7vw, 4.5rem)',
-    color: '#FFFFFF',
+    fontSize: 'clamp(3.5rem, 7vw, 4.5rem)',
+    color: '#C5A880',
     marginBottom: '10px',
   },
   line: {

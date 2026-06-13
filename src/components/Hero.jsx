@@ -70,7 +70,7 @@ const styles = {
     fontWeight: '300',
     display: 'block',
     marginBottom: '1rem',
-    color: '#fff',
+    color: '#C5A880', /* Changed from white to Gold */
     textShadow: '0 2px 10px rgba(0,0,0,0.3)',
   },
   title: {
@@ -83,7 +83,7 @@ const styles = {
   },
   hashtag: {
     fontSize: '0.9rem',
-    color: '#fff',
+    color: '#C5A880', /* Changed from white to Gold */
     letterSpacing: '3px',
     marginTop: '0.5rem',
     opacity: 0.9,
@@ -92,9 +92,9 @@ const styles = {
   divider: {
     width: '50px',
     height: '2px',
-    backgroundColor: '#fff',
+    backgroundColor: '#C5A880', /* Changed from white to Gold */
     margin: '1.5rem auto',
-    boxShadow: '0 0 10px rgba(255,255,255,0.5)',
+    boxShadow: '0 0 10px rgba(197, 168, 128, 0.5)',
   },
   date: {
     fontSize: 'clamp(1rem, 3vw, 1.3rem)',

@@ -149,8 +149,8 @@ function App() {
       <div
         style={{
           ...styles.videoContainer,
-          zIndex: step === 'cinematic' ? 3000 : -1,
-          backgroundColor: '#000',
+          zIndex: step === 'cinematic' ? 3000 : 0,
+          backgroundColor: '#120e0b',
           display: step === 'welcome' ? 'none' : 'block'
         }}
       >
@@ -163,10 +163,10 @@ function App() {
           }}
           style={styles.video}
         >
-          <source src="https://vqkeykmxnbkbsmtjmnsv.supabase.co/storage/v1/object/public/prewed/0516(2)%20(1).mp4" type="video/mp4" />
+          <source src="/assets/prewed-video.mp4" type="video/mp4" />
         </video>
 
-        {step === 'invitation' && !showMainContent && <div style={styles.overlay}></div>}
+        {step === 'invitation' && <div style={styles.overlay}></div>}
 
         <AnimatePresence>
           {step === 'cinematic' && (
@@ -292,7 +292,7 @@ const styles = {
     left: 0,
     width: '100%',
     height: '100%',
-    backgroundColor: 'rgba(62, 39, 35, 0.4)',
+    backgroundColor: 'rgba(18, 14, 11, 0.75)',
     zIndex: 1,
   },
   /* Penyelarasan format dengan gaya premium InstagramFilter, Hero, & BrideGroom */

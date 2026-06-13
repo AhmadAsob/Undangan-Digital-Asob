@@ -21,7 +21,7 @@ const Closing = () => {
 
           <div style={styles.dividerContainer}>
             <div style={styles.line}></div>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="#FFFFFF" xmlns="http://www.w3.org/2000/svg" style={styles.heartIcon}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="#C5A880" xmlns="http://www.w3.org/2000/svg" style={styles.heartIcon}>
               <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
             </svg>
             <div style={styles.line}></div>
@@ -87,7 +87,7 @@ const styles = {
   line: {
     height: '1px',
     width: '60px',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#C5A880',
     opacity: 0.5,
   },
   heartIcon: {
@@ -95,7 +95,7 @@ const styles = {
   },
   coupleNames: {
     fontSize: 'clamp(3.5rem, 12vw, 5.5rem)',
-    color: '#FFFFFF',
+    color: '#C5A880',
     marginBottom: '20px',
     textShadow: '0 4px 20px rgba(0,0,0,0.2)',
   },

@@ -16,7 +16,8 @@ const GuestBook = () => {
     const { data, error } = await supabase
       .from('guestbook')
       .select('*')
-      .order('created_at', { ascending: false });
+      .order('created_at', { ascending: false })
+      .limit(50);
 
     if (error) {
       console.error('Error fetching messages:', error);
@@ -173,7 +174,7 @@ const styles = {
   },
   title: {
     fontSize: '4.5rem',
-    color: '#FFFFFF',
+    color: '#C5A880',
     marginBottom: '1rem',
   },
   subtitle: {

@@ -112,8 +112,8 @@ const styles = {
     left: 0,
     width: '100%',
     height: '100%',
-    // Menggunakan URL penuh dari Supabase Storage Anda
-    backgroundImage: 'url("https://vqkeykmxnbkbsmtjmnsv.supabase.co/storage/v1/object/public/prewed/850_1569.jpg")',
+    // Menggunakan file lokal dari folder assets
+    backgroundImage: 'url("/assets/images/gallery/850_1569.JPG")',
     backgroundSize: 'cover',
     backgroundPosition: 'center 35%',
     zIndex: 1,
@@ -156,7 +156,7 @@ const styles = {
   subTitle: {
     fontSize: '0.8rem',
     letterSpacing: '5px',
-    color: '#FFFFFF',
+    color: '#C5A880', /* Changed from #FFFFFF to Gold */
     opacity: 0.85,
     marginBottom: '12px',
     fontWeight: '400',
@@ -173,7 +173,7 @@ const styles = {
   divider: {
     width: '35px',
     height: '1px',
-    backgroundColor: 'rgba(255, 255, 255, 0.35)',
+    backgroundColor: '#C5A880', /* Changed from white to Gold */
     margin: '20px auto 0 auto',
   },
   guestCard: {

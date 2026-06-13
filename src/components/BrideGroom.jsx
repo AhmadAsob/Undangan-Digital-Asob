@@ -154,7 +154,7 @@ const styles = {
   },
   sectionTitle: {
     fontSize: '4.5rem',
-    color: '#FFFFFF',
+    color: '#C5A880',
     marginBottom: '3rem',
   },
   arabicSalam: {
@@ -194,7 +194,7 @@ const styles = {
     left: '50%',
     transform: 'translateX(-50%)',
     fontSize: 'clamp(3rem, 8vw, 4.5rem)',
-    color: '#fff',
+    color: '#C5A880',
     textShadow: '2px 2px 20px rgba(0,0,0,0.5)',
     zIndex: 10,
     width: '100%',
@@ -207,7 +207,7 @@ const styles = {
     left: '-10px',
     right: '-10px',
     bottom: '-10px',
-    border: '1px solid rgba(255, 255, 255, 0.3)',
+    border: '2px solid #C5A880',
     borderRadius: '150px',
     zIndex: 1,
   },

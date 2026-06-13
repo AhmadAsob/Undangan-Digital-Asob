@@ -6,12 +6,13 @@
   --secondary: #D7CCC8;
   /* Creamy Chocolate */
   --accent: #A1887F;
-  --bg-light: #FDFBF9;
-  --text-main: #3E2723;
-  --text-muted: #6D4C41;
+  --bg-light: #120e0b; /* Changed from #FDFBF9 to Dark Chocolate Black */
+  --text-main: #ffffff; /* Changed from #3E2723 to White */
+  --text-muted: #d7ccc8; /* Changed from #6D4C41 to Creamy Beige */
+  --gold: #C5A880; /* Added gold color variable */
   --white: #ffffff;
-  --glass: rgba(255, 255, 255, 0.7);
-  --shadow: 0 8px 32px 0 rgba(141, 110, 99, 0.15);
+  --glass: rgba(255, 255, 255, 0.05); /* Made glass lighter and more subtle */
+  --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 }
 
 * {
