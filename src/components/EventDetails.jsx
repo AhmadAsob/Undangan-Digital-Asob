@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion';
 import FlowerOrnament from './FlowerOrnament';
+import { useLanguage } from '../context/LanguageContext';
 
 const EventDetails = () => {
+  const { t } = useLanguage();
   return (
     <section className="section-padding" style={styles.section}>
       <div className="container">
@@ -18,14 +20,14 @@ const EventDetails = () => {
 
           {/* Stylish Title & Restored Date Section */}
           <div style={styles.headerSection}>
-            <h2 className="font-script" style={styles.heading}>Save The Date</h2>
+            <h2 className="font-script" style={styles.heading}>{t('event.title')}</h2>
             <div style={styles.dateLarge}>
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 style={styles.dateDay}
               >
-                SABTU
+                {t('event.saturday')}
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, scale: 0.5 }}
@@ -39,7 +41,7 @@ const EventDetails = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 style={styles.dateMonth}
               >
-                Oktober 2026
+                {t('event.october')}
               </motion.div>
             </div>
           </div>
@@ -52,7 +54,7 @@ const EventDetails = () => {
               whileInView={{ opacity: 1, y: 0 }}
               style={styles.eventRow}
             >
-              <div style={styles.eventLabel}>AKAD NIKAH</div>
+              <div style={styles.eventLabel}>{t('event.akad')}</div>
               <div style={styles.eventDivider}></div>
               <div style={styles.eventDetail}>
                 <div style={styles.time}>08.00 - 10.00 WIB</div>
@@ -67,7 +69,7 @@ const EventDetails = () => {
               transition={{ delay: 0.2 }}
               style={styles.eventRow}
             >
-              <div style={styles.eventLabel}>RESEPSI</div>
+              <div style={styles.eventLabel}>{t('event.resepsi')}</div>
               <div style={styles.eventDivider}></div>
               <div style={styles.eventDetail}>
                 <div style={styles.time}>11.00 - 16.00 WIB</div>
@@ -106,7 +108,7 @@ const EventDetails = () => {
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                 <circle cx="12" cy="10" r="3" />
               </svg>
-              LIHAT LOKASI
+              {t('event.locationBtn')}
             </motion.a>
           </div>
         </motion.div>
@@ -125,12 +127,13 @@ const styles = {
     textAlign: 'center',
     maxWidth: '800px',
     margin: '0 auto',
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: 'var(--card-bg)',
     backdropFilter: 'blur(5px)',
     borderRadius: '50px',
     position: 'relative',
     overflow: 'hidden',
-    border: '1px solid rgba(255, 255, 255, 0.1)',
+    border: '1px solid var(--border-color)',
+    transition: 'all 0.5s ease',
   },
   headerSection: {
     marginBottom: '5rem',
@@ -145,16 +148,18 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     gap: '20px',
-    color: '#FFFFFF',
+    color: 'var(--text-card-main)',
+    transition: 'all 0.5s ease',
   },
   dateDay: {
     fontSize: '1rem',
     letterSpacing: '5px',
     fontWeight: '300',
     opacity: 0.8,
-    borderBottom: '1px solid rgba(255,255,255,0.3)',
+    borderBottom: '1px solid var(--border-color)',
     paddingBottom: '5px',
     width: '100px',
+    transition: 'all 0.5s ease',
   },
   dateNum: {
     fontSize: '4.5rem',
@@ -167,9 +172,10 @@ const styles = {
     letterSpacing: '5px',
     fontWeight: '300',
     opacity: 0.8,
-    borderTop: '1px solid rgba(255,255,255,0.3)',
+    borderTop: '1px solid var(--border-color)',
     paddingTop: '5px',
     width: '130px',
+    transition: 'all 0.5s ease',
   },
   eventsContainer: {
     display: 'flex',
@@ -187,15 +193,17 @@ const styles = {
   eventLabel: {
     fontSize: '0.85rem',
     fontWeight: '700',
-    color: '#FFFFFF',
+    color: 'var(--text-card-main)',
     letterSpacing: '3px',
     width: '120px',
     flexShrink: 0,
+    transition: 'all 0.5s ease',
   },
   eventDivider: {
     height: '40px',
     width: '1px',
-    backgroundColor: 'rgba(255,255,255,0.3)',
+    backgroundColor: 'var(--border-color)',
+    transition: 'all 0.5s ease',
   },
   eventDetail: {
     flex: 1,
@@ -203,25 +211,28 @@ const styles = {
   time: {
     fontSize: '1.1rem',
     fontWeight: '600',
-    color: '#FFFFFF',
+    color: 'var(--text-card-main)',
     marginBottom: '5px',
     fontFamily: '"Playfair Display", serif',
+    transition: 'all 0.5s ease',
   },
   place: {
     fontSize: '0.9rem',
-    color: '#FFFFFF',
-    opacity: 0.7,
+    color: 'var(--text-card-muted)',
+    opacity: 0.8,
     letterSpacing: '0.5px',
+    transition: 'all 0.5s ease',
   },
   footerSection: {
     marginTop: '2rem',
   },
   address: {
     fontSize: '0.9rem',
-    color: '#FFFFFF',
+    color: 'var(--text-card-main)',
     opacity: 0.8,
     marginBottom: '2rem',
     letterSpacing: '1px',
+    transition: 'all 0.5s ease',
   },
   /* Format tombol diselaraskan penuh dengan gaya tombol komponen lainnya */
   linkButton: {

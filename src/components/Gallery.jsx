@@ -1,12 +1,15 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import FlowerOrnament from './FlowerOrnament';
+import { useLanguage } from '../context/LanguageContext';
 
 const Gallery = () => {
+  const { t } = useLanguage();
   const [selectedImg, setSelectedImg] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const thumbnailRefs = useRef([]);
+  const thumbnailContainerRef = useRef(null);
 
   // Base URL dari folder lokal assets Anda
   const BASE_URL = "/assets/images/gallery/";
@@ -70,13 +73,24 @@ const Gallery = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [currentIndex, selectedImg]);
 
-  // Scroll active thumbnail into view
+  // Scroll active thumbnail into view inside its container (without scrolling the main page)
   useEffect(() => {
-    if (thumbnailRefs.current[currentIndex]) {
-      thumbnailRefs.current[currentIndex].scrollIntoView({
-        behavior: 'smooth',
-        block: 'nearest',
-        inline: 'center'
+    const container = thumbnailContainerRef.current;
+    const activeThumbnail = thumbnailRefs.current[currentIndex];
+    
+    if (currentIndex === 0 && container) {
+      container.scrollLeft = 0;
+      return;
+    }
+
+    if (container && activeThumbnail) {
+      const containerLeft = container.getBoundingClientRect().left;
+      const thumbnailLeft = activeThumbnail.getBoundingClientRect().left;
+      const scrollOffset = thumbnailLeft - containerLeft - (container.clientWidth / 2) + (activeThumbnail.clientWidth / 2);
+      
+      container.scrollBy({
+        left: scrollOffset,
+        behavior: 'smooth'
       });
     }
   }, [currentIndex]);
@@ -138,10 +152,10 @@ const Gallery = () => {
               className="font-script"
               style={styles.title}
             >
-              Our Gallery
+              {t('gallery.title')}
             </motion.h2>
             <div style={styles.line}></div>
-            <p style={styles.subtitle}>Mengabadikan setiap detik kebersamaan dalam harmoni visual.</p>
+            <p style={styles.subtitle}>{t('gallery.subtitle')}</p>
           </div>
 
           {/* Interactive Slider Container */}
@@ -222,7 +236,7 @@ const Gallery = () => {
             </div>
 
             {/* Thumbnail Scrollbar */}
-            <div style={styles.thumbnailContainer} className="no-scrollbar">
+            <div ref={thumbnailContainerRef} style={styles.thumbnailContainer} className="no-scrollbar">
               {images.map((img, idx) => (
                 <div
                   key={idx}
@@ -290,13 +304,14 @@ const styles = {
   },
   card: {
     padding: 'clamp(40px, 6vw, 80px) clamp(15px, 4vw, 40px)',
-    backgroundColor: 'rgba(255, 255, 255, 0.02)',
+    backgroundColor: 'var(--card-bg)',
     backdropFilter: 'blur(15px)',
     borderRadius: '40px',
     maxWidth: '1200px',
     margin: '0 auto',
     position: 'relative',
-    border: '1px solid rgba(255,255,255,0.08)',
+    border: '1px solid var(--border-color)',
+    transition: 'all 0.5s ease',
   },
   header: {
     textAlign: 'center',
@@ -314,12 +329,13 @@ const styles = {
     margin: '0 auto 20px',
   },
   subtitle: {
-    color: 'rgba(255,255,255,0.6)',
+    color: 'var(--text-muted)',
     fontSize: '0.9rem',
     letterSpacing: '2px',
     maxWidth: '450px',
     margin: '0 auto',
     lineHeight: '1.6',
+    transition: 'all 0.5s ease',
   },
   sliderContainer: {
     maxWidth: '800px',
@@ -330,9 +346,10 @@ const styles = {
     position: 'relative',
     padding: '12px',
     borderRadius: '24px',
-    border: '1px solid rgba(230, 195, 135, 0.25)',
-    backgroundColor: 'rgba(18, 14, 11, 0.3)',
-    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+    border: '1px solid var(--border-color)',
+    backgroundColor: 'var(--glass)',
+    boxShadow: 'var(--shadow)',
+    transition: 'all 0.5s ease',
   },
   cornerLine: {
     position: 'absolute',

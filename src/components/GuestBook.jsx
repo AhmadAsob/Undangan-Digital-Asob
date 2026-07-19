@@ -2,15 +2,25 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import FlowerOrnament from './FlowerOrnament';
 import { supabase } from '../supabaseClient';
+import { useLanguage } from '../context/LanguageContext';
 
 const GuestBook = () => {
+  const { t, language } = useLanguage();
   const [messages, setMessages] = useState([]);
   const [formData, setFormData] = useState({ name: '', text: '' });
   const [loading, setLoading] = useState(false);
 
+  const getLocaleString = () => {
+    switch (language) {
+      case 'en': return 'en-US';
+      case 'ko': return 'ko-KR';
+      default: return 'id-ID';
+    }
+  };
+
   useEffect(() => {
     fetchMessages();
-  }, []);
+  }, [language]); // Fetch ulang jika bahasa berubah untuk memperbarui format tanggal
 
   const fetchMessages = async () => {
     const { data, error } = await supabase
@@ -26,7 +36,7 @@ const GuestBook = () => {
         id: msg.id,
         name: msg.name,
         text: msg.text,
-        date: new Date(msg.created_at).toLocaleDateString('id-ID', {
+        date: new Date(msg.created_at).toLocaleDateString(getLocaleString(), {
           year: 'numeric', month: 'long', day: 'numeric'
         })
       }));
@@ -51,7 +61,7 @@ const GuestBook = () => {
           id: newMsg.id,
           name: newMsg.name,
           text: newMsg.text,
-          date: new Date(newMsg.created_at).toLocaleDateString('id-ID', {
+          date: new Date(newMsg.created_at).toLocaleDateString(getLocaleString(), {
             year: 'numeric', month: 'long', day: 'numeric'
           })
         };
@@ -76,21 +86,21 @@ const GuestBook = () => {
           <FlowerOrnament className="flower-corner flower-bottom-right" />
 
           <div style={styles.header}>
-            <h2 className="font-script" style={styles.title}>Ucapan & Doa</h2>
-            <p style={styles.subtitle}>Berikan ucapan manis dan doa restu Anda untuk mengiringi langkah baru kami.</p>
+            <h2 className="font-script" style={styles.title}>{t('guestbook.title')}</h2>
+            <p style={styles.subtitle}>{t('guestbook.subtitle')}</p>
           </div>
 
           <div style={styles.content}>
             <form onSubmit={handleSubmit} style={styles.form}>
               <input
                 type="text"
-                placeholder="Nama Anda"
+                placeholder={t('guestbook.placeholderName')}
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 style={styles.input}
               />
               <textarea
-                placeholder="Berikan ucapan & doa..."
+                placeholder={t('guestbook.placeholderMsg')}
                 value={formData.text}
                 onChange={(e) => setFormData({ ...formData, text: e.target.value })}
                 style={{ ...styles.input, height: '120px', resize: 'none' }}
@@ -121,7 +131,7 @@ const GuestBook = () => {
                   <line x1="22" y1="2" x2="11" y2="13"></line>
                   <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                 </svg>
-                {loading ? 'MENGIRIM...' : 'KIRIM UCAPAN'}
+                {loading ? t('guestbook.sending') : t('guestbook.sendBtn')}
               </motion.button>
             </form>
 
@@ -160,12 +170,14 @@ const styles = {
     margin: '0 auto',
     padding: 'clamp(40px, 8vw, 80px)',
     textAlign: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: 'var(--card-bg)',
     backdropFilter: 'blur(3px)',
+    border: '1px solid var(--border-color)',
     borderRadius: '50px',
-    boxShadow: '0 20px 50px rgba(0,0,0,0.1)',
+    boxShadow: 'var(--shadow)',
     position: 'relative',
     overflow: 'hidden',
+    transition: 'all 0.5s ease',
   },
   header: {
     marginBottom: '3rem',
@@ -178,9 +190,10 @@ const styles = {
     marginBottom: '1rem',
   },
   subtitle: {
-    color: '#FFFFFF',
+    color: 'var(--text-card-main)',
     fontSize: '1rem',
     lineHeight: '1.6',
+    transition: 'all 0.5s ease',
   },
   content: {
     display: 'flex',
@@ -200,7 +213,7 @@ const styles = {
     width: '100%',
     padding: '15px 20px',
     borderRadius: '15px',
-    border: '1px solid rgba(255, 255, 255, 0.2)',
+    border: '1px solid var(--border-color)',
     backgroundColor: 'rgba(255, 255, 255, 0.9)', // Sedikit lebih solid dari sebelumnya untuk visibilitas ketikan teks gelap
     fontSize: '1rem',
     outline: 'none',
@@ -252,28 +265,32 @@ const styles = {
   msgCard: {
     padding: '20px',
     borderRadius: '20px',
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
-    border: '1px solid rgba(255, 255, 255, 0.1)',
+    backgroundColor: 'var(--glass)',
+    border: '1px solid var(--border-color)',
     textAlign: 'left',
+    transition: 'all 0.5s ease',
   },
   msgName: {
     fontSize: '1.1rem',
     fontWeight: '700',
-    color: '#FFFFFF',
+    color: 'var(--text-card-main)',
     marginBottom: '2px',
     display: 'block',
+    transition: 'all 0.5s ease',
   },
   msgDate: {
     fontSize: '0.75rem',
-    color: 'rgba(255, 255, 255, 0.5)',
+    color: 'var(--text-card-muted)',
     marginBottom: '12px',
     display: 'block',
+    transition: 'all 0.5s ease',
   },
   msgText: {
     fontSize: '0.95rem',
-    color: '#FFFFFF',
+    color: 'var(--text-card-main)',
     lineHeight: '1.6',
     opacity: 0.9,
+    transition: 'all 0.5s ease',
   },
 };
 

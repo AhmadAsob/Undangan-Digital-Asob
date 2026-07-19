@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
+import { useLanguage } from '../context/LanguageContext';
 
 const Closing = () => {
+  const { t } = useLanguage();
   return (
     <section className="section-padding" style={styles.section}>
       <div className="container">
@@ -12,11 +14,11 @@ const Closing = () => {
           style={styles.card}
         >
           <p style={styles.message}>
-            Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Anda berkenan hadir dan memberikan doa restunya untuk pernikahan kami.
+            {t('closing.message')}
           </p>
 
-          <p style={styles.thankYouText}>
-            Atas do'a & restunya,<br />kami ucapkan terima kasih.
+          <p style={{ ...styles.thankYouText, whiteSpace: 'pre-line' }}>
+            {t('closing.thanks')}
           </p>
 
           <div style={styles.dividerContainer}>
@@ -56,27 +58,30 @@ const styles = {
     maxWidth: '800px',
     margin: '0 auto',
     padding: '60px 20px',
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    backgroundColor: 'var(--card-bg)',
     backdropFilter: 'blur(5px)',
     borderRadius: '40px',
-    border: '1px solid rgba(255, 255, 255, 0.1)',
+    border: '1px solid var(--border-color)',
+    transition: 'all 0.5s ease',
   },
   message: {
     fontSize: '0.9rem',
     lineHeight: '1.8',
-    color: '#FFFFFF',
+    color: 'var(--text-card-main)',
     opacity: 0.85,
     marginBottom: '30px',
     fontFamily: '"Signika Negative", sans-serif',
     padding: '0 20px',
+    transition: 'all 0.5s ease',
   },
   thankYouText: {
     fontSize: '0.95rem',
     fontWeight: '600',
-    color: '#FFFFFF',
+    color: 'var(--text-card-main)',
     marginBottom: '40px',
     lineHeight: '1.6',
     fontFamily: '"Signika Negative", sans-serif',
+    transition: 'all 0.5s ease',
   },
   dividerContainer: {
     display: 'flex',
@@ -102,9 +107,10 @@ const styles = {
   },
   hashtag: {
     fontSize: '1.3rem',
-    color: '#FFFFFF',
+    color: 'var(--text-card-muted)',
     fontFamily: '"Playfair Display", serif',
     fontWeight: '50',
+    transition: 'all 0.5s ease',
   }
 };
 

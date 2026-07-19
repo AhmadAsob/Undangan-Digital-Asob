@@ -1,22 +1,24 @@
 import { motion } from 'framer-motion';
 import FlowerOrnament from './FlowerOrnament';
+import { useLanguage } from '../context/LanguageContext';
 
 const LoveStory = () => {
+  const { t } = useLanguage();
   const stories = [
     {
       year: "2017",
-      title: "Pertama Bertemu",
-      desc: "Berawal dari pertemuan di XD House."
+      title: t('story.meetTitle'),
+      desc: t('story.meetDesc')
     },
     {
       year: "2017",
-      title: "Menjalin Kedekatan",
-      desc: "Pacaran deh."
+      title: t('story.closerTitle'),
+      desc: t('story.closerDesc')
     },
     {
       year: "2026",
-      title: "Lamaran",
-      desc: "Yaaa yaudah lamaran aja."
+      title: t('story.proposalTitle'),
+      desc: t('story.proposalDesc')
     }
   ];
 
@@ -31,8 +33,8 @@ const LoveStory = () => {
         >
           <FlowerOrnament />
           <div style={styles.header}>
-            <h2 className="font-script" style={styles.title}>The Story</h2>
-            <p style={styles.subtitle}>Perjalanan indah bagaimana Tuhan mempertemukan kami hingga ke titik ini.</p>
+            <h2 className="font-script" style={styles.title}>{t('story.title')}</h2>
+            <p style={styles.subtitle}>{t('story.subtitle')}</p>
           </div>
 
           <div style={styles.timeline}>
@@ -69,12 +71,14 @@ const styles = {
     textAlign: 'center',
     maxWidth: '900px',
     margin: '0 auto',
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: 'var(--card-bg)',
     backdropFilter: 'blur(3px)',
+    border: '1px solid var(--border-color)',
     borderRadius: '50px',
-    boxShadow: '0 20px 50px rgba(0,0,0,0.1)',
+    boxShadow: 'var(--shadow)',
     position: 'relative',
     overflow: 'hidden',
+    transition: 'all 0.5s ease',
   },
   header: {
     maxWidth: '600px',
@@ -88,8 +92,9 @@ const styles = {
     marginBottom: '2rem',
   },
   subtitle: {
-    color: '#FFFFFF',
+    color: 'var(--text-card-main)',
     lineHeight: '1.6',
+    transition: 'all 0.5s ease',
   },
   timeline: {
     display: 'flex',
@@ -105,8 +110,8 @@ const styles = {
     padding: '20px',
   },
   yearBadge: {
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    color: '#FFFFFF',
+    backgroundColor: 'var(--glass)',
+    color: 'var(--text-card-main)',
     padding: '5px 20px',
     borderRadius: '20px',
     fontSize: '0.9rem',
@@ -114,25 +119,29 @@ const styles = {
     display: 'inline-block',
     marginBottom: '15px',
     letterSpacing: '2px',
-    border: '1px solid rgba(255, 255, 255, 0.3)',
+    border: '1px solid var(--border-color)',
+    transition: 'all 0.5s ease',
   },
   storyTitle: {
     fontFamily: '"Playfair Display", serif',
     fontSize: '1.8rem',
-    color: '#FFFFFF',
+    color: 'var(--text-card-main)',
     marginBottom: '10px',
+    transition: 'all 0.5s ease',
   },
   storyDesc: {
-    color: '#FFFFFF',
+    color: 'var(--text-card-main)',
     lineHeight: '1.7',
     fontSize: '0.95rem',
     opacity: 0.9,
+    transition: 'all 0.5s ease',
   },
   connector: {
     width: '1px',
     height: '40px',
-    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    backgroundColor: 'var(--border-color)',
     margin: '20px auto 0',
+    transition: 'all 0.5s ease',
   }
 };
 

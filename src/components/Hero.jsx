@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
+import { useLanguage } from '../context/LanguageContext';
 
 const Hero = ({ onOpen }) => {
+  const { t } = useLanguage();
   return (
     <section style={styles.hero}>
       <motion.div
@@ -9,11 +11,11 @@ const Hero = ({ onOpen }) => {
         transition={{ duration: 1.5, ease: "easeOut" }}
         style={styles.content}
       >
-        <span style={styles.subTitle}>THE WEDDING OF</span>
+        <span style={styles.subTitle}>{t('hero.title')}</span>
         <h1 style={styles.title}>Asob & Yola</h1>
         <p style={styles.hashtag}>#AsobLockedInYola</p>
         <div style={styles.divider}></div>
-        <p style={styles.date}>Saturday, 3 October 2026</p>
+        <p style={styles.date}>{t('hero.date')}</p>
 
         {/* Tombol yang sudah diselaraskan dengan gaya premium InstagramFilter */}
         <motion.button
@@ -39,7 +41,7 @@ const Hero = ({ onOpen }) => {
             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
             <polyline points="22,6 12,13 2,6" />
           </svg>
-          LIHAT DETAIL ACARA
+          {t('hero.button')}
         </motion.button>
       </motion.div>
     </section>
@@ -100,7 +102,7 @@ const styles = {
     fontSize: 'clamp(1rem, 3vw, 1.3rem)',
     marginBottom: '2.5rem',
     fontWeight: '300',
-    color: '#fff',
+    color: 'var(--text-main)',
     textShadow: '0 2px 10px rgba(0,0,0,0.3)',
   },
   /* Samakan format & struktur styling dengan InstagramFilter */

@@ -16,15 +16,18 @@ import StoryAnimation from './components/StoryAnimation';
 import LoveStory from './components/LoveStory';
 import Closing from './components/Closing';
 import FloatingMenu from './components/FloatingMenu';
+import ThemeLanguageSelector from './components/ThemeLanguageSelector';
+import { useLanguage } from './context/LanguageContext';
 import './App.css';
 
 function App() {
+  const { t } = useLanguage();
   const [step, setStep] = useState('welcome');
   const [showStory, setShowStory] = useState(false);
   const [showMainContent, setShowMainContent] = useState(false);
   const [showHero, setShowHero] = useState(true);
   const [showSkip, setShowSkip] = useState(false);
-  const [guestName, setGuestName] = useState('Tamu Undangan');
+  const [guestName, setGuestName] = useState('');
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -134,6 +137,7 @@ function App() {
 
   return (
     <div className="App">
+      <ThemeLanguageSelector />
       <AnimatePresence mode="wait">
         {step === 'welcome' && (
           <WelcomeOverlay key="welcome" onEnter={handleStart} guestName={guestName} />
@@ -203,7 +207,7 @@ function App() {
                   onClick={handleSkipOrComplete}
                   style={styles.skipButton}
                 >
-                  LEWATI VIDEO <span style={styles.arrow}>→</span>
+                  {t('hero.skip')} <span style={styles.arrow}>→</span>
                 </motion.button>
               )}
             </>
@@ -219,7 +223,7 @@ function App() {
         >
           {showMainContent && (
             <div style={styles.stickyHeader}>
-              <Logo size="small" color="#FFFFFF" variant="spin" />
+              <Logo size="small" color="var(--gold)" variant="spin" />
             </div>
           )}
 
@@ -292,7 +296,7 @@ const styles = {
     left: 0,
     width: '100%',
     height: '100%',
-    backgroundColor: 'rgba(18, 14, 11, 0.75)',
+    backgroundColor: 'var(--video-overlay)',
     zIndex: 1,
   },
   /* Penyelarasan format dengan gaya premium InstagramFilter, Hero, & BrideGroom */

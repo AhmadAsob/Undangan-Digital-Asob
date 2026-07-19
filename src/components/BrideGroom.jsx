@@ -1,8 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import FlowerOrnament from './FlowerOrnament';
+import { useLanguage } from '../context/LanguageContext';
 
 const BrideGroom = () => {
+  const { t } = useLanguage();
   return (
     <section className="section-padding" style={styles.section}>
       <div className="container">
@@ -23,12 +25,12 @@ const BrideGroom = () => {
             className="font-script"
             style={styles.sectionTitle}
           >
-            Bride & Groom
+            {t('bridegroom.title')}
           </motion.h2>
 
           <div style={styles.header}>
             <h2 style={styles.arabicSalam}>اَلسَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ</h2>
-            <p style={styles.headerSubtitle}>Maha Suci Allah yang telah menciptakan mahluk-Nya berpasang-pasangan. Dengan memohon rahmat serta ridho-Nya, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami:</p>
+            <p style={styles.headerSubtitle}>{t('bridegroom.subtitle')}</p>
           </div>
 
           <div style={styles.grid}>
@@ -46,7 +48,7 @@ const BrideGroom = () => {
                 <div className="font-script" style={styles.nickname}>Asob</div>
               </div>
               <h3 style={styles.name}>Ahmad Shobari, S.Si</h3>
-              <p style={styles.desc}>Putra dari Bapak Sawir & Ibu Alm.Desnita</p>
+              <p style={styles.desc}>{t('bridegroom.groomParent')}</p>
 
               {/* Tombol Instagram Groom */}
               <motion.a
@@ -94,7 +96,7 @@ const BrideGroom = () => {
                 <div className="font-script" style={styles.nickname}>Yola</div>
               </div>
               <h3 style={styles.name}>Yolanda Azzahra, M.Si</h3>
-              <p style={styles.desc}>Putri dari Bapak Bustami & Ibu Yurmaini, A.Md</p>
+              <p style={styles.desc}>{t('bridegroom.brideParent')}</p>
 
               {/* Tombol Instagram Bride */}
               <motion.a
@@ -141,12 +143,13 @@ const styles = {
   },
   card: {
     padding: '60px 20px',
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: 'var(--card-bg)',
     backdropFilter: 'blur(5px)',
     borderRadius: '50px',
     position: 'relative',
     overflow: 'hidden',
-    border: '1px solid rgba(255, 255, 255, 0.1)',
+    border: '1px solid var(--border-color)',
+    transition: 'all 0.5s ease',
   },
   header: {
     maxWidth: '700px',
@@ -160,13 +163,15 @@ const styles = {
   arabicSalam: {
     fontSize: 'clamp(1.5rem, 4vw, 2.2rem)',
     fontFamily: 'serif',
-    color: '#FFFFFF',
+    color: 'var(--text-card-main)',
     marginBottom: '1.5rem',
     lineHeight: '1.8',
+    transition: 'all 0.5s ease',
   },
   headerSubtitle: {
-    color: '#FFFFFF',
+    color: 'var(--text-card-main)',
     lineHeight: '1.6',
+    transition: 'all 0.5s ease',
   },
   grid: {
     display: 'flex',
@@ -224,13 +229,15 @@ const styles = {
     fontSize: '1.8rem',
     fontFamily: '"Playfair Display", serif',
     fontWeight: '700',
-    color: '#FFFFFF',
+    color: 'var(--text-card-main)',
     marginBottom: '0.5rem',
+    transition: 'all 0.5s ease',
   },
   desc: {
-    color: '#FFFFFF',
+    color: 'var(--text-card-main)',
     marginBottom: '1.5rem',
     fontSize: '0.9rem',
+    transition: 'all 0.5s ease',
   },
   /* Styling tombol disamakan dengan format premium InstagramFilter & Hero */
   igLink: {

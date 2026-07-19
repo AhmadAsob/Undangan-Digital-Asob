@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../context/LanguageContext';
 
 const TARGET_DATE = new Date('2026-10-03T08:00:00').getTime();
 
 const Countdown = () => {
+  const { t } = useLanguage();
   const [timeLeft, setTimeLeft] = useState({
     days: 0, hours: 0, minutes: 0, seconds: 0
   });
@@ -29,10 +31,10 @@ const Countdown = () => {
   }, []);
 
   const items = [
-    { label: 'Hari', value: timeLeft.days },
-    { label: 'Jam', value: timeLeft.hours },
-    { label: 'Menit', value: timeLeft.minutes },
-    { label: 'Detik', value: timeLeft.seconds }
+    { label: t('countdown.days'), value: timeLeft.days },
+    { label: t('countdown.hours'), value: timeLeft.hours },
+    { label: t('countdown.minutes'), value: timeLeft.minutes },
+    { label: t('countdown.seconds'), value: timeLeft.seconds }
   ];
 
   return (
@@ -45,7 +47,7 @@ const Countdown = () => {
         className="font-script"
         style={styles.title}
       >
-        Count The Date
+        {t('countdown.title')}
       </motion.h2>
 
       <div style={styles.grid}>
@@ -99,7 +101,7 @@ const Countdown = () => {
             <line x1="8" y1="2" x2="8" y2="6" />
             <line x1="3" y1="10" x2="21" y2="10" />
           </svg>
-          SIMPAN KALENDER
+          {t('countdown.saveCalendar')}
         </motion.a>
       </motion.div>
     </div>
@@ -135,14 +137,16 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.3)',
+    boxShadow: 'var(--shadow)',
     border: '1px solid rgba(197, 168, 128, 0.35)',
+    transition: 'all 0.5s ease',
   },
   value: {
     fontSize: '1.8rem',
     fontWeight: '700',
-    color: '#FFFFFF',
+    color: 'var(--text-card-main)',
     fontFamily: '"Playfair Display", serif',
+    transition: 'all 0.5s ease',
   },
   label: {
     fontSize: '0.65rem',

@@ -1,8 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import FlowerOrnament from './FlowerOrnament'; // Menggunakan ornamen bunga yang sama
+import { useLanguage } from '../context/LanguageContext';
 
 const InstagramFilter = () => {
+    const { t } = useLanguage();
     return (
         <section className="section-padding" style={styles.section}>
             <div className="container">
@@ -19,17 +21,17 @@ const InstagramFilter = () => {
 
                     {/* Header Section */}
                     <div style={styles.headerSection}>
-                        <h2 className="font-script" style={styles.heading}>Instagram Filter</h2>
+                        <h2 className="font-script" style={styles.heading}>{t('instagram.title')}</h2>
                     </div>
 
                     {/* Content / Description Section */}
                     <div style={styles.eventsContainer}>
                         <div style={styles.eventRow}>
-                            <div style={styles.eventLabel}>FILTER IG</div>
+                            <div style={styles.eventLabel}>{t('instagram.label')}</div>
                             <div style={styles.eventDivider}></div>
                             <div style={styles.eventDetail}>
                                 <div style={styles.description}>
-                                    Abadikan momen keseruan Anda bersama kami menggunakan filter Instagram khusus yang telah kami siapkan. Jangan lupa tag kami, ya!
+                                    {t('instagram.desc')}
                                 </div>
                             </div>
                         </div>
@@ -64,7 +66,7 @@ const InstagramFilter = () => {
                                     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
                                     <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
                                 </svg>
-                                COBA FRAME INSTAGRAM
+                                {t('instagram.btn')}
                             </motion.a>
                         </div>
                     </div>
@@ -84,12 +86,13 @@ const styles = {
         textAlign: 'center',
         maxWidth: '800px',
         margin: '0 auto',
-        backgroundColor: 'rgba(255, 255, 255, 0.05)',
+        backgroundColor: 'var(--card-bg)',
         backdropFilter: 'blur(5px)',
         borderRadius: '50px',
         position: 'relative',
         overflow: 'hidden',
-        border: '1px solid rgba(255, 255, 255, 0.1)',
+        border: '1px solid var(--border-color)',
+        transition: 'all 0.5s ease',
     },
     headerSection: {
         marginBottom: '3rem',
@@ -115,25 +118,28 @@ const styles = {
     eventLabel: {
         fontSize: '0.85rem',
         fontWeight: '700',
-        color: '#FFFFFF',
+        color: 'var(--text-card-main)',
         letterSpacing: '3px',
         width: '120px',
         flexShrink: 0,
+        transition: 'all 0.5s ease',
     },
     eventDivider: {
         height: '50px',
         width: '1px',
-        backgroundColor: 'rgba(255,255,255,0.3)',
+        backgroundColor: 'var(--border-color)',
+        transition: 'all 0.5s ease',
     },
     eventDetail: {
         flex: 1,
     },
     description: {
         fontSize: '0.9rem',
-        color: '#FFFFFF',
-        opacity: 0.7,
+        color: 'var(--text-card-main)',
+        opacity: 0.8,
         letterSpacing: '0.5px',
         lineHeight: '1.5',
+        transition: 'all 0.5s ease',
     },
     footerSection: {
         marginTop: '1rem',

@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import FlowerOrnament from './FlowerOrnament';
+import { useLanguage } from '../context/LanguageContext';
 
 const DigitalGift = () => {
+  const { t } = useLanguage();
   const [copied, setCopied] = useState(null);
 
   const bankAccounts = [
@@ -37,9 +39,9 @@ const DigitalGift = () => {
         >
           <FlowerOrnament />
           <div style={styles.header}>
-            <h2 className="font-script" style={styles.title}>Wedding Gift</h2>
+            <h2 className="font-script" style={styles.title}>{t('gift.title')}</h2>
             <p style={styles.subtitle}>
-              Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Namun jika Anda ingin memberikan tanda kasih, Anda dapat memberikannya melalui:
+              {t('gift.subtitle')}
             </p>
           </div>
 
@@ -87,7 +89,7 @@ const DigitalGift = () => {
                     <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                   </svg>
-                  {copied === acc.number ? 'TERSALIN!' : 'SALIN NO. REKENING'}
+                  {copied === acc.number ? t('gift.copied') : t('gift.copyBtn')}
                 </motion.button>
               </motion.div>
             ))}
@@ -99,7 +101,7 @@ const DigitalGift = () => {
             viewport={{ once: true }}
             style={styles.addressBox}
           >
-            <p style={styles.addressLabel}>Atau Kirim Kado Fisik Ke:</p>
+            <p style={styles.addressLabel}>{t('gift.physical')}</p>
             <p style={styles.addressText}>Jl. Ampera Komplek Kampung Baru Indah Blok BB.14, Lubuk begalung</p>
 
             {/* Mengubah button alamat menjadi motion.button premium */}
@@ -125,7 +127,7 @@ const DigitalGift = () => {
                 <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                 <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
               </svg>
-              {copied === 'alamat' ? 'TERSALIN!' : 'SALIN ALAMAT'}
+              {copied === 'alamat' ? t('gift.copied') : t('gift.copyAddress')}
             </motion.button>
           </motion.div>
         </motion.div>
@@ -166,23 +168,26 @@ const styles = {
     textAlign: 'center',
     maxWidth: '800px',
     margin: '0 auto',
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: 'var(--card-bg)',
     backdropFilter: 'blur(3px)',
+    border: '1px solid var(--border-color)',
     borderRadius: '50px',
-    boxShadow: '0 20px 50px rgba(0,0,0,0.1)',
+    boxShadow: 'var(--shadow)',
     position: 'relative',
     overflow: 'hidden',
+    transition: 'all 0.5s ease',
   },
   giftCard: {
     padding: '30px',
     borderRadius: '25px',
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
-    border: '1px solid rgba(255, 255, 255, 0.2)',
+    backgroundColor: 'var(--card-bg)',
+    border: '1px solid var(--border-color)',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     gap: '15px',
     minWidth: '280px',
+    transition: 'all 0.5s ease',
   },
   logoContainer: {
     height: '45px',
@@ -195,19 +200,22 @@ const styles = {
     maxHeight: '100%',
     maxWidth: '140px',
     objectFit: 'contain',
-    filter: 'brightness(0) invert(1)',
+    filter: 'var(--logo-filter)',
+    transition: 'filter 0.5s ease',
   },
   accountNumber: {
     fontSize: '1.6rem',
     fontWeight: '700',
-    color: '#FFFFFF',
+    color: 'var(--text-card-main)',
     margin: '10px 0',
     fontFamily: 'monospace',
+    transition: 'all 0.5s ease',
   },
   accountHolder: {
     fontSize: '1rem',
-    color: '#FFFFFF',
+    color: 'var(--text-card-main)',
     opacity: 0.9,
+    transition: 'all 0.5s ease',
   },
   /* Perubahan gaya tombol utama biar serasi (Premium Dark Glassmorphic) */
   copyBtn: {
@@ -235,24 +243,27 @@ const styles = {
   addressBox: {
     marginTop: '40px',
     padding: '30px',
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: 'var(--glass)',
     borderRadius: '20px',
     maxWidth: '500px',
     margin: '40px auto 0',
-    border: '1px solid rgba(255, 255, 255, 0.1)',
+    border: '1px solid var(--border-color)',
+    transition: 'all 0.5s ease',
   },
   addressLabel: {
     fontSize: '0.9rem',
     fontWeight: '600',
-    color: '#FFFFFF',
+    color: 'var(--text-card-main)',
     marginBottom: '10px',
     textTransform: 'uppercase',
     letterSpacing: '1px',
+    transition: 'all 0.5s ease',
   },
   addressText: {
-    color: '#FFFFFF',
+    color: 'var(--text-card-main)',
     lineHeight: '1.6',
     opacity: 0.9,
+    transition: 'all 0.5s ease',
   },
   /* Tombol salin alamat mewarisi style utama dengan tambahan margin atas */
   addressCopyBtn: {

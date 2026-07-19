@@ -6,13 +6,34 @@
   --secondary: #D7CCC8;
   /* Creamy Chocolate */
   --accent: #A1887F;
-  --bg-light: #120e0b; /* Changed from #FDFBF9 to Dark Chocolate Black */
-  --text-main: #ffffff; /* Changed from #3E2723 to White */
-  --text-muted: #d7ccc8; /* Changed from #6D4C41 to Creamy Beige */
-  --gold: #C5A880; /* Added gold color variable */
+  --gold: #C5A880;
   --white: #ffffff;
-  --glass: rgba(255, 255, 255, 0.05); /* Made glass lighter and more subtle */
+  
+  /* Global Page Colors (Always Dark for cinematic background) */
+  --bg-light: #120e0b;
+  --text-main: #ffffff;
+  --text-muted: #d7ccc8;
+  --video-overlay: rgba(18, 14, 11, 0.75);
+  
+  /* Dark theme card variables (default) */
+  --card-bg: rgba(18, 14, 11, 0.8);
+  --border-color: rgba(255, 255, 255, 0.15);
+  --text-card-main: #ffffff;
+  --text-card-muted: #d7ccc8;
+  --glass: rgba(255, 255, 255, 0.05);
   --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  --logo-filter: brightness(0) invert(1);
+}
+
+[data-theme="light"] {
+  /* Light theme card variables (Card turns into Soft Creamy Linen) */
+  --card-bg: rgba(248, 244, 240, 0.96);
+  --border-color: rgba(141, 110, 99, 0.25);
+  --text-card-main: #4E3629;
+  --text-card-muted: #7E6555;
+  --glass: rgba(141, 110, 99, 0.08);
+  --shadow: 0 8px 32px 0 rgba(141, 110, 99, 0.15);
+  --logo-filter: brightness(0.25);
 }
 
 * {
@@ -27,6 +48,7 @@ body {
   color: var(--text-main);
   line-height: 1.6;
   overflow-x: hidden;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 h1,
@@ -34,6 +56,10 @@ h2,
 h3,
 .font-serif {
   font-family: 'Playfair Display', serif;
+}
+
+h1, h2, h3, p, span, div, a {
+  transition: color 0.5s ease, background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
 }
 
 .font-script {
@@ -59,14 +85,15 @@ section {
 }
 
 .glass-card {
-  background: var(--glass);
+  background: var(--card-bg);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid var(--border-color);
   box-shadow: var(--shadow);
   border-radius: 20px;
   position: relative;
   overflow: hidden;
+  transition: background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
 }
 
 /* Frame Utilities */

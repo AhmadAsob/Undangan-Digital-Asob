@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion';
 import FlowerOrnament from './FlowerOrnament';
+import { useLanguage } from '../context/LanguageContext';
 
 const Quote = () => {
+  const { t } = useLanguage();
   return (
     <section className="section-padding" style={styles.section}>
       <div className="container">
@@ -33,7 +35,7 @@ const Quote = () => {
             className="font-script"
             style={styles.sectionTitle}
           >
-            The Quote
+            {t('quote.title')}
           </motion.h2>
 
           <FlowerOrnament />
@@ -46,8 +48,7 @@ const Quote = () => {
               transition={{ duration: 1.5, delay: 0.2 }}
               style={styles.arabic}
             >
-              وَمِنْ اٰيٰتِهٖٓ اَنْ خَلَقَ لَكُمْ مِّنْ اَنْفُسِكُمْ اَزْوَاجًا لِّتَسْكُنُوْٓا اِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَّوَدَّةً وَّرَحْمَةً ۗاِنَّ فِيْ ذٰلِكَ لَاٰيٰتٍ لِّقَوْمٍ يَّتَفَكَّرُوْنَ
-            </motion.p>
+              وَمِنْ اٰيٰتِهٖٓ اَنْ خَلَقَ لَكُمْ مِّنْ اَنْفُسِكُمْ اَزْوَاجًا لِّتَسْكُنُوْٓا اِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَّوَدَّةً وَّرَحْمَةًۗ اِنَّ فِيْ ذٰلِكَ لَاٰيٰتٍ لِّقَوْمٍ يَّتَفَكَّرُوْنَ ۝٢١            </motion.p>
 
             <motion.p
               initial={{ opacity: 0, filter: 'blur(10px)', y: 20 }}
@@ -56,7 +57,7 @@ const Quote = () => {
               transition={{ duration: 1.5, delay: 0.8 }}
               style={styles.verse}
             >
-              "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. Sungguh, pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir."
+              "{t('quote.verse')}"
             </motion.p>
 
             <motion.p
@@ -66,7 +67,7 @@ const Quote = () => {
               transition={{ duration: 1, delay: 1.5, type: 'spring' }}
               style={styles.source}
             >
-              - Q.S. Ar-Rum: 21 -
+              {t('quote.source')}
             </motion.p>
           </div>
         </motion.div>
@@ -86,12 +87,14 @@ const styles = {
     maxWidth: '800px',
     margin: '0 auto',
     padding: '80px 40px',
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: 'var(--card-bg)',
     backdropFilter: 'blur(3px)',
+    border: '1px solid var(--border-color)',
     borderRadius: '50px',
     position: 'relative',
     overflow: 'hidden',
-    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+    boxShadow: 'var(--shadow)',
+    transition: 'all 0.5s ease',
   },
   shine: {
     position: 'absolute',
@@ -120,23 +123,26 @@ const styles = {
     fontFamily: 'serif',
     lineHeight: '2',
     marginBottom: '2.5rem',
-    color: '#FFFFFF',
+    color: 'var(--text-card-main)',
     textShadow: '0 0 20px rgba(255,255,255,0.2)',
+    transition: 'all 0.5s ease',
   },
   verse: {
     fontSize: 'clamp(0.9rem, 2vw, 1.1rem)',
     fontStyle: 'italic',
     lineHeight: '1.8',
     marginBottom: '2rem',
-    color: '#FFFFFF',
+    color: 'var(--text-card-main)',
     opacity: 0.9,
+    transition: 'all 0.5s ease',
   },
   source: {
     fontSize: '0.9rem',
     fontWeight: '600',
     letterSpacing: '3px',
-    color: '#FFFFFF',
+    color: 'var(--text-card-muted)',
     textTransform: 'uppercase',
+    transition: 'all 0.5s ease',
   },
 };
 

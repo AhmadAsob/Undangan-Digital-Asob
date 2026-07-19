@@ -97,7 +97,7 @@ const StoryAnimation = ({ onComplete }) => {
             <rect
               width="500"
               height="500"
-              fill="#FFFFFF"
+              fill="var(--gold)"
               mask="url(#logoMaskStory)"
             />
 
