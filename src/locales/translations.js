@@ -104,7 +104,7 @@ export const translations = {
     },
     menu: {
       home: "Home",
-      couple: "Bride & Groom",
+      couple: "Groom & Bride",
       story: "Love Story",
       event: "Save The Date",
       gallery: "Gallery",

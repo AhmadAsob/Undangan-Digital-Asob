@@ -3,7 +3,7 @@ import FlowerOrnament from './FlowerOrnament';
 import { useLanguage } from '../context/LanguageContext';
 
 const EventDetails = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   return (
     <section className="section-padding" style={styles.section}>
       <div className="container">
@@ -34,7 +34,7 @@ const EventDetails = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 style={styles.dateNum}
               >
-                3
+                3{language === 'en' && <sup style={styles.superscript}>rd</sup>}
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
@@ -166,6 +166,12 @@ const styles = {
     fontFamily: '"Playfair Display", serif',
     fontWeight: '700',
     lineHeight: 1,
+  },
+  superscript: {
+    fontSize: '1.8rem',
+    fontFamily: '"Playfair Display", serif',
+    fontWeight: '400',
+    verticalAlign: 'super',
   },
   dateMonth: {
     fontSize: '1rem',
