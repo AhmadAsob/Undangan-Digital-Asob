@@ -74,11 +74,11 @@ const WelcomeOverlay = ({ onEnter, guestName }) => {
       style={styles.overlay}
     >
       {/* 1. Foto Latar Belakang dengan Efek Ken Burns Zoom & Gradasi Gelap Sinematik */}
-      <motion.div 
+      <motion.div
         initial={{ scale: 1 }}
         animate={{ scale: 1.08 }}
         transition={{ duration: 20, ease: "linear", repeat: Infinity, repeatType: "reverse" }}
-        style={styles.backgroundImage} 
+        style={styles.backgroundImage}
       />
       <div style={styles.darkOverlay} />
 
@@ -104,7 +104,7 @@ const WelcomeOverlay = ({ onEnter, guestName }) => {
           >
             {t('welcome.title')}
           </motion.p>
-          
+
           <motion.h1
             initial={{ opacity: 0, y: 35, filter: 'blur(8px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
@@ -148,13 +148,13 @@ const WelcomeOverlay = ({ onEnter, guestName }) => {
               style={styles.loadingContainer}
             >
               <div style={styles.progressTrack}>
-                <motion.div 
+                <motion.div
                   animate={{ width: `${progress}%` }}
                   transition={{ duration: 0.2 }}
-                  style={styles.progressBar} 
+                  style={styles.progressBar}
                 />
               </div>
-              <p style={styles.loadingText}>Loading Assets... {progress}%</p>
+              <p style={styles.loadingText}>Loading... {progress}%</p>
             </motion.div>
           ) : (
             <motion.div

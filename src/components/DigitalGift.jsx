@@ -104,31 +104,58 @@ const DigitalGift = () => {
             <p style={styles.addressLabel}>{t('gift.physical')}</p>
             <p style={styles.addressText}>Jl. Ampera Komplek Kampung Baru Indah Blok BB.14, Lubuk begalung</p>
 
-            {/* Mengubah button alamat menjadi motion.button premium */}
-            <motion.button
-              whileHover={{
-                scale: 1.03,
-                boxShadow: '0 10px 25px rgba(255, 255, 255, 0.1)',
-                borderColor: 'rgba(255, 255, 255, 0.7)'
-              }}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => copyToClipboard('Jl. Ampera Komplek Kampung Baru Indah Blok BB.14, Lubuk begalung', 'alamat')}
-              style={styles.addressCopyBtn}
-            >
-              <svg
-                style={styles.buttonIcon}
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+            {/* Container untuk tombol salin alamat & lihat lokasi */}
+            <div style={styles.buttonContainer}>
+              <motion.button
+                whileHover={{
+                  scale: 1.03,
+                  boxShadow: '0 10px 25px rgba(255, 255, 255, 0.1)',
+                  borderColor: 'rgba(255, 255, 255, 0.7)'
+                }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => copyToClipboard('Jl. Ampera Komplek Kampung Baru Indah Blok BB.14, Lubuk begalung', 'alamat')}
+                style={styles.addressCopyBtn}
               >
-                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-              </svg>
-              {copied === 'alamat' ? t('gift.copied') : t('gift.copyAddress')}
-            </motion.button>
+                <svg
+                  style={styles.buttonIcon}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                {copied === 'alamat' ? t('gift.copied') : t('gift.copyAddress')}
+              </motion.button>
+
+              <motion.button
+                whileHover={{
+                  scale: 1.03,
+                  boxShadow: '0 10px 25px rgba(255, 255, 255, 0.1)',
+                  borderColor: 'rgba(255, 255, 255, 0.7)'
+                }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => window.open('https://maps.app.goo.gl/g4sebi72U6mDxfgU6?g_st=iw', '_blank')}
+                style={styles.addressMapBtn}
+              >
+                <svg
+                  style={styles.buttonIcon}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                {t('gift.mapBtn')}
+              </motion.button>
+            </div>
           </motion.div>
         </motion.div>
       </div>
@@ -152,9 +179,9 @@ const styles = {
     marginBottom: '1rem',
   },
   subtitle: {
-    color: '#FFFFFF',
+    color: 'var(--text-card-muted)',
     lineHeight: '1.6',
-    opacity: 0.9,
+    transition: 'all 0.5s ease',
   },
   grid: {
     display: 'flex',
@@ -265,7 +292,14 @@ const styles = {
     opacity: 0.9,
     transition: 'all 0.5s ease',
   },
-  /* Tombol salin alamat mewarisi style utama dengan tambahan margin atas */
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '15px',
+    flexWrap: 'wrap',
+    marginTop: '20px',
+    width: '100%',
+  },
   addressCopyBtn: {
     display: 'inline-flex',
     alignItems: 'center',
@@ -286,7 +320,29 @@ const styles = {
     boxSizing: 'border-box',
     backdropFilter: 'blur(5px)',
     WebkitBackdropFilter: 'blur(5px)',
-    marginTop: '20px',
+    marginTop: '0px',
+  },
+  addressMapBtn: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '8px',
+    width: '100%',
+    maxWidth: '220px',
+    padding: '12px 0',
+    background: 'linear-gradient(135deg, rgba(35, 30, 25, 0.7) 0%, rgba(15, 12, 10, 0.85) 100%)',
+    color: '#FFFFFF',
+    borderRadius: '30px',
+    fontSize: '0.8rem',
+    fontWeight: '600',
+    border: '1px solid rgba(255, 255, 255, 0.45)',
+    letterSpacing: '1.5px',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    boxSizing: 'border-box',
+    backdropFilter: 'blur(5px)',
+    WebkitBackdropFilter: 'blur(5px)',
+    marginTop: '0px',
   },
   buttonIcon: {
     width: '14px',

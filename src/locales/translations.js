@@ -21,18 +21,18 @@ export const translations = {
       gift: "Gift Registry"
     },
     quote: {
-      title: "Kutipan",
+      title: "The Quote",
       verse: "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. Sungguh, pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir.",
       source: "- Q.S. Ar-Rum: 21 -"
     },
     bridegroom: {
       title: "Mempelai",
-      subtitle: "Maha Suci Allah yang telah menciptakan mahluk-Nya berpasang-pasangan. Dengan memohon rahmat serta ridho-Nya, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami:",
+      subtitle: "Maha Suci Allah yang telah menciptakan mahluk-Nya berpasang-pasangan. Dengan memohon rahmat serta ridho-Nya, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami.",
       groomParent: "Putra dari Bapak Sawir & Ibu Alm.Desnita",
-      brideParent: "Putri dari Bapak Bustami & Ibu Yurmaini, A.Md"
+      brideParent: "Putri dari Bapak Bustami & Ibu Hj. Yurmaini, A.Md"
     },
     story: {
-      title: "Cerita Kami",
+      title: "Love Story",
       subtitle: "Perjalanan indah bagaimana Tuhan mempertemukan kami hingga ke titik ini.",
       meetTitle: "Pertama Bertemu",
       meetDesc: "Berawal dari pertemuan di XD House.",
@@ -42,15 +42,15 @@ export const translations = {
       proposalDesc: "Yaaa yaudah lamaran aja."
     },
     countdown: {
-      title: "Hitung Mundur",
+      title: "Menuju Hari Bahagia",
       days: "Hari",
       hours: "Jam",
       minutes: "Menit",
       seconds: "Detik",
-      saveCalendar: "SIMPAN KALENDER"
+      saveCalendar: "SIMPAN TANGGAL"
     },
     event: {
-      title: "Simpan Tanggalnya",
+      title: "Hari Bahagia",
       saturday: "SABTU",
       october: "Oktober 2026",
       akad: "AKAD NIKAH",
@@ -58,7 +58,7 @@ export const translations = {
       locationBtn: "LIHAT LOKASI"
     },
     gallery: {
-      title: "Galeri Kami",
+      title: "Galeri",
       subtitle: "Mengabadikan setiap detik kebersamaan dalam harmoni visual."
     },
     instagram: {
@@ -73,7 +73,8 @@ export const translations = {
       copyBtn: "SALIN NO. REKENING",
       copied: "TERSALIN!",
       physical: "Atau Kirim Kado Fisik Ke:",
-      copyAddress: "SALIN ALAMAT"
+      copyAddress: "SALIN ALAMAT",
+      mapBtn: "LIHAT LOKASI"
     },
     guestbook: {
       title: "Ucapan & Doa",
@@ -104,24 +105,24 @@ export const translations = {
     menu: {
       home: "Home",
       couple: "Bride & Groom",
-      story: "Our Story",
+      story: "Love Story",
       event: "Save The Date",
       gallery: "Gallery",
       gift: "Gift Registry"
     },
     quote: {
       title: "The Quote",
-      verse: "And among His signs is this, that He created for you mates from among yourselves, that you may dwell in tranquility with them, and He has put love and mercy between your hearts. Verily in that are signs for those who reflect.",
+      verse: "And among His signs is that He created for you mates from among yourselves, so that you may find tranquility in them, and He has placed between you affection and mercy. Indeed, in that are signs for those who reflect.",
       source: "- Q.S. Ar-Rum: 21 -"
     },
     bridegroom: {
       title: "Bride & Groom",
-      subtitle: "Glory be to Allah Who created all things in pairs. By requesting His grace and blessing, we intend to invite you to attend our wedding ceremony:",
+      subtitle: "Glory be to Allah, who created all things in pairs. By seeking His mercy and blessing, we cordialy to invite you to honor us with your presence at our wedding celebration.",
       groomParent: "Son of Mr. Sawir & The Late Mrs. Desnita",
-      brideParent: "Daughter of Mr. Bustami & Mrs. Yurmaini, A.Md"
+      brideParent: "Daughter of Mr. Bustami & Mrs. Hj. Yurmaini, A.Md"
     },
     story: {
-      title: "Our Story",
+      title: "Love Story",
       subtitle: "The beautiful journey of how God brought us together to this point.",
       meetTitle: "First Meeting",
       meetDesc: "It all started with a meeting at XD House.",
@@ -136,7 +137,7 @@ export const translations = {
       hours: "Hours",
       minutes: "Mins",
       seconds: "Secs",
-      saveCalendar: "SAVE TO CALENDAR"
+      saveCalendar: "SAVE THE DATE"
     },
     event: {
       title: "Save The Date",
@@ -153,7 +154,7 @@ export const translations = {
     instagram: {
       title: "Instagram Filter",
       label: "IG FILTER",
-      desc: "Capture your exciting moments with us using the special Instagram filter we have prepared. Don't forget to tag us!",
+      desc: "Capture your special moments with us using our exclusive Instagram filter. Don't forget to tag us!",
       btn: "TRY INSTAGRAM FRAME"
     },
     gift: {
@@ -162,7 +163,8 @@ export const translations = {
       copyBtn: "COPY ACCOUNT NO.",
       copied: "COPIED!",
       physical: "Or Send Physical Gift To:",
-      copyAddress: "COPY ADDRESS"
+      copyAddress: "COPY ADDRESS",
+      mapBtn: "VIEW LOCATION"
     },
     guestbook: {
       title: "Wishes & Prayers",

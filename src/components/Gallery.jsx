@@ -329,7 +329,7 @@ const styles = {
     margin: '0 auto 20px',
   },
   subtitle: {
-    color: 'var(--text-muted)',
+    color: 'var(--text-card-muted)',
     fontSize: '0.9rem',
     letterSpacing: '2px',
     maxWidth: '450px',
