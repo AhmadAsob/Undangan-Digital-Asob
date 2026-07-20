@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import FlowerOrnament from './FlowerOrnament';
 import { useLanguage } from '../context/LanguageContext';
@@ -14,6 +14,28 @@ const BrideGroom = () => {
   // State untuk membedakan drag vs click
   const [isDraggingGroom, setIsDraggingGroom] = useState(false);
   const [isDraggingBride, setIsDraggingBride] = useState(false);
+
+  // Autoplay slider dengan jeda waktu bergantian (offset) agar terkesan natural
+  useEffect(() => {
+    // Slider Groom berputar setiap 5 detik
+    const groomTimer = setInterval(() => {
+      setGroomIndex((prev) => (prev + 1) % 2);
+    }, 5000);
+
+    // Slider Bride berputar setiap 5 detik, tapi dimulai 2.5 detik setelah Groom
+    let brideTimer;
+    const brideStartTimeout = setTimeout(() => {
+      brideTimer = setInterval(() => {
+        setBrideIndex((prev) => (prev + 1) % 2);
+      }, 5000);
+    }, 2500);
+
+    return () => {
+      clearInterval(groomTimer);
+      clearTimeout(brideStartTimeout);
+      if (brideTimer) clearInterval(brideTimer);
+    };
+  }, []);
 
   // Daftar foto untuk masing-masing
   const groomImages = [
