@@ -98,7 +98,7 @@ export const translations = {
     },
     hero: {
       title: "THE WEDDING OF",
-      date: "Saturday, 3 October 2026",
+      date: "Saturday, 3ʳᵈ October 2026",
       button: "VIEW EVENT DETAILS",
       skip: "SKIP VIDEO"
     },
