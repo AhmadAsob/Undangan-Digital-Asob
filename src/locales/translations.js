@@ -14,9 +14,9 @@ export const translations = {
     },
     menu: {
       home: "Beranda",
-      couple: "Bride & Groom",
+      couple: "Groom & Bride",
       story: "The Story",
-      event: "Save The Date",
+      event: "Wedding Event",
       gallery: "Our Gallery",
       gift: "Gift Registry"
     },
@@ -106,8 +106,8 @@ export const translations = {
       home: "Home",
       couple: "Groom & Bride",
       story: "Love Story",
-      event: "Save The Date",
-      gallery: "Gallery",
+      event: "Wedding Event",
+      gallery: "Our Gallery",
       gift: "Gift Registry"
     },
     quote: {
@@ -140,10 +140,10 @@ export const translations = {
       saveCalendar: "SAVE THE DATE"
     },
     event: {
-      title: "Save The Date",
+      title: "Wedding Event",
       saturday: "SATURDAY",
       october: "October 2026",
-      akad: "MARRIAGE CONTRACT",
+      akad: "SOLEMNIZATION CEREMONY",
       resepsi: "RECEPTION",
       locationBtn: "VIEW LOCATION"
     },
