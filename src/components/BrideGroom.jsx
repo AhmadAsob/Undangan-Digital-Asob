@@ -1,10 +1,11 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import FlowerOrnament from './FlowerOrnament';
 import { useLanguage } from '../context/LanguageContext';
 
 const BrideGroom = () => {
   const { t } = useLanguage();
+  const [selectedImg, setSelectedImg] = useState(null);
   return (
     <section className="section-padding" style={styles.section}>
       <div className="container">
@@ -42,7 +43,10 @@ const BrideGroom = () => {
               transition={{ duration: 1, delay: 0.2 }}
               style={styles.profile}
             >
-              <div style={styles.imageWrapper}>
+              <div 
+                style={{ ...styles.imageWrapper, cursor: 'zoom-in' }} 
+                onClick={() => setSelectedImg("/assets/images/profile/groom.jpg")}
+              >
                 <div style={styles.imageFrame}></div>
                 <img src="/assets/images/profile/groom.jpg" alt="Groom" style={styles.image} />
                 <div className="font-script" style={styles.nickname}>Asob</div>
@@ -90,7 +94,10 @@ const BrideGroom = () => {
               transition={{ duration: 1, delay: 0.4 }}
               style={styles.profile}
             >
-              <div style={styles.imageWrapper}>
+              <div 
+                style={{ ...styles.imageWrapper, cursor: 'zoom-in' }} 
+                onClick={() => setSelectedImg("/assets/images/profile/bride.jpg")}
+              >
                 <div style={styles.imageFrame}></div>
                 <img src="/assets/images/profile/bride.jpg" alt="Bride" style={styles.image} />
                 <div className="font-script" style={styles.nickname}>Yola</div>
@@ -130,6 +137,35 @@ const BrideGroom = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* Lightbox Pop-up untuk Foto Profil */}
+      <AnimatePresence>
+        {selectedImg && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedImg(null)}
+            style={styles.lightbox}
+          >
+            <motion.img
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              transition={{ type: "spring", damping: 25 }}
+              src={selectedImg}
+              style={styles.fullImg}
+            />
+            <motion.button
+              whileHover={{ scale: 1.1, rotate: 90 }}
+              whileTap={{ scale: 0.9 }}
+              style={styles.closeBtn}
+            >
+              ×
+            </motion.button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
@@ -274,6 +310,37 @@ const styles = {
     fontStyle: 'italic',
     padding: '20px',
     alignSelf: 'center', // Memastikan simbol & sejajar vertikal di tengah foto
+  },
+  lightbox: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(15, 11, 9, 0.95)',
+    zIndex: 9999,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '20px',
+  },
+  fullImg: {
+    maxWidth: '90%',
+    maxHeight: '80vh',
+    borderRadius: '24px',
+    boxShadow: '0 25px 60px rgba(0,0,0,0.5)',
+    border: '2px solid #C5A880',
+  },
+  closeBtn: {
+    position: 'absolute',
+    top: '30px',
+    right: '30px',
+    fontSize: '3rem',
+    color: 'rgba(255,255,255,0.7)',
+    background: 'none',
+    border: 'none',
+    cursor: 'pointer',
+    lineHeight: 1,
   }
 };
 
