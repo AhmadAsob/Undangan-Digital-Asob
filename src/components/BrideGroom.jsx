@@ -6,6 +6,46 @@ import { useLanguage } from '../context/LanguageContext';
 const BrideGroom = () => {
   const { t } = useLanguage();
   const [selectedImg, setSelectedImg] = useState(null);
+  
+  // State untuk indeks foto
+  const [groomIndex, setGroomIndex] = useState(0);
+  const [brideIndex, setBrideIndex] = useState(0);
+  
+  // State untuk membedakan drag vs click
+  const [isDraggingGroom, setIsDraggingGroom] = useState(false);
+  const [isDraggingBride, setIsDraggingBride] = useState(false);
+
+  // Daftar foto untuk masing-masing
+  const groomImages = [
+    "/assets/images/profile/groom.jpg",
+    "/assets/images/gallery/850_1607.JPG"
+  ];
+
+  const brideImages = [
+    "/assets/images/profile/bride.jpg",
+    "/assets/images/gallery/850_1644.JPG"
+  ];
+
+  const handleGroomDragEnd = (event, info) => {
+    const swipeThreshold = 50;
+    if (info.offset.x < -swipeThreshold) {
+      setGroomIndex((prev) => (prev + 1) % groomImages.length);
+    } else if (info.offset.x > swipeThreshold) {
+      setGroomIndex((prev) => (prev - 1 + groomImages.length) % groomImages.length);
+    }
+    setTimeout(() => setIsDraggingGroom(false), 50);
+  };
+
+  const handleBrideDragEnd = (event, info) => {
+    const swipeThreshold = 50;
+    if (info.offset.x < -swipeThreshold) {
+      setBrideIndex((prev) => (prev + 1) % brideImages.length);
+    } else if (info.offset.x > swipeThreshold) {
+      setBrideIndex((prev) => (prev - 1 + brideImages.length) % brideImages.length);
+    }
+    setTimeout(() => setIsDraggingBride(false), 50);
+  };
+
   return (
     <section className="section-padding" style={styles.section}>
       <div className="container">
@@ -15,7 +55,7 @@ const BrideGroom = () => {
           viewport={{ once: true }}
           style={styles.card}
         >
-          {/* Flower Ornaments - Sama persis dengan EventDetails */}
+          {/* Flower Ornaments */}
           <FlowerOrnament className="flower-corner flower-top-left" />
           <FlowerOrnament className="flower-corner flower-bottom-right" />
 
@@ -45,10 +85,52 @@ const BrideGroom = () => {
             >
               <div 
                 style={{ ...styles.imageWrapper, cursor: 'zoom-in' }} 
-                onClick={() => setSelectedImg("/assets/images/profile/groom.jpg")}
+                onClick={() => {
+                  if (!isDraggingGroom) {
+                    setSelectedImg(groomImages[groomIndex]);
+                  }
+                }}
               >
                 <div style={styles.imageFrame}></div>
-                <img src="/assets/images/profile/groom.jpg" alt="Groom" style={styles.image} />
+                
+                {/* Oval Container for sliding images */}
+                <div style={styles.imageSliderContainer}>
+                  <AnimatePresence initial={false} mode="wait">
+                    <motion.img
+                      key={groomIndex}
+                      src={groomImages[groomIndex]}
+                      alt="Groom"
+                      initial={{ opacity: 0, x: 30 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -30 }}
+                      transition={{ duration: 0.35, ease: "easeInOut" }}
+                      drag="x"
+                      dragConstraints={{ left: 0, right: 0 }}
+                      dragElastic={0.4}
+                      onDragStart={() => setIsDraggingGroom(true)}
+                      onDragEnd={handleGroomDragEnd}
+                      style={styles.image}
+                    />
+                  </AnimatePresence>
+                </div>
+
+                {/* Pagination Dots */}
+                <div style={styles.dotsContainer}>
+                  {groomImages.map((_, idx) => (
+                    <div
+                      key={idx}
+                      style={{
+                        ...styles.dot,
+                        backgroundColor: idx === groomIndex ? '#E6C387' : 'rgba(255, 255, 255, 0.4)',
+                      }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setGroomIndex(idx);
+                      }}
+                    />
+                  ))}
+                </div>
+
                 <div className="font-script" style={styles.nickname}>Asob</div>
               </div>
               <h3 style={styles.name}>Ahmad Shobari, S.Si</h3>
@@ -96,10 +178,52 @@ const BrideGroom = () => {
             >
               <div 
                 style={{ ...styles.imageWrapper, cursor: 'zoom-in' }} 
-                onClick={() => setSelectedImg("/assets/images/profile/bride.jpg")}
+                onClick={() => {
+                  if (!isDraggingBride) {
+                    setSelectedImg(brideImages[brideIndex]);
+                  }
+                }}
               >
                 <div style={styles.imageFrame}></div>
-                <img src="/assets/images/profile/bride.jpg" alt="Bride" style={styles.image} />
+                
+                {/* Oval Container for sliding images */}
+                <div style={styles.imageSliderContainer}>
+                  <AnimatePresence initial={false} mode="wait">
+                    <motion.img
+                      key={brideIndex}
+                      src={brideImages[brideIndex]}
+                      alt="Bride"
+                      initial={{ opacity: 0, x: 30 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -30 }}
+                      transition={{ duration: 0.35, ease: "easeInOut" }}
+                      drag="x"
+                      dragConstraints={{ left: 0, right: 0 }}
+                      dragElastic={0.4}
+                      onDragStart={() => setIsDraggingBride(true)}
+                      onDragEnd={handleBrideDragEnd}
+                      style={styles.image}
+                    />
+                  </AnimatePresence>
+                </div>
+
+                {/* Pagination Dots */}
+                <div style={styles.dotsContainer}>
+                  {brideImages.map((_, idx) => (
+                    <div
+                      key={idx}
+                      style={{
+                        ...styles.dot,
+                        backgroundColor: idx === brideIndex ? '#E6C387' : 'rgba(255, 255, 255, 0.4)',
+                      }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setBrideIndex(idx);
+                      }}
+                    />
+                  ))}
+                </div>
+
                 <div className="font-script" style={styles.nickname}>Yola</div>
               </div>
               <h3 style={styles.name}>Yolanda Azzahra, M.Si</h3>
@@ -310,6 +434,35 @@ const styles = {
     fontStyle: 'italic',
     padding: '20px',
     alignSelf: 'center', // Memastikan simbol & sejajar vertikal di tengah foto
+  },
+  imageSliderContainer: {
+    width: '100%',
+    height: '100%',
+    borderRadius: '150px',
+    overflow: 'hidden',
+    position: 'relative',
+    zIndex: 2,
+  },
+  dotsContainer: {
+    position: 'absolute',
+    bottom: '15px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    display: 'flex',
+    gap: '8px',
+    zIndex: 20,
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    padding: '5px 10px',
+    borderRadius: '10px',
+    backdropFilter: 'blur(5px)',
+    WebkitBackdropFilter: 'blur(5px)',
+  },
+  dot: {
+    width: '8px',
+    height: '8px',
+    borderRadius: '50%',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s ease',
   },
   lightbox: {
     position: 'fixed',
