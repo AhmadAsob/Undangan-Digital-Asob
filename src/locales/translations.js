@@ -116,7 +116,7 @@ export const translations = {
       source: "- Q.S. Ar-Rum: 21 -"
     },
     bridegroom: {
-      title: "Bride & Groom",
+      title: "Groom & Bride",
       subtitle: "Glory be to Allah, who created all things in pairs. By seeking His mercy and blessing, we cordialy to invite you to honor us with your presence at our wedding celebration.",
       groomParent: "Son of Mr. Sawir & The Late Mrs. Desnita",
       brideParent: "Daughter of Mr. Bustami & Mrs. Hj. Yurmaini, A.Md"
