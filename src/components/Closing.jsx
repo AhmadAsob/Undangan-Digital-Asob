@@ -7,10 +7,10 @@ const Closing = () => {
     <section className="section-padding" style={styles.section}>
       <div className="container">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 1 }}
+          transition={{ type: 'spring', stiffness: 60, damping: 15 }}
           style={styles.card}
         >
           <p style={styles.message}>

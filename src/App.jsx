@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion';
 import WelcomeOverlay from './components/WelcomeOverlay';
 import Hero from './components/Hero';
 import EventDetails from './components/EventDetails';
@@ -22,6 +22,8 @@ import './App.css';
 
 function App() {
   const { t } = useLanguage();
+  const { scrollYProgress } = useScroll();
+  const bgParallaxScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
   const [step, setStep] = useState('welcome');
   const [showStory, setShowStory] = useState(false);
   const [showMainContent, setShowMainContent] = useState(false);
@@ -158,17 +160,17 @@ function App() {
           display: step === 'welcome' ? 'none' : 'block'
         }}
       >
-        <video
+        <motion.video
           ref={videoRef}
           loop
           playsInline
           onEnded={() => {
             if (step === 'cinematic') handleSkipOrComplete();
           }}
-          style={styles.video}
+          style={{ ...styles.video, scale: step === 'invitation' ? bgParallaxScale : 1 }}
         >
           <source src="/assets/prewed-video.mp4" type="video/mp4" />
-        </video>
+        </motion.video>
 
         {step === 'invitation' && <div style={styles.overlay}></div>}
 
@@ -302,8 +304,8 @@ const styles = {
   /* Penyelarasan format dengan gaya premium InstagramFilter, Hero, & BrideGroom */
   fullscreenBtn: {
     position: 'absolute',
-    bottom: '40px',
-    left: '40px',
+    bottom: 'calc(40px + env(safe-area-inset-bottom))',
+    left: 'calc(40px + env(safe-area-inset-left))',
     width: '45px',
     height: '45px',
     display: 'flex',
@@ -322,8 +324,8 @@ const styles = {
   },
   skipButton: {
     position: 'absolute',
-    bottom: '40px',
-    right: '40px',
+    bottom: 'calc(40px + env(safe-area-inset-bottom))',
+    right: 'calc(40px + env(safe-area-inset-right))',
     padding: '0 24px',
     height: '45px',
     display: 'inline-flex',

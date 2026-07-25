@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import FlowerOrnament from './FlowerOrnament';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -14,6 +14,14 @@ const BrideGroom = () => {
   // State untuk membedakan drag vs click
   const [isDraggingGroom, setIsDraggingGroom] = useState(false);
   const [isDraggingBride, setIsDraggingBride] = useState(false);
+
+  // Parallax halus pada foto profil saat discroll
+  const groomImgRef = useRef(null);
+  const brideImgRef = useRef(null);
+  const { scrollYProgress: groomScrollProgress } = useScroll({ target: groomImgRef, offset: ['start end', 'end start'] });
+  const { scrollYProgress: brideScrollProgress } = useScroll({ target: brideImgRef, offset: ['start end', 'end start'] });
+  const groomParallaxY = useTransform(groomScrollProgress, [0, 1], [-12, 12]);
+  const brideParallaxY = useTransform(brideScrollProgress, [0, 1], [-12, 12]);
 
   // Autoplay slider dengan jeda waktu bergantian (offset) agar terkesan natural
   useEffect(() => {
@@ -72,9 +80,10 @@ const BrideGroom = () => {
     <section className="section-padding" style={styles.section}>
       <div className="container">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, scale: 0.92 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           style={styles.card}
         >
           {/* Flower Ornaments */}
@@ -105,8 +114,9 @@ const BrideGroom = () => {
               transition={{ duration: 1, delay: 0.2 }}
               style={styles.profile}
             >
-              <div 
-                style={{ ...styles.imageWrapper, cursor: 'zoom-in' }} 
+              <div
+                ref={groomImgRef}
+                style={{ ...styles.imageWrapper, cursor: 'zoom-in' }}
                 onClick={() => {
                   if (!isDraggingGroom) {
                     setSelectedImg(groomImages[groomIndex]);
@@ -114,9 +124,14 @@ const BrideGroom = () => {
                 }}
               >
                 <div style={styles.imageFrame}></div>
-                
-                {/* Oval Container for sliding images */}
-                <div style={styles.imageSliderContainer}>
+
+                {/* Oval Container for sliding images (parallax scroll saat frame, Ken Burns pada foto di dalamnya) */}
+                <motion.div style={{ ...styles.imageSliderContainer, y: groomParallaxY }}>
+                  <motion.div
+                    animate={{ scale: [1, 1.06, 1] }}
+                    transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
+                    style={styles.kenBurnsInner}
+                  >
                   <AnimatePresence initial={false} mode="wait">
                     <motion.img
                       key={groomIndex}
@@ -134,7 +149,8 @@ const BrideGroom = () => {
                       style={styles.image}
                     />
                   </AnimatePresence>
-                </div>
+                  </motion.div>
+                </motion.div>
 
                 {/* Pagination Dots */}
                 <div style={styles.dotsContainer}>
@@ -198,8 +214,9 @@ const BrideGroom = () => {
               transition={{ duration: 1, delay: 0.4 }}
               style={styles.profile}
             >
-              <div 
-                style={{ ...styles.imageWrapper, cursor: 'zoom-in' }} 
+              <div
+                ref={brideImgRef}
+                style={{ ...styles.imageWrapper, cursor: 'zoom-in' }}
                 onClick={() => {
                   if (!isDraggingBride) {
                     setSelectedImg(brideImages[brideIndex]);
@@ -207,9 +224,14 @@ const BrideGroom = () => {
                 }}
               >
                 <div style={styles.imageFrame}></div>
-                
-                {/* Oval Container for sliding images */}
-                <div style={styles.imageSliderContainer}>
+
+                {/* Oval Container for sliding images (parallax scroll saat frame, Ken Burns pada foto di dalamnya) */}
+                <motion.div style={{ ...styles.imageSliderContainer, y: brideParallaxY }}>
+                  <motion.div
+                    animate={{ scale: [1, 1.06, 1] }}
+                    transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
+                    style={styles.kenBurnsInner}
+                  >
                   <AnimatePresence initial={false} mode="wait">
                     <motion.img
                       key={brideIndex}
@@ -227,7 +249,8 @@ const BrideGroom = () => {
                       style={styles.image}
                     />
                   </AnimatePresence>
-                </div>
+                  </motion.div>
+                </motion.div>
 
                 {/* Pagination Dots */}
                 <div style={styles.dotsContainer}>
@@ -464,6 +487,10 @@ const styles = {
     overflow: 'hidden',
     position: 'relative',
     zIndex: 2,
+  },
+  kenBurnsInner: {
+    width: '100%',
+    height: '100%',
   },
   dotsContainer: {
     position: 'absolute',

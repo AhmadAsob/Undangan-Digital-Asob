@@ -112,8 +112,8 @@ const FloatingMenu = () => {
 const styles = {
   wrapper: {
     position: 'fixed',
-    bottom: '30px',
-    right: '30px',
+    bottom: 'calc(30px + env(safe-area-inset-bottom))',
+    right: 'calc(30px + env(safe-area-inset-right))',
     zIndex: 9999,
     display: 'flex',
     flexDirection: 'column',

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import FlowerOrnament from './FlowerOrnament';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -10,6 +10,11 @@ const Gallery = () => {
   const [direction, setDirection] = useState(0);
   const thumbnailRefs = useRef([]);
   const thumbnailContainerRef = useRef(null);
+  const frameRef = useRef(null);
+
+  // Parallax halus pada frame foto saat discroll
+  const { scrollYProgress: frameScrollProgress } = useScroll({ target: frameRef, offset: ['start end', 'end start'] });
+  const frameParallaxY = useTransform(frameScrollProgress, [0, 1], [-16, 16]);
 
   // Base URL dari folder lokal assets Anda
   const BASE_URL = "/assets/images/gallery/";
@@ -139,9 +144,10 @@ const Gallery = () => {
     <section className="section-padding" style={styles.section}>
       <div className="container" style={styles.container}>
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, x: -60 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           style={styles.card}
         >
           <FlowerOrnament />
@@ -160,11 +166,11 @@ const Gallery = () => {
 
           {/* Interactive Slider Container */}
           <div style={styles.sliderContainer}>
-            {/* The gold-bordered frame wrapper */}
-            <div style={styles.frameOuter}>
+            {/* The gold-bordered frame wrapper (dengan efek parallax saat scroll) */}
+            <motion.div ref={frameRef} style={{ ...styles.frameOuter, y: frameParallaxY }}>
               {/* Corner decorations */}
               <CornerDecor />
-              
+
               <div style={styles.sliderWrapper}>
                 {/* Blurred background image */}
                 <AnimatePresence initial={false} custom={direction}>
@@ -179,8 +185,12 @@ const Gallery = () => {
                   />
                 </AnimatePresence>
 
-                {/* Main Image */}
-                <div style={styles.mainImgWrapper}>
+                {/* Main Image (dengan animasi Ken Burns halus saat diam) */}
+                <motion.div
+                  animate={{ scale: [1, 1.05, 1] }}
+                  transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+                  style={styles.mainImgWrapper}
+                >
                   <AnimatePresence initial={false} custom={direction} mode="popLayout">
                     <motion.img
                       key={currentIndex}
@@ -199,7 +209,7 @@ const Gallery = () => {
                       style={styles.mainImg}
                     />
                   </AnimatePresence>
-                </div>
+                </motion.div>
 
                 {/* Slide Counter */}
                 <div style={styles.counterBadge}>
@@ -233,7 +243,7 @@ const Gallery = () => {
                   </svg>
                 </motion.button>
               </div>
-            </div>
+            </motion.div>
 
             {/* Thumbnail Scrollbar */}
             <div ref={thumbnailContainerRef} style={styles.thumbnailContainer} className="no-scrollbar">

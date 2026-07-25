@@ -9,10 +9,10 @@ const InstagramFilter = () => {
         <section className="section-padding" style={styles.section}>
             <div className="container">
                 <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
+                    initial={{ opacity: 0, x: 60 }}
+                    whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 1 }}
+                    transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
                     style={styles.card}
                 >
                     {/* Flower Ornaments - Sama persis dengan EventDetails */}

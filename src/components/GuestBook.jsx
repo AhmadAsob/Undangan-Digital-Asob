@@ -76,9 +76,10 @@ const GuestBook = () => {
     <section className="section-padding" style={styles.section}>
       <div className="container">
         <motion.div
-          initial={{ y: 30, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
+          initial={{ y: 20, opacity: 0, filter: 'blur(8px)' }}
+          whileInView={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
           viewport={{ once: true }}
+          transition={{ duration: 1 }}
           style={styles.card}
         >
           {/* Flower Ornaments aligned with RSVP style */}

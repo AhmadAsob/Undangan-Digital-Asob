@@ -4,7 +4,8 @@ export const translations = {
       title: "THE WEDDING OF",
       dear: "Kpd Yth. Bapak/Ibu/Saudara/i",
       guest: "Tamu Undangan",
-      button: "BUKA UNDANGAN"
+      button: "BUKA UNDANGAN",
+      loadingLabel: "Menyiapkan Undangan"
     },
     hero: {
       title: "THE WEDDING OF",
@@ -94,7 +95,8 @@ export const translations = {
       title: "THE WEDDING OF",
       dear: "To Our Honored Guests",
       guest: "Valued Guest",
-      button: "OPEN INVITATION"
+      button: "OPEN INVITATION",
+      loadingLabel: "Preparing Your Invitation"
     },
     hero: {
       title: "THE WEDDING OF",

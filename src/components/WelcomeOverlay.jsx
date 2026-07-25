@@ -85,14 +85,23 @@ const WelcomeOverlay = ({ onEnter, guestName }) => {
       {/* 2. Kontainer Konten Utama (Mengalir Proporsional dari Atas ke Bawah) */}
       <div style={styles.mainContainer}>
 
-        {/* AREA LOGO (Polos & Bersih Dengan Animasi Pulse Saat Loading) */}
-        <motion.div
-          animate={!isLoaded ? { scale: [0.95, 1, 0.95] } : {}}
-          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-          style={styles.logoContainer}
-        >
-          <Logo size="large" color="var(--gold)" />
-        </motion.div>
+        {/* AREA LOGO (Dengan Glow Ring & Animasi Pulse Saat Loading) */}
+        <div style={styles.logoContainer}>
+          {!isLoaded && (
+            <motion.div
+              animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
+              transition={{ repeat: Infinity, duration: 2.4, ease: "easeInOut" }}
+              style={styles.glowRing}
+            />
+          )}
+          <motion.div
+            animate={!isLoaded ? { scale: [0.95, 1, 0.95] } : {}}
+            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+            style={styles.logoInner}
+          >
+            <Logo size="large" color="var(--gold)" />
+          </motion.div>
+        </div>
 
         {/* TEKS PEMBUKA & NAMA MEMPELAI (Cinematic Reveal) */}
         <div style={styles.textSection}>
@@ -147,14 +156,28 @@ const WelcomeOverlay = ({ onEnter, guestName }) => {
               exit={{ opacity: 0 }}
               style={styles.loadingContainer}
             >
+              <motion.p
+                key={Math.floor(progress / 10)}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                style={styles.percentText}
+              >
+                {progress}<span style={styles.percentSign}>%</span>
+              </motion.p>
               <div style={styles.progressTrack}>
                 <motion.div
                   animate={{ width: `${progress}%` }}
                   transition={{ duration: 0.2 }}
                   style={styles.progressBar}
-                />
+                >
+                  <motion.div
+                    animate={{ x: ['-100%', '220%'] }}
+                    transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
+                    style={styles.progressShine}
+                  />
+                </motion.div>
               </div>
-              <p style={styles.loadingText}>Loading... {progress}%</p>
+              <p style={styles.loadingText}>{t('welcome.loadingLabel')}</p>
             </motion.div>
           ) : (
             <motion.div
@@ -258,7 +281,24 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: '10px',
+    position: 'relative',
+  },
+  glowRing: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(197, 168, 128, 0.45) 0%, rgba(197, 168, 128, 0) 70%)',
+  },
+  logoInner: {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.5))',
+    position: 'relative',
+    zIndex: 1,
   },
   textSection: {
     width: '100%',
@@ -379,6 +419,19 @@ const styles = {
     alignItems: 'center',
     gap: '12px',
   },
+  percentText: {
+    fontSize: '2.2rem',
+    fontFamily: '"Playfair Display", serif',
+    color: '#E6C387',
+    fontWeight: '600',
+    lineHeight: 1,
+    textShadow: '0 2px 15px rgba(197, 168, 128, 0.4)',
+  },
+  percentSign: {
+    fontSize: '1.1rem',
+    opacity: 0.8,
+    marginLeft: '2px',
+  },
   progressTrack: {
     width: '100%',
     height: '6px',
@@ -386,19 +439,31 @@ const styles = {
     borderRadius: '10px',
     overflow: 'hidden',
     border: '1px solid rgba(255, 255, 255, 0.05)',
+    position: 'relative',
   },
   progressBar: {
     height: '100%',
     background: 'linear-gradient(90deg, #C5A880 0%, #E6C387 100%)',
     borderRadius: '10px',
     boxShadow: '0 0 10px rgba(197, 168, 128, 0.5)',
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  progressShine: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '40%',
+    height: '100%',
+    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent)',
   },
   loadingText: {
-    fontSize: '0.8rem',
+    fontSize: '0.75rem',
     color: 'var(--text-main)',
-    letterSpacing: '2px',
+    letterSpacing: '2.5px',
+    textTransform: 'uppercase',
     fontFamily: '"Signika Negative", sans-serif',
-    opacity: 0.8,
+    opacity: 0.75,
   }
 };
 
