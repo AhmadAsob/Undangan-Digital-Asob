@@ -9,10 +9,10 @@ const InstagramFilter = () => {
         <section className="section-padding" style={styles.section}>
             <div className="container">
                 <motion.div
-                    initial={{ opacity: 0, x: 60 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+                    initial={{ opacity: 0, x: 70, rotate: 3 }}
+                    whileInView={{ opacity: 1, x: 0, rotate: 0 }}
+                    viewport={{ once: true, margin: "-60px" }}
+                    transition={{ type: 'spring', stiffness: 90, damping: 15 }}
                     style={styles.card}
                 >
                     {/* Flower Ornaments - Sama persis dengan EventDetails */}
@@ -20,12 +20,24 @@ const InstagramFilter = () => {
                     <FlowerOrnament className="flower-corner flower-bottom-right" />
 
                     {/* Header Section */}
-                    <div style={styles.headerSection}>
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.85 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ type: 'spring', stiffness: 150, damping: 14, delay: 0.15 }}
+                        style={styles.headerSection}
+                    >
                         <h2 className="font-script" style={styles.heading}>{t('instagram.title')}</h2>
-                    </div>
+                    </motion.div>
 
                     {/* Content / Description Section */}
-                    <div style={styles.eventsContainer}>
+                    <motion.div
+                        initial={{ opacity: 0, y: 15 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.3, duration: 0.6 }}
+                        style={styles.eventsContainer}
+                    >
                         <div style={styles.eventRow}>
                             <div style={styles.eventLabel}>{t('instagram.label')}</div>
                             <div style={styles.eventDivider}></div>
@@ -35,10 +47,16 @@ const InstagramFilter = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* Action Button Section */}
-                    <div style={styles.footerSection}>
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ type: 'spring', stiffness: 200, damping: 14, delay: 0.45 }}
+                        style={styles.footerSection}
+                    >
                         <div style={styles.buttonGroup}>
                             <motion.a
                                 whileHover={{
@@ -47,7 +65,7 @@ const InstagramFilter = () => {
                                     borderColor: 'rgba(252, 252, 252, 0.7)'
                                 }}
                                 whileTap={{ scale: 0.95 }}
-                                href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE4MTIzNDgyMDU2NTY5MDE2?story_media_id=3903322561644227008&igsh=ZGpzOW01cXdheG54" // <--- ⚠️ PASTE link Sorotan Instagram Anda di sini
+                                href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE3OTU1OTA1Nzk5MjE3MDk5?igsi=N2lka2NnN3Yycngw"
                                 target="_blank"
                                 rel="noreferrer"
                                 style={styles.instagramButton}
@@ -69,7 +87,7 @@ const InstagramFilter = () => {
                                 {t('instagram.btn')}
                             </motion.a>
                         </div>
-                    </div>
+                    </motion.div>
                 </motion.div>
             </div>
         </section>

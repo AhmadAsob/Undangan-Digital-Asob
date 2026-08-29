@@ -41,9 +41,10 @@ const Countdown = () => {
     <div style={styles.container}>
       {/* Section Title */}
       <motion.h2
-        initial={{ opacity: 0, y: -20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: -20, scale: 0.9 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
         viewport={{ once: true }}
+        transition={{ type: 'spring', stiffness: 100, damping: 12 }}
         className="font-script"
         style={styles.title}
       >
@@ -54,10 +55,11 @@ const Countdown = () => {
         {items.map((item, index) => (
           <motion.div
             key={item.label}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1 }}
+            initial={{ opacity: 0, y: 30, scale: 0.6, rotate: index % 2 === 0 ? -8 : 8 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            whileHover={{ scale: 1.08, y: -4 }}
+            transition={{ type: 'spring', stiffness: 260, damping: 14, delay: index * 0.12 }}
             style={styles.item}
           >
             <div style={styles.value}>{item.value < 10 ? `0${item.value}` : item.value}</div>

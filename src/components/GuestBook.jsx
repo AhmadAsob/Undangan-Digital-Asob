@@ -86,12 +86,24 @@ const GuestBook = () => {
           <FlowerOrnament className="flower-corner flower-top-left" />
           <FlowerOrnament className="flower-corner flower-bottom-right" />
 
-          <div style={styles.header}>
+          <motion.div
+            initial={{ opacity: 0, y: -15, scale: 0.9 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ type: 'spring', stiffness: 130, damping: 14 }}
+            style={styles.header}
+          >
             <h2 className="font-script" style={styles.title}>{t('guestbook.title')}</h2>
             <p style={styles.subtitle}>{t('guestbook.subtitle')}</p>
-          </div>
+          </motion.div>
 
-          <div style={styles.content}>
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.7, delay: 0.15 }}
+            style={styles.content}
+          >
             <form onSubmit={handleSubmit} style={styles.form}>
               <input
                 type="text"
@@ -142,8 +154,9 @@ const GuestBook = () => {
                   {messages.map((msg) => (
                     <motion.div
                       key={msg.id}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
+                      initial={{ opacity: 0, x: -20, scale: 0.95 }}
+                      animate={{ opacity: 1, x: 0, scale: 1 }}
+                      transition={{ type: 'spring', stiffness: 200, damping: 18 }}
                       style={styles.msgCard}
                     >
                       <h4 style={styles.msgName}>{msg.name}</h4>
@@ -154,7 +167,7 @@ const GuestBook = () => {
                 </AnimatePresence>
               </div>
             </div>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>

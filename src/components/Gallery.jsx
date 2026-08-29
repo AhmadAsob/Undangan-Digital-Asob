@@ -21,13 +21,17 @@ const Gallery = () => {
 
   // Daftar nama file gambar yang ada di folder lokal (case-sensitive)
   const filenames = [
-    "850_1569.jpg",
     "850_1596.jpg",
-    "850_1607.jpg",
-    "Z52_4966.jpg",
+    "IMG_3102.jpg",
+    "IMG_3103.jpg",
+    "IMG_3104.jpg",
+    "IMG_3105.jpg",
+    "IMG_3106.jpg",
+    "IMG_3107.jpg",
+    "IMG_3108.jpg",
+    "IMG_3109.jpg",
+    "IMG_3110.jpg",
     "Z52_4986.jpg",
-    "Z52_5015.jpg",
-    "Z52_5119.jpg",
     "Z52_5177.jpg",
     "Z52_5185.jpg",
     "Z52_5191.jpg",
@@ -36,9 +40,7 @@ const Gallery = () => {
     "Z52_5278.jpg",
     "Z52_5303.jpg",
     "Z52_5322.jpg",
-    "Z52_5346.jpg",
-    "Z52_5413.jpg",
-    "Z52_5425.jpg"
+    "Z52_5346.jpg"
   ];
 
   // Menggabungkan base URL dengan nama file
@@ -143,30 +145,44 @@ const Gallery = () => {
     <section className="section-padding" style={styles.section}>
       <div className="container" style={styles.container}>
         <motion.div
-          initial={{ opacity: 0, x: -60 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, x: -70, rotate: -2 }}
+          whileInView={{ opacity: 1, x: 0, rotate: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ type: 'spring', stiffness: 80, damping: 16 }}
           style={styles.card}
         >
           <FlowerOrnament />
           <div style={styles.header}>
             <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 20, scale: 0.85 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ type: 'spring', stiffness: 140, damping: 13 }}
               className="font-script"
               style={styles.title}
             >
               {t('gallery.title')}
             </motion.h2>
-            <div style={styles.line}></div>
+            <motion.div
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              style={styles.line}
+            ></motion.div>
             <p style={styles.subtitle}>{t('gallery.subtitle')}</p>
           </div>
 
           {/* Interactive Slider Container */}
           <div style={styles.sliderContainer}>
             {/* The gold-bordered frame wrapper (dengan efek parallax saat scroll) */}
-            <motion.div ref={frameRef} style={{ ...styles.frameOuter, y: frameParallaxY }}>
+            <motion.div
+              ref={frameRef}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ type: 'spring', stiffness: 120, damping: 16, delay: 0.15 }}
+              style={{ ...styles.frameOuter, y: frameParallaxY }}>
               {/* Corner decorations */}
               <CornerDecor />
 
@@ -245,7 +261,15 @@ const Gallery = () => {
             </motion.div>
 
             {/* Thumbnail Scrollbar */}
-            <div ref={thumbnailContainerRef} style={styles.thumbnailContainer} className="no-scrollbar">
+            <motion.div
+              ref={thumbnailContainerRef}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              style={styles.thumbnailContainer}
+              className="no-scrollbar"
+            >
               {images.map((img, idx) => (
                 <div
                   key={idx}
@@ -265,7 +289,7 @@ const Gallery = () => {
                   <img src={img} alt={`Thumbnail ${idx + 1}`} style={styles.thumbnailImg} />
                 </div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </motion.div>
       </div>

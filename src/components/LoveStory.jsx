@@ -33,25 +33,47 @@ const LoveStory = () => {
           style={styles.card}
         >
           <FlowerOrnament />
-          <div style={styles.header}>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.85, rotate: -4 }}
+            whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+            viewport={{ once: true }}
+            transition={{ type: 'spring', stiffness: 120, damping: 14 }}
+            style={styles.header}
+          >
             <h2 className="font-script" style={styles.title}>{t('story.title')}</h2>
             <p style={styles.subtitle}>{t('story.subtitle')}</p>
-          </div>
+          </motion.div>
 
           <div style={styles.timeline}>
             {stories.map((story, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.2 }}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40, rotate: index % 2 === 0 ? -3 : 3 }}
+                whileInView={{ opacity: 1, x: 0, rotate: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ type: 'spring', stiffness: 100, damping: 14, delay: index * 0.15 }}
                 style={styles.storyItem}
               >
-                <div style={styles.yearBadge}>{story.year}</div>
+                <motion.div
+                  initial={{ scale: 0, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 12, delay: index * 0.15 + 0.15 }}
+                  style={styles.yearBadge}
+                >
+                  {story.year}
+                </motion.div>
                 <h3 style={styles.storyTitle}>{story.title}</h3>
                 <p style={styles.storyDesc}>{story.desc}</p>
-                {index !== stories.length - 1 && <div style={styles.connector}></div>}
+                {index !== stories.length - 1 && (
+                  <motion.div
+                    initial={{ scaleY: 0 }}
+                    whileInView={{ scaleY: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.15 + 0.35, ease: "easeOut" }}
+                    style={{ ...styles.connector, transformOrigin: 'top' }}
+                  ></motion.div>
+                )}
               </motion.div>
             ))}
           </div>

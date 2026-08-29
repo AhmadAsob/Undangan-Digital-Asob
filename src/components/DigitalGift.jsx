@@ -39,21 +39,28 @@ const DigitalGift = () => {
           style={styles.card}
         >
           <FlowerOrnament />
-          <div style={styles.header}>
+          <motion.div
+            initial={{ opacity: 0, y: -15, scale: 0.9 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ type: 'spring', stiffness: 130, damping: 14 }}
+            style={styles.header}
+          >
             <h2 className="font-script" style={styles.title}>{t('gift.title')}</h2>
             <p style={styles.subtitle}>
               {t('gift.subtitle')}
             </p>
-          </div>
+          </motion.div>
 
           <div style={styles.grid}>
             {bankAccounts.map((acc, index) => (
               <motion.div
                 key={acc.number}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.2 }}
+                initial={{ opacity: 0, scale: 0.7, rotate: index % 2 === 0 ? -6 : 6, y: 30 }}
+                whileInView={{ opacity: 1, scale: 1, rotate: 0, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                whileHover={{ y: -6, rotate: index % 2 === 0 ? -1.5 : 1.5 }}
+                transition={{ type: 'spring', stiffness: 160, damping: 14, delay: index * 0.18 }}
                 style={styles.giftCard}
               >
                 <div style={styles.logoContainer}>
@@ -97,9 +104,10 @@ const DigitalGift = () => {
           </div>
 
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0, scale: 0.92, y: 20 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ type: 'spring', stiffness: 110, damping: 15 }}
             style={styles.addressBox}
           >
             <p style={styles.addressLabel}>{t('gift.physical')}</p>

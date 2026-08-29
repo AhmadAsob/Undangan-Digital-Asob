@@ -1,24 +1,46 @@
 import { motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 
+const heroContainer = {
+  hidden: { opacity: 1 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.18, delayChildren: 0.1 }
+  }
+};
+
+const heroItem = {
+  hidden: { opacity: 0, y: 24, filter: 'blur(6px)' },
+  show: {
+    opacity: 1,
+    y: 0,
+    filter: 'blur(0px)',
+    transition: { type: 'spring', stiffness: 90, damping: 16 }
+  }
+};
+
 const Hero = ({ onOpen }) => {
   const { t } = useLanguage();
   return (
     <section style={styles.hero}>
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.5, ease: "easeOut" }}
+        variants={heroContainer}
+        initial="hidden"
+        animate="show"
         style={styles.content}
       >
-        <span style={styles.subTitle}>{t('hero.title')}</span>
-        <h1 style={styles.title}>Asob & Yola</h1>
-        <p style={styles.hashtag}>#AsobLockedInYola</p>
-        <div style={styles.divider}></div>
-        <p style={styles.date}>{t('hero.date')}</p>
+        <motion.span variants={heroItem} style={styles.subTitle}>{t('hero.title')}</motion.span>
+        <motion.h1 variants={heroItem} style={styles.title}>Asob & Yola</motion.h1>
+        <motion.p variants={heroItem} style={styles.hashtag}>#AsobLockedInYola</motion.p>
+        <motion.div
+          variants={heroItem}
+          style={{ ...styles.divider, transformOrigin: 'center' }}
+        ></motion.div>
+        <motion.p variants={heroItem} style={styles.date}>{t('hero.date')}</motion.p>
 
         {/* Tombol yang sudah diselaraskan dengan gaya premium InstagramFilter */}
         <motion.button
+          variants={heroItem}
           whileHover={{
             scale: 1.05,
             boxShadow: '0 10px 25px rgba(255, 255, 255, 0.1)',

@@ -23,22 +23,28 @@ const EventDetails = () => {
             <h2 className="font-script" style={styles.heading}>{t('event.title')}</h2>
             <div style={styles.dateLarge}>
               <motion.div
-                initial={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ type: 'spring', stiffness: 90, damping: 14 }}
                 style={styles.dateDay}
               >
                 {t('event.saturday')}
               </motion.div>
               <motion.div
-                initial={{ opacity: 0, scale: 0.5 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, scale: 0.3, rotate: -15 }}
+                whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+                viewport={{ once: true }}
+                transition={{ type: 'spring', stiffness: 200, damping: 12, delay: 0.15 }}
                 style={styles.dateNum}
               >
                 3{language === 'en' && <sup style={styles.superscript}>rd</sup>}
               </motion.div>
               <motion.div
-                initial={{ opacity: 0, x: 20 }}
+                initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ type: 'spring', stiffness: 90, damping: 14, delay: 0.1 }}
                 style={styles.dateMonth}
               >
                 {t('event.october')}
@@ -50,12 +56,20 @@ const EventDetails = () => {
           <div style={styles.eventsContainer}>
             {/* Akad Nikah */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 25, x: -10 }}
+              whileInView={{ opacity: 1, y: 0, x: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ type: 'spring', stiffness: 110, damping: 15 }}
               style={styles.eventRow}
             >
               <div style={styles.eventLabel}>{t('event.akad')}</div>
-              <div style={styles.eventDivider}></div>
+              <motion.div
+                initial={{ scaleY: 0 }}
+                whileInView={{ scaleY: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.2 }}
+                style={{ ...styles.eventDivider, transformOrigin: 'top' }}
+              ></motion.div>
               <div style={styles.eventDetail}>
                 <div style={styles.time}>08.00 - 10.00 WIB</div>
                 <div style={styles.place}>Gedung Pertemuan SMKN 2 Padang</div>
@@ -64,13 +78,20 @@ const EventDetails = () => {
 
             {/* Resepsi */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
+              initial={{ opacity: 0, y: 25, x: -10 }}
+              whileInView={{ opacity: 1, y: 0, x: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ type: 'spring', stiffness: 110, damping: 15, delay: 0.2 }}
               style={styles.eventRow}
             >
               <div style={styles.eventLabel}>{t('event.resepsi')}</div>
-              <div style={styles.eventDivider}></div>
+              <motion.div
+                initial={{ scaleY: 0 }}
+                whileInView={{ scaleY: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.4 }}
+                style={{ ...styles.eventDivider, transformOrigin: 'top' }}
+              ></motion.div>
               <div style={styles.eventDetail}>
                 <div style={styles.time}>11.00 - 16.00 WIB</div>
                 <div style={styles.place}>Gedung Pertemuan SMKN 2 Padang</div>

@@ -48,7 +48,7 @@ const BrideGroom = () => {
   // Daftar foto untuk masing-masing
   const groomImages = [
     "/assets/images/profile/groom.jpg",
-    "/assets/images/gallery/850_1607.jpg"
+    "/assets/images/gallery/IMG_3109.jpg"
   ];
 
   const brideImages = [
@@ -80,10 +80,10 @@ const BrideGroom = () => {
     <section className="section-padding" style={styles.section}>
       <div className="container">
         <motion.div
-          initial={{ opacity: 0, scale: 0.92 }}
+          initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ type: 'spring', stiffness: 85, damping: 16 }}
           style={styles.card}
         >
           {/* Flower Ornaments */}
@@ -91,27 +91,34 @@ const BrideGroom = () => {
           <FlowerOrnament className="flower-corner flower-bottom-right" />
 
           <motion.h2
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: -20, scale: 0.85 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true }}
+            transition={{ type: 'spring', stiffness: 140, damping: 13 }}
             className="font-script"
             style={styles.sectionTitle}
           >
             {t('bridegroom.title')}
           </motion.h2>
 
-          <div style={styles.header}>
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.15, duration: 0.6 }}
+            style={styles.header}
+          >
             <h2 style={styles.arabicSalam}>اَلسَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ</h2>
             <p style={styles.headerSubtitle}>{t('bridegroom.subtitle')}</p>
-          </div>
+          </motion.div>
 
           <div style={styles.grid}>
             {/* Groom */}
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.2 }}
+              initial={{ opacity: 0, x: -60, rotate: -4 }}
+              whileInView={{ opacity: 1, x: 0, rotate: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ type: 'spring', stiffness: 80, damping: 15, delay: 0.15 }}
               style={styles.profile}
             >
               <div
@@ -204,14 +211,22 @@ const BrideGroom = () => {
               </motion.a>
             </motion.div>
 
-            <div style={styles.ampersand}>&</div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0, rotate: -20 }}
+              whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+              viewport={{ once: true }}
+              transition={{ type: 'spring', stiffness: 260, damping: 12, delay: 0.5 }}
+              style={styles.ampersand}
+            >
+              &
+            </motion.div>
 
             {/* Bride */}
             <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.4 }}
+              initial={{ opacity: 0, x: 60, rotate: 4 }}
+              whileInView={{ opacity: 1, x: 0, rotate: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ type: 'spring', stiffness: 80, damping: 15, delay: 0.3 }}
               style={styles.profile}
             >
               <div
