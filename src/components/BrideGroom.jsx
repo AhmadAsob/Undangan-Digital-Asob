@@ -48,12 +48,12 @@ const BrideGroom = () => {
   // Daftar foto untuk masing-masing
   const groomImages = [
     "/assets/images/profile/groom.jpg",
-    "/assets/images/gallery/850_1607.JPG"
+    "/assets/images/gallery/850_1607.jpg"
   ];
 
   const brideImages = [
     "/assets/images/profile/bride.jpg",
-    "/assets/images/gallery/850_1644.JPG"
+    "/assets/images/gallery/850_1596.jpg"
   ];
 
   const handleGroomDragEnd = (event, info) => {
