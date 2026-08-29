@@ -14,10 +14,10 @@ const WelcomeOverlay = ({ onEnter, guestName }) => {
       '/logo1.png',
       '/assets/images/profile/groom.jpg',
       '/assets/images/profile/bride.jpg',
-      '/assets/images/gallery/850_1569.jpg',
-      '/assets/images/gallery/850_1607.jpg',
+      '/assets/images/gallery/IMG_3107.jpg',
+      '/assets/images/gallery/IMG_3109.jpg',
       '/assets/images/gallery/850_1596.jpg',
-      '/assets/images/gallery/Z52_4966.jpg',
+      '/assets/images/gallery/IMG_3103.jpg',
       '/assets/prewed-video.mp4',
     ];
 
@@ -247,7 +247,7 @@ const styles = {
     width: '100%',
     height: '100%',
     // Menggunakan file lokal dari folder assets
-    backgroundImage: 'url("/assets/images/gallery/850_1569.jpg")',
+    backgroundImage: 'url("/assets/images/gallery/IMG_3107.jpg")',
     backgroundSize: 'cover',
     backgroundPosition: 'center 35%',
     zIndex: 1,
