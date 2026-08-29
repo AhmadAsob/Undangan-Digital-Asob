@@ -83,7 +83,9 @@ export const translations = {
       placeholderName: "Nama Anda",
       placeholderMsg: "Berikan ucapan & doa...",
       sendBtn: "KIRIM UCAPAN",
-      sending: "MENGIRIM..."
+      sending: "MENGIRIM...",
+      readMore: "Baca selengkapnya",
+      readLess: "Sembunyikan"
     },
     closing: {
       message: "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Anda berkenan hadir dan memberikan doa restunya untuk pernikahan kami.",
@@ -174,7 +176,9 @@ export const translations = {
       placeholderName: "Your Name",
       placeholderMsg: "Write your wishes & prayers...",
       sendBtn: "SEND WISHES",
-      sending: "SENDING..."
+      sending: "SENDING...",
+      readMore: "Read more",
+      readLess: "Show less"
     },
     closing: {
       message: "It is our honor and happiness if you could attend and give your blessings to our marriage.",

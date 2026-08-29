@@ -4,6 +4,37 @@ import FlowerOrnament from './FlowerOrnament';
 import { supabase } from '../supabaseClient';
 import { useLanguage } from '../context/LanguageContext';
 
+// Pesan di atas ~160 karakter (kira-kira 4 baris) dipotong dan diberi tombol expand
+const LONG_MESSAGE_THRESHOLD = 160;
+
+const MessageCard = ({ msg, t }) => {
+  const [expanded, setExpanded] = useState(false);
+  const isLong = msg.text.length > LONG_MESSAGE_THRESHOLD;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -20, scale: 0.95 }}
+      animate={{ opacity: 1, x: 0, scale: 1 }}
+      transition={{ type: 'spring', stiffness: 200, damping: 18 }}
+      style={styles.msgCard}
+    >
+      <h4 style={styles.msgName}>{msg.name}</h4>
+      <span style={styles.msgDate}>{msg.date}</span>
+      <p style={{ ...styles.msgText, ...(isLong && !expanded ? styles.msgTextClamped : {}) }}>
+        {msg.text}
+      </p>
+      {isLong && (
+        <button
+          onClick={() => setExpanded(!expanded)}
+          style={styles.readMoreBtn}
+        >
+          {expanded ? t('guestbook.readLess') : t('guestbook.readMore')}
+        </button>
+      )}
+    </motion.div>
+  );
+};
+
 const GuestBook = () => {
   const { t, language } = useLanguage();
   const [messages, setMessages] = useState([]);
@@ -152,17 +183,7 @@ const GuestBook = () => {
               <div style={styles.scrollArea}>
                 <AnimatePresence initial={false}>
                   {messages.map((msg) => (
-                    <motion.div
-                      key={msg.id}
-                      initial={{ opacity: 0, x: -20, scale: 0.95 }}
-                      animate={{ opacity: 1, x: 0, scale: 1 }}
-                      transition={{ type: 'spring', stiffness: 200, damping: 18 }}
-                      style={styles.msgCard}
-                    >
-                      <h4 style={styles.msgName}>{msg.name}</h4>
-                      <span style={styles.msgDate}>{msg.date}</span>
-                      <p style={styles.msgText}>{msg.text}</p>
-                    </motion.div>
+                    <MessageCard key={msg.id} msg={msg} t={t} />
                   ))}
                 </AnimatePresence>
               </div>
@@ -305,6 +326,24 @@ const styles = {
     lineHeight: '1.6',
     opacity: 0.9,
     transition: 'all 0.5s ease',
+    whiteSpace: 'pre-line',
+  },
+  msgTextClamped: {
+    display: '-webkit-box',
+    WebkitLineClamp: 4,
+    WebkitBoxOrient: 'vertical',
+    overflow: 'hidden',
+  },
+  readMoreBtn: {
+    marginTop: '8px',
+    padding: 0,
+    background: 'none',
+    border: 'none',
+    color: '#C5A880',
+    fontSize: '0.8rem',
+    fontWeight: '600',
+    letterSpacing: '0.5px',
+    cursor: 'pointer',
   },
 };
 
