@@ -6,19 +6,34 @@ const LoveStory = () => {
   const { t } = useLanguage();
   const stories = [
     {
-      year: "2017",
+      period: t('story.meetPeriod'),
       title: t('story.meetTitle'),
       desc: t('story.meetDesc')
     },
     {
-      year: "2017",
-      title: t('story.closerTitle'),
-      desc: t('story.closerDesc')
+      period: t('story.startPeriod'),
+      title: t('story.startTitle'),
+      desc: t('story.startDesc')
     },
     {
-      year: "2026",
-      title: t('story.proposalTitle'),
-      desc: t('story.proposalDesc')
+      period: t('story.chapterPeriod'),
+      title: t('story.chapterTitle'),
+      desc: t('story.chapterDesc')
+    },
+    {
+      period: t('story.foundPeriod'),
+      title: t('story.foundTitle'),
+      desc: t('story.foundDesc')
+    },
+    {
+      period: t('story.restartPeriod'),
+      title: t('story.restartTitle'),
+      desc: t('story.restartDesc')
+    },
+    {
+      period: t('story.foreverPeriod'),
+      title: t('story.foreverTitle'),
+      desc: t('story.foreverDesc')
     }
   ];
 
@@ -61,10 +76,10 @@ const LoveStory = () => {
                   transition={{ type: 'spring', stiffness: 300, damping: 12, delay: index * 0.15 + 0.15 }}
                   style={styles.yearBadge}
                 >
-                  {story.year}
+                  {story.period}
                 </motion.div>
                 <h3 style={styles.storyTitle}>{story.title}</h3>
-                <p style={styles.storyDesc}>{story.desc}</p>
+                <p style={{ ...styles.storyDesc, whiteSpace: 'pre-line' }}>{story.desc}</p>
                 {index !== stories.length - 1 && (
                   <motion.div
                     initial={{ scaleY: 0 }}
