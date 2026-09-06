@@ -7,6 +7,18 @@ const WelcomeOverlay = ({ onEnter, guestName }) => {
   const { t } = useLanguage();
   const [progress, setProgress] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
+  // Foto cover potret butuh framing berbeda di layar sempit (crop kiri-kanan)
+  // vs layar lebar (crop atas-bawah), jadi di-switch berdasarkan lebar viewport
+  const [isNarrowViewport, setIsNarrowViewport] = useState(
+    () => typeof window !== 'undefined' && window.innerWidth <= 768
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 768px)');
+    const handleChange = (e) => setIsNarrowViewport(e.matches);
+    mq.addEventListener('change', handleChange);
+    return () => mq.removeEventListener('change', handleChange);
+  }, []);
 
   useEffect(() => {
     // Daftar aset penting untuk di-preload
@@ -75,10 +87,13 @@ const WelcomeOverlay = ({ onEnter, guestName }) => {
     >
       {/* 1. Foto Latar Belakang dengan Efek Ken Burns Zoom & Gradasi Gelap Sinematik */}
       <motion.div
-        initial={{ scale: 1 }}
-        animate={{ scale: 1.08 }}
+        initial={{ scale: isNarrowViewport ? 1.3 : 1, y: isNarrowViewport ? '-2.5%' : 0 }}
+        animate={{ scale: isNarrowViewport ? 1.38 : 1.08, y: isNarrowViewport ? '-2.5%' : 0 }}
         transition={{ duration: 20, ease: "linear", repeat: Infinity, repeatType: "reverse" }}
-        style={styles.backgroundImage}
+        style={{
+          ...styles.backgroundImage,
+          backgroundPosition: isNarrowViewport ? '20% center' : '20% 38%',
+        }}
       />
       <div style={styles.darkOverlay} />
 
@@ -249,7 +264,7 @@ const styles = {
     // Menggunakan file lokal dari folder assets
     backgroundImage: 'url("/assets/images/gallery/IMG_3107.jpg")',
     backgroundSize: 'cover',
-    backgroundPosition: '20% 38%',
+    backgroundPosition: '20% center',
     zIndex: 1,
   },
   darkOverlay: {
