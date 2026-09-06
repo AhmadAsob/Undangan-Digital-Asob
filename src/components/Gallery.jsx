@@ -21,17 +21,13 @@ const Gallery = () => {
 
   // Daftar nama file gambar yang ada di folder lokal (case-sensitive)
   const filenames = [
+    // Formal
     "850_1596.jpg",
-    "IMG_3102.jpg",
-    "IMG_3103.jpg",
     "IMG_3104.jpg",
-    "IMG_3105.jpg",
     "IMG_3106.jpg",
     "IMG_3107.jpg",
-    "IMG_3108.jpg",
     "IMG_3109.jpg",
     "IMG_3110.jpg",
-    "Z52_4986.jpg",
     "Z52_5177.jpg",
     "Z52_5185.jpg",
     "Z52_5191.jpg",
@@ -40,7 +36,13 @@ const Gallery = () => {
     "Z52_5278.jpg",
     "Z52_5303.jpg",
     "Z52_5322.jpg",
-    "Z52_5346.jpg"
+    "Z52_5346.jpg",
+    // Casual
+    "IMG_3102.jpg",
+    "IMG_3103.jpg",
+    "IMG_3105.jpg",
+    "IMG_3108.jpg",
+    "Z52_4986.jpg"
   ];
 
   // Menggabungkan base URL dengan nama file

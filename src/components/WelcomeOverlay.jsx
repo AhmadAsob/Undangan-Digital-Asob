@@ -249,7 +249,7 @@ const styles = {
     // Menggunakan file lokal dari folder assets
     backgroundImage: 'url("/assets/images/gallery/IMG_3107.jpg")',
     backgroundSize: 'cover',
-    backgroundPosition: 'center 35%',
+    backgroundPosition: '20% 38%',
     zIndex: 1,
   },
   darkOverlay: {
